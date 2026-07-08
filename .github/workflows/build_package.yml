@@ -19,7 +19,7 @@ jobs:
     env:
       TEST_O4W_ROOT: ${{ matrix.root-dir }}
       OSGEO4W_ROOT: ${{ matrix.root-dir }}
-      OSGEO4W_QGIS_SUB_DIR: ${{ matrix.root-dir }}/apps/qgis-ltr-dev
+      OSGEO4W_QGIS_SUB_DIR: qgis-ltr-dev
 
     strategy:
       matrix:

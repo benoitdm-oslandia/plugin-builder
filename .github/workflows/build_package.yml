@@ -33,10 +33,10 @@ jobs:
           - "${{ github.workspace }}/OSGeo4W_pkg"
     steps:
       - name: Checkout Code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@@v4.2
 
       - name: Setup OSGeo4W environment
-        uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887
+        uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06
         id: setup-osgeo4w
         with:
           root: ${{ matrix.root-dir }}
@@ -49,9 +49,9 @@ jobs:
       - name: Display all outputs as JSON
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
-      - name: Show OSGeo4W root
-        run: echo "${{ steps.setup-osgeo4w.outputs.root }}"
-      - run: o-help
+
+      - run: dir && cd
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
-      - run: pip install pytest-timeout
+
+      - run: cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-Wno-macro-redefined
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

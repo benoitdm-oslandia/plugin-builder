@@ -53,8 +53,8 @@ jobs:
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
 
-      - run: dir && cd
+      - run: dir && cd && echo %PATH%
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
 
-      - run: cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-Wno-macro-redefined
+      - run: echo %PATH% && cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-Wno-macro-redefined
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

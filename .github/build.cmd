@@ -17,12 +17,12 @@ echo PATH: %PATH%
 
 @REM :found
 @REM if defined QT6_PATH (
-@REM     echo Qt6 found at: !QT6_PATH!
+@REM     echo Qt6 found at: %QT6_PATH%
 @REM ) else (
 @REM     echo File not found.
 @REM )
 
-copy FindQGIS.cmake !OSGEO4W_QGIS_SUB_DIR!
+copy FindQGIS.cmake %OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUB_DIR%
 
 cmake -S . -B build -GNinja ^
 -DCMAKE_BUILD_TYPE=Release ^
@@ -30,4 +30,4 @@ cmake -S . -B build -GNinja ^
 -DCMAKE_CXX_COMPILER=g++.exe ^
 -DCMAKE_C_COMPILER=gcc.exe ^
 -DQT6_PATH="C:/Qt/6.4.2/mingw_64/lib/cmake/Qt6" ^
--DQGIS_PATH=%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%
+-DQGIS_PATH="%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%"

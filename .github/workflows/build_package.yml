@@ -35,6 +35,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
+      - name: Install Build Tools
+        run: choco install cmake ninja -y
+
       - name: Setup OSGeo4W environment
         uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06
         id: setup-osgeo4w
@@ -43,9 +46,9 @@ jobs:
           package-dir: ${{ matrix.pkg-dir }}
           # Using line folding replacing newlines by a space, and striping the final newlines
           # See https://yaml-multiline.info/
-          packages: >-
-            cmake
-            ninja
+          # packages: >-
+          #   mingw-w64-x86_64-cmake
+          #   mingw-w64-x86_64-ninja
       - name: Display all outputs as JSON
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"

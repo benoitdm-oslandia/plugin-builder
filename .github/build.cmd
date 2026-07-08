@@ -22,6 +22,9 @@ if defined FOUND_FILE (
     echo File not found.
 )
 
+dir c:\osgeo4w\apps\qgis-ltr-dev
+
+
 set "CMAKE_MODULE_PATH=!CMAKE_MODULE_PATH!;c:\osgeo4w\apps\qgis-ltr-dev"
 echo CMAKE_MODULE_PATH: %CMAKE_MODULE_PATH%
 

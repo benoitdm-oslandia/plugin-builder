@@ -35,12 +35,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      - name: Install Build Tools
-        run: choco install -y cmake ninja
-
-      - name: Install Qt6
-        run: choco install -y qt6-base-dev --params "'/modules:qt3d'"
-
       - name: Setup OSGeo4W environment
         uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06
         id: setup-osgeo4w
@@ -56,6 +50,15 @@ jobs:
       - name: Display all outputs as JSON
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
+
+      - run: dir c:\osgeo4w\apps\qgis-ltr-dev
+        shell: cmd /D /E:ON /V:OFF /S /C "{0}"
+
+      - name: Install Build Tools
+        run: choco install -y cmake ninja
+
+      - name: Install Qt6
+        run: choco install -y qt6-base-dev --params "'/modules:qt3d'"
 
       - run: dir && cd && echo %PATH%
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

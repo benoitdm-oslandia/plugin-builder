@@ -12,6 +12,7 @@ if(NOT QGIS_PATH STREQUAL "")
   list(APPEND CMAKE_MODULE_PATH "${QGIS_PATH}")
 endif()
 
+MESSAGE(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
 # Modern CMake for Qt
 # CMAKE_AUTOUIC: automatically runs uic on .ui files

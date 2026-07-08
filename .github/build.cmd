@@ -2,13 +2,15 @@ set PATH=%PATH%;C:\ProgramData\chocolatey\bin;"C:\Program Files\CMake\bin";c:\Pr
 echo %PATH%
 
 for /f "delims=" %%i in ('dir /s /b "c:\Qt6Config.cmake"') do (
-    set "FOUND_PATH=%%i"
+    set "FOUND_FILE=%%i"
     goto :found
 )
 
 :found
-if defined FOUND_PATH (
-    set CMAKE_MODULE_PATH=%CMAKE_MODULE_PATH%:%~dpFOUND_PATH%
+if defined FOUND_FILE (
+    echo Found %FOUND_FILE%
+    set FOUND_PATH=%~dp$FOUND_FILE
+    set CMAKE_MODULE_PATH=%CMAKE_MODULE_PATH%:%FOUND_PATH%
 ) else (
     echo File not found.
 )

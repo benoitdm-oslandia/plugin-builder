@@ -64,4 +64,6 @@ jobs:
       #   shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
 
       - run: .github/build.cmd
-        shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
+        shell: cmd /D /E:ON /V:OFF /S /C "CALL {0}"
+      # - run: .github/build.cmd
+      #   shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

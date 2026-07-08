@@ -18,6 +18,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       TEST_O4W_ROOT: ${{ matrix.root-dir }}
+      OSGEO4W_ROOT: ${{ matrix.root-dir }}
+      OSGEO4W_QGIS_SUB_DIR: ${{ matrix.root-dir }}/apps/qgis-ltr-dev
+
     strategy:
       matrix:
         os:
@@ -51,20 +54,14 @@ jobs:
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
 
-      - run: dir ${{ matrix.root-dir }}\apps\qgis-ltr-dev
-        shell: cmd /D /E:ON /V:OFF /S /C "{0}"
-
       - name: Install Build Tools
         run: choco install -y cmake ninja
 
       - name: Install Qt6
         run: choco install -y qt6-base-dev --params "'/modules:qt3d'"
 
-      - run: dir && cd && echo %PATH%
-        shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
+      # - run: dir && cd && echo %PATH%
+      #   shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
 
       - run: .github/build.cmd
-        env:
-          OSGEO4W_ROOT: ${{ matrix.root-dir }}
-          OSGEO4W_QGIS_SUB_DIR: ${{ matrix.root-dir }}/apps/qgis-ltr-dev
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

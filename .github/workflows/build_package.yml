@@ -25,7 +25,7 @@ jobs:
           # - windows-2022
           - windows-latest
         root-dir:
-          - "C:\\OSGeo4W"
+          - "C:/OSGeo4W"
           # - "D:\\OSGeo4W"
           # - "D:/OSGeo4W"
           # - "C:/otherFolder/"
@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
 
-      - run: dir c:\osgeo4w\apps\qgis-ltr-dev
+      - run: dir ${{ matrix.root-dir }}\apps\qgis-ltr-dev
         shell: cmd /D /E:ON /V:OFF /S /C "{0}"
 
       - name: Install Build Tools
@@ -64,4 +64,7 @@ jobs:
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
 
       - run: .github/build.cmd
+        env:
+          OSGEO4W_ROOT: ${{ matrix.root-dir }}
+          OSGEO4W_QGIS_SUB_DIR: ${{ matrix.root-dir }}/apps/qgis-ltr-dev
         shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""

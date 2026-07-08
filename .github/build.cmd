@@ -28,4 +28,4 @@ cmake -S . -B build -GNinja ^
 -DCMAKE_CXX_COMPILER=g++.exe ^
 -DCMAKE_C_COMPILER=gcc.exe ^
 -DQT6_PATH="C:/Qt/6.4.2/mingw_64/lib/cmake/Qt6" ^
--DQGIS_PATH="c:/osgeo4w/apps/qgis-ltr-dev"
+-DQGIS_PATH=!OSGEO4W_QGIS_SUB_DIR!

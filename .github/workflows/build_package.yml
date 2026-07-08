@@ -39,7 +39,7 @@ jobs:
         run: choco install -y cmake ninja mingw
 
       - name: Install Qt6
-        run: "choco install -y qt6-base-dev /modules:Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras"
+        run: choco install -y qt6-base-dev --params "'/modules:Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras'"
 
       - name: Setup OSGeo4W environment
         uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06

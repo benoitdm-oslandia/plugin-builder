@@ -1,6 +1,7 @@
 set PATH=%PATH%;C:\ProgramData\chocolatey\bin;"C:\Program Files\CMake\bin"
 echo %PATH%
 
+dir c:\ProgramData\
 dir c:\ProgramData\mingw64
 dir c:\ProgramData\mingw64\mingw64
 dir c:\ProgramData\mingw64\mingw64\bin

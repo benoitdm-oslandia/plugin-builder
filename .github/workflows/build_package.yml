@@ -34,9 +34,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
       - name: Setup OSGeo4W environment
+        uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887
         id: setup-osgeo4w
-        uses: ./
         with:
           root: ${{ matrix.root-dir }}
           package-dir: ${{ matrix.pkg-dir }}

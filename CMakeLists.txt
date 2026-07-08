@@ -1,6 +1,18 @@
 cmake_minimum_required(VERSION 3.16)
 project(plugin_primitiveediting LANGUAGES CXX)
 
+set (QT6_PATH "" CACHE STRING "Qt6 path")
+set (QGIS_PATH "" CACHE STRING "QGIS path")
+
+if(NOT QT6_PATH STREQUAL "")
+  list(APPEND CMAKE_MODULE_PATH "${QT6_PATH}")
+endif()
+
+if(NOT QGIS_PATH STREQUAL "")
+  list(APPEND CMAKE_MODULE_PATH "${QGIS_PATH}")
+endif()
+
+
 # Modern CMake for Qt
 # CMAKE_AUTOUIC: automatically runs uic on .ui files
 # CMAKE_AUTORCC: automatically runs rcc on .qrc files

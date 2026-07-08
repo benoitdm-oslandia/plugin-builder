@@ -22,6 +22,7 @@ if defined FOUND_FILE (
     echo File not found.
 )
 
+set "CMAKE_MODULE_PATH=!CMAKE_MODULE_PATH!;c:\osgeo4w\apps\qgis-ltr-dev"
 echo CMAKE_MODULE_PATH: %CMAKE_MODULE_PATH%
 
 cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-Wno-macro-redefined -DCMAKE_CXX_COMPILER=g++.exe -DCMAKE_C_COMPILER=gcc.exe

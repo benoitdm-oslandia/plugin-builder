@@ -49,7 +49,8 @@ jobs:
           package-dir: ${{ matrix.pkg-dir }}
           # Using line folding replacing newlines by a space, and striping the final newlines
           # See https://yaml-multiline.info/
-          # packages: >-
+          packages: >-
+            qgis-ltr-dev
           #   mingw-w64-x86_64-cmake
           #   mingw-w64-x86_64-ninja
       - name: Display all outputs as JSON

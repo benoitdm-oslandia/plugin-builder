@@ -43,9 +43,9 @@ jobs:
           package-dir: ${{ matrix.pkg-dir }}
           # Using line folding replacing newlines by a space, and striping the final newlines
           # See https://yaml-multiline.info/
-          # packages: >-
-          #   grass-dev
-          #   saga
+          packages: >-
+            cmake
+            ninja
       - name: Display all outputs as JSON
         run: |
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"

@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Install Build Tools
-        run: choco install -y cmake ninja mingw
+        run: choco install -y cmake ninja
 
       - name: Install Qt6
         run: choco install -y qt6-base-dev --params "'/modules:Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras'"

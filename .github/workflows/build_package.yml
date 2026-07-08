@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Install Build Tools
-        run: choco install cmake ninja -y
+        run: choco install cmake ninja mingw -y
 
       - name: Setup OSGeo4W environment
         uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06

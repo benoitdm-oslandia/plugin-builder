@@ -26,6 +26,7 @@ find_package(Qt6 COMPONENTS Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DE
 
 # Find QGIS Dependencies
 # The most idiomatic way is find_package(QGIS), which looks for QGISConfig.cmake.
+set(MSVC "fake")
 find_package(QGIS REQUIRED)
 
 # Source files

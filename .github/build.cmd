@@ -1,4 +1,4 @@
-@echo off
+@REM echo off
 @REM setlocal enabledelayedexpansion
 
 set "PATH=%PATH%;C:\ProgramData\chocolatey\bin;C:\Program Files\CMake\bin;c:\ProgramData\mingw64\mingw64\bin"
@@ -28,16 +28,14 @@ if defined QT6_PATH (
 copy FindQGIS.cmake "%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%/"
 
 @REM OSGEO4W_ROOT, QT6_PATH and QGIS_PATH must not use \ path separator
-echo "QT6_PATH before: %QT6_PATH%"
-set "QT6_PATH_2=%QT6_PATH:\=/%"
-echo "QT6_PATH_2 after: %QT6_PATH_2%"
+set "QT6_PATH_UNIX=%QT6_PATH:\=/%"
 
 cmake -S . -B build -GNinja ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DCMAKE_CXX_FLAGS=-Wno-macro-redefined ^
 -DCMAKE_CXX_COMPILER=g++.exe ^
 -DCMAKE_C_COMPILER=gcc.exe ^
--DQT6_PATH="%QT6_PATH_2%" ^
+-DQT6_PATH="%QT6_PATH_UNIX%" ^
 -DQGIS_PATH="%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%"
 
-cmake -B build
+cmake --build build

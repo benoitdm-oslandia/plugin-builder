@@ -37,3 +37,5 @@ cmake -S . -B build -GNinja ^
 -DCMAKE_C_COMPILER=gcc.exe ^
 -DQT6_PATH="%QT6_PATH%" ^
 -DQGIS_PATH="%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%"
+
+cmake -B build

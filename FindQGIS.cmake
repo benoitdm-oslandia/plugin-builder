@@ -22,7 +22,7 @@
 ## Tim Sutton
 ## Larry Shaffer (2017-01-31)
 
-MESSAGE("Searching for QGIS")
+MESSAGE(STATUS "Searching for QGIS")
 
 IF(WIN32)
   # OSGEO4W_QGIS_SUBDIR relative install: qgis[-rel|-ltr][-dev], etc.
@@ -34,7 +34,7 @@ IF(WIN32)
     ENDIF ()
   ENDIF ()
 
-  #MESSAGE("Searching for QGIS in $ENV{PROGRAMFILES}/QGIS")
+  #MESSAGE(STATUS "Searching for QGIS in $ENV{PROGRAMFILES}/QGIS")
   IF (MINGW)
     FIND_PATH(QGIS_PLUGIN_DIR
       NAMES libplugin_offlineediting.dll
@@ -71,13 +71,13 @@ IF(WIN32)
     )
   ENDIF (MINGW)
 
-  MESSAGE("AFTER MINGW")
-  MESSAGE("Found QGIS: ${QGIS_VERSION}")
-  MESSAGE("Found QGIS core: ${QGIS_CORE_LIBRARY}")
-  MESSAGE("Found QGIS gui: ${QGIS_GUI_LIBRARY}")
-  MESSAGE("Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
-  MESSAGE("Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
-  MESSAGE("Found QGIS include: ${QGIS_INCLUDE_DIR}")
+  MESSAGE(STATUS "AFTER MINGW")
+  MESSAGE(STATUS "Found QGIS: ${QGIS_VERSION}")
+  MESSAGE(STATUS "Found QGIS core: ${QGIS_CORE_LIBRARY}")
+  MESSAGE(STATUS "Found QGIS gui: ${QGIS_GUI_LIBRARY}")
+  MESSAGE(STATUS "Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
+  MESSAGE(STATUS "Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
+  MESSAGE(STATUS "Found QGIS include: ${QGIS_INCLUDE_DIR}")
 
 
   IF (MSVC)
@@ -126,7 +126,7 @@ IF(WIN32)
   ENDIF (MSVC)
 ELSE(WIN32)
   IF(UNIX)
-    #MESSAGE("Searching for QGIS in /usr/bin; /usr/local/bin")
+    #MESSAGE(STATUS "Searching for QGIS in /usr/bin; /usr/local/bin")
     FIND_PATH(QGIS_PLUGIN_DIR
       NAMES libplugin_offlineediting.so
       PATHS
@@ -230,13 +230,13 @@ ELSE(WIN32)
   ENDIF(UNIX)
 ENDIF(WIN32)
 
-MESSAGE("AFTER WIN32")
-MESSAGE("Found QGIS: ${QGIS_VERSION}")
-MESSAGE("Found QGIS core: ${QGIS_CORE_LIBRARY}")
-MESSAGE("Found QGIS gui: ${QGIS_GUI_LIBRARY}")
-MESSAGE("Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
-MESSAGE("Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
-MESSAGE("Found QGIS include: ${QGIS_INCLUDE_DIR}")
+MESSAGE(STATUS "AFTER WIN32")
+MESSAGE(STATUS "Found QGIS: ${QGIS_VERSION}")
+MESSAGE(STATUS "Found QGIS core: ${QGIS_CORE_LIBRARY}")
+MESSAGE(STATUS "Found QGIS gui: ${QGIS_GUI_LIBRARY}")
+MESSAGE(STATUS "Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
+MESSAGE(STATUS "Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
+MESSAGE(STATUS "Found QGIS include: ${QGIS_INCLUDE_DIR}")
 
 IF (QGIS_INCLUDE_DIR)
   SET(QGIS_VERSION QGIS_VERSION-NOTFOUND)
@@ -266,11 +266,11 @@ ENDIF ()
 
 IF (QGIS_FOUND)
    IF (NOT QGIS_FIND_QUIETLY)
-     MESSAGE("Found QGIS: ${QGIS_VERSION}")
-     MESSAGE("Found QGIS core: ${QGIS_CORE_LIBRARY}")
-     MESSAGE("Found QGIS gui: ${QGIS_GUI_LIBRARY}")
-     MESSAGE("Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
-     MESSAGE("Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
+     MESSAGE(STATUS "Found QGIS: ${QGIS_VERSION}")
+     MESSAGE(STATUS "Found QGIS core: ${QGIS_CORE_LIBRARY}")
+     MESSAGE(STATUS "Found QGIS gui: ${QGIS_GUI_LIBRARY}")
+     MESSAGE(STATUS "Found QGIS analysis: ${QGIS_ANALYSIS_LIBRARY}")
+     MESSAGE(STATUS "Found QGIS plugins directory: ${QGIS_PLUGIN_DIR}")
    ENDIF (NOT QGIS_FIND_QUIETLY)
 ELSE (QGIS_FOUND)
    IF (QGIS_FIND_REQUIRED)

@@ -24,6 +24,7 @@ echo PATH: %PATH%
 
 dir
 echo "copy FindQGIS.cmake %OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%/"
+copy FindQGIS.cmake "%OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%/""
 
 cmake -S . -B build -GNinja ^
 -DCMAKE_BUILD_TYPE=Release ^

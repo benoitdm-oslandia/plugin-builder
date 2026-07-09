@@ -22,7 +22,7 @@ echo PATH: %PATH%
 @REM     echo File not found.
 @REM )
 
-copy FindQGIS.cmake %OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUB_DIR%
+copy FindQGIS.cmake %OSGEO4W_ROOT%/apps/%OSGEO4W_QGIS_SUBDIR%
 
 cmake -S . -B build -GNinja ^
 -DCMAKE_BUILD_TYPE=Release ^

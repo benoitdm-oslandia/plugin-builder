@@ -47,7 +47,7 @@ jobs:
           # Using line folding replacing newlines by a space, and striping the final newlines
           # See https://yaml-multiline.info/
           packages: >-
-            qgis-ltr-dev
+            qgis-dev
           #   mingw-w64-x86_64-cmake
           #   mingw-w64-x86_64-ninja
       - name: Display all outputs as JSON
@@ -55,7 +55,7 @@ jobs:
           echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
 
       - name: Install Build Tools
-        run: choco install -y cmake ninja
+        run: choco install -y cmake ninja vcredist140
 
       - name: Install Qt6
         run: choco install -y qt6-base-dev --params "'/modules:qt3d'"

@@ -33,6 +33,7 @@ $qgisPathUnix = ($env:OSGEO4W_ROOT + "/apps/" + $env:OSGEO4W_QGIS_SUBDIR).Replac
 cmake -S $Env:PROJ_DIR -B $env:BUILD_DIR -GNinja `
     -DCMAKE_BUILD_TYPE=Release `
     -DCMAKE_CXX_FLAGS=-Wno-macro-redefined `
+    -DCMAKE_CXX_COMPILER=cl.exe `
     -DQT6_PATH="$qt6PathUnix" `
     -DQGIS_PATH="$qgisPathUnix"
 

@@ -14,7 +14,7 @@ jobs:
       matrix:
         build_config:
           # - { qgis_version: 3.44.9-2, release: ltr, qt_version: 5 }
-          - { qgis_version: 4.0.1-2, release: rel, qt_version: 6 }
+          - { qgis_version: 4.2.0-1, release: rel, qt_version: 6 }
     env:
       EXT_OSGEO4W_ROOT: "C:/OSGeo4W"
       Qt5_DIR: "C:/OSGeo4W/apps/Qt5"
@@ -22,6 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Build Tools
+        run: choco install -y cmake ninja vcredist140
 
       - name: Create OSGeo4W root
         shell: pwsh

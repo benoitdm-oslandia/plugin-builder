@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(plugin_primitiveediting LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set (QT6_PATH "" CACHE STRING "Qt6 path")
 set (QGIS_PATH "" CACHE STRING "QGIS path")
 
@@ -23,7 +26,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
 # Find Qt6 Dependencies
-find_package(Qt6 COMPONENTS Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Xml Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras REQUIRED)
 
 # Find QGIS Dependencies
 # The most idiomatic way is find_package(QGIS), which looks for QGISConfig.cmake.
@@ -65,12 +68,18 @@ target_include_directories(plugin_primitiveediting PRIVATE
   ${CMAKE_SOURCE_DIR}/src/plugins
 )
 
+target_include_directories(plugin_primitiveediting PUBLIC
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${QGIS_INCLUDE_DIR}
+)
+
 # Link libraries
 # We use the targets provided by find_package for Qt.
 # For QGIS, we link against the core library names as per the original CMakeLists.txt.
 target_link_libraries(plugin_primitiveediting PRIVATE
   Qt6::Core
   Qt6::Gui
+  Qt6::Xml
   Qt6::Widgets
   Qt6::3DCore
   Qt6::3DRender

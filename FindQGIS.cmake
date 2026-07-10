@@ -93,6 +93,7 @@ IF(WIN32)
         "$ENV{LIB_DIR}/include/qgis"
         "$ENV{OSGEO4W_ROOT}/include"
         "$ENV{OSGEO4W_ROOT}/apps/${OSGEO4W_QGIS_SUBDIR}/include"
+        "$ENV{OSGEO4W_ROOT}/apps/${OSGEO4W_QGIS_SUBDIR}/include/qgis"
         "$ENV{PROGRAMFILES}/QGIS/include"
     )
     FIND_LIBRARY(QGIS_CORE_LIBRARY

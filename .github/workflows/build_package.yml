@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Build Tools
-        run: choco install -y cmake ninja vcredist140
+        run: choco install -y cmake ninja vcredist140 visualstudio2022buildtools
 
       - name: Create OSGeo4W root
         shell: pwsh

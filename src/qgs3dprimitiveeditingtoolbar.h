@@ -19,6 +19,8 @@
 #include "qgs3deditingtoolbar.h"
 #include "qgs3dmaptoolcreateprimitive.h"
 
+class QgsMapLayer;
+
 /**
  * Allow creation of 3D primitive on polyhedral layers
  *
@@ -39,6 +41,8 @@ class Qgs3DPrimitiveEditingToolBar : public Qgs3DEditingToolBar
     void deactivate() override;
     QList<QAction *> groupActions() const override;
 
+    QgsMapLayer *activeLayer() const { return mActiveLayer; }
+
   private slots:
     void createBox();
     void createSphere();
@@ -50,6 +54,7 @@ class Qgs3DPrimitiveEditingToolBar : public Qgs3DEditingToolBar
   private:
     QAction *mCreatePrimitiveAction = nullptr;
     QList<QAction *> mActions;
+    QgsMapLayer *mActiveLayer = nullptr;
 
     Qgs3DMapToolCreatePrimitive *mCreatePrimitiveMapTool = nullptr;
 };

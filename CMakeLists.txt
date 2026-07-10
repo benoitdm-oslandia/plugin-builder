@@ -26,7 +26,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
 # Find Qt6 Dependencies
-find_package(Qt6 COMPONENTS Core Gui Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Xml Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras REQUIRED)
 
 # Find QGIS Dependencies
 # The most idiomatic way is find_package(QGIS), which looks for QGISConfig.cmake.
@@ -79,6 +79,7 @@ target_include_directories(plugin_primitiveediting PUBLIC
 target_link_libraries(plugin_primitiveediting PRIVATE
   Qt6::Core
   Qt6::Gui
+  Qt6::Xml
   Qt6::Widgets
   Qt6::3DCore
   Qt6::3DRender

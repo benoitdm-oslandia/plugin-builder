@@ -30,10 +30,8 @@ Copy-Item -Path "FindQGIS.cmake" -Destination $targetDir
 $qt6PathUnix = $env:QT6_DIR.Replace('\', '/')
 $qgisPathUnix = ($env:OSGEO4W_ROOT + "/apps/" + $env:OSGEO4W_QGIS_SUBDIR).Replace('\', '/')
 
-cmake -S $Env:PROJ_DIR -B $env:BUILD_DIR -GNinja `
+cmake -S $Env:PROJ_DIR -B $env:BUILD_DIR `
     -DCMAKE_BUILD_TYPE=Release `
-    -DCMAKE_CXX_FLAGS=-Wno-macro-redefined `
-    -DCMAKE_CXX_COMPILER=cl.exe `
     -DQT6_PATH="$qt6PathUnix" `
     -DQGIS_PATH="$qgisPathUnix"
 

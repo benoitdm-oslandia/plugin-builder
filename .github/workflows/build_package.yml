@@ -1,69 +1,100 @@
-name: Build against OSGeo4W packages
+name: Build the QGIS plugin (Windows)
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
-
-permissions: {}
+    branches: ["main"]
 
 jobs:
-  root:
-    concurrency:
-      group: >-
-        ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}-${{
-        'root-dir-variations' }}-${{  matrix.os }}-${{ matrix.root-dir }}-${{ matrix.pkg-dir }}
-      cancel-in-progress: true
-    runs-on: ${{ matrix.os }}
-    env:
-      TEST_O4W_ROOT: ${{ matrix.root-dir }}
-      OSGEO4W_ROOT: ${{ matrix.root-dir }}
-      OSGEO4W_QGIS_SUBDIR: qgis-ltr-dev
-
+  build-windows:
+    runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
-        os:
-          # - windows-2019
-          # - windows-2022
-          - windows-latest
-        root-dir:
-          - "C:/OSGeo4W"
-          # - "D:\\OSGeo4W"
-          # - "D:/OSGeo4W"
-          # - "C:/otherFolder/"
-        pkg-dir:
-          - "${{ github.workspace }}/OSGeo4W_pkg"
+        build_config:
+          # - { qgis_version: 3.44.9-2, release: ltr, qt_version: 5 }
+          - { qgis_version: 4.0.1-2, release: rel, qt_version: 6 }
+    env:
+      EXT_OSGEO4W_ROOT: "C:/OSGeo4W"
+      Qt5_DIR: "C:/OSGeo4W/apps/Qt5"
+      Qt6_DIR: "C:/OSGeo4W/apps/Qt6"
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
-      - name: Setup OSGeo4W environment
-        uses: echoix/setup-OSGeo4W@ed0448891ef67780e0c9c19694ebc5ce79ffd887 # 2026-06
-        id: setup-osgeo4w
-        with:
-          root: ${{ matrix.root-dir }}
-          package-dir: ${{ matrix.pkg-dir }}
-          # Using line folding replacing newlines by a space, and striping the final newlines
-          # See https://yaml-multiline.info/
-          packages: >-
-            qgis-dev
-          #   mingw-w64-x86_64-cmake
-          #   mingw-w64-x86_64-ninja
-      - name: Display all outputs as JSON
+      - name: Create OSGeo4W root
+        shell: pwsh
         run: |
-          echo "${{ toJSON(steps.setup-osgeo4w.outputs) }}"
+          New-Item -ItemType Directory -Force -Path $env:EXT_OSGEO4W_ROOT | Out-Null
 
-      - name: Install Build Tools
-        run: choco install -y cmake ninja vcredist140
+      - name: Resolve and download QGIS development package
+        id: qgis-package
+        shell: pwsh
+        run: |
+          $version = '${{ matrix.build_config.qgis_version }}'
+          $release = '${{ matrix.build_config.release }}'
+          $rootUrl = 'https://download.osgeo.org/osgeo4w/v2/x86_64/release/qgis'
 
-      - name: Install Qt6
-        run: choco install -y qt6-base-dev --params "'/modules:qt3d'"
+          $packageInfo = switch ($release) {
+            'ltr' { @{ subdir = 'qgis-ltr'; filePrefix = 'qgis-ltr-devel'; qgisSubdir = 'qgis-ltr' } }
+            default { @{ subdir = 'qgis'; filePrefix = 'qgis-devel'; qgisSubdir = 'qgis' } }
+          }
 
-      # - run: dir && cd && echo %PATH%
-      #   shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
+          $archiveName = "$($packageInfo.filePrefix)-$version.tar.bz2"
+          $packageUrl = "$rootUrl/$($packageInfo.subdir)/$($packageInfo.filePrefix)/$archiveName"
+          Invoke-WebRequest -Uri $packageUrl -OutFile $archiveName
+          tar -xf $archiveName -C $env:EXT_OSGEO4W_ROOT
 
-      - run: .github/build.cmd
-        shell: cmd /D /E:ON /V:OFF /S /C "CALL {0}"
-      # - run: .github/build.cmd
-      #   shell: cmd /D /E:ON /V:OFF /S /C "CALL %TEST_O4W_ROOT%/OSGeo4W.bat "{0}""
+          "package-url=$packageUrl" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "qgis-subdir=$($packageInfo.qgisSubdir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Install OSGeo4W
+        shell: pwsh
+        run: |
+          $exe = 'osgeo4w-setup.exe'
+          $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
+          $qtVersion = '${{ matrix.build_config.qt_version }}'
+          $qtPackages = switch ($qtVersion) {
+            '6' { 'qt6-devel,qt6-libs,qt6-tools' }
+            default { 'qt5-devel,qt5-libs,qt5-tools,qt5-libs-symbols' }
+          }
+
+          Invoke-WebRequest -Uri $url -OutFile $exe
+          Start-Process ('.\' + $exe) -ArgumentList @(
+            '--advanced',
+            '--autoaccept',
+            '--quiet-mode',
+            '--only-site',
+            '-R', $env:EXT_OSGEO4W_ROOT,
+            '-s', 'https://download.osgeo.org/osgeo4w/v2/',
+            '-P', $qtPackages
+          ) -Wait -NoNewWindow
+
+      - name: Set reusable strings
+        id: strings
+        shell: bash
+        run: |
+          echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+      - name: Add Directories to PATH
+        shell: pwsh
+        run: |
+          Add-Content $env:GITHUB_PATH "$env:EXT_OSGEO4W_ROOT/bin"
+          Add-Content $env:GITHUB_PATH "$env:Qt5_DIR/bin"
+          Add-Content $env:GITHUB_PATH "$env:Qt6_DIR/bin"
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          $Env:OSGEO4W_ROOT = $env:EXT_OSGEO4W_ROOT
+          $Env:OSGEO4W_QGIS_SUBDIR = '${{ steps.qgis-package.outputs.qgis-subdir }}'
+          cmake -B ${{ steps.strings.outputs.build-output-dir }} -S ${{ github.workspace }} -DQt6_PATH="$env:Qt6_DIR"
+
+      - name: Build
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config Release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qgis-${{ matrix.build_config.release }}-${{ matrix.build_config.qgis_version }}-plugin-windows
+          path: ${{ steps.strings.outputs.build-output-dir }}/**/helloworldplugin.dll

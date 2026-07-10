@@ -15,7 +15,6 @@
 
 #include "qgs3dmaptoolcreateprimitive.h"
 
-#include "qgisapp.h"
 #include "qgs3dcreateprimitiveboxdialog.h"
 #include "qgs3dcreateprimitiveconedialog.h"
 #include "qgs3dcreateprimitivecylinderdialog.h"
@@ -54,10 +53,11 @@
 
 using namespace Qt::StringLiterals;
 
-Qgs3DMapToolCreatePrimitive::Qgs3DMapToolCreatePrimitive( Qgs3DMapCanvas *canvas, QgsLateralPanelWidget *panel, PrimitiveType type )
+Qgs3DMapToolCreatePrimitive::Qgs3DMapToolCreatePrimitive( Qgs3DMapCanvas *canvas, QgsLateralPanelWidget *panel, QgsMapLayer *activeLayer, PrimitiveType type )
   : Qgs3DMapTool( canvas )
   , mType( type )
   , mPanel( panel )
+  , mActiveLayer( activeLayer )
 {
   // Dialog
   switch ( type )
@@ -568,7 +568,7 @@ void Qgs3DMapToolCreatePrimitive::handlePreviousParameter()
 
 void Qgs3DMapToolCreatePrimitive::createPrimitive()
 {
-  QgsVectorLayer *vl = dynamic_cast<QgsVectorLayer *>( QgisApp::instance()->activeLayer() );
+  QgsVectorLayer *vl = dynamic_cast<QgsVectorLayer *>( mActiveLayer );
   if ( vl != nullptr && QgsWkbTypes::flatType( vl->wkbType() ) == Qgis::WkbType::PolyhedralSurface )
   {
     Qgs3DRenderContext renderCtx = Qgs3DRenderContext::fromMapSettings( this->mCanvas->mapSettings() );
@@ -617,7 +617,7 @@ void Qgs3DMapToolCreatePrimitive::createPrimitive()
     {
       QgsExpressionContext expContext = vl->createExpressionContext();
       QgsFeature newFeature = QgsAttributeForm::createFeature( vl, feat.geometry(), QgsAttributeMap(), expContext );
-      QgsAttributeEditorContext context( QgisApp::instance()->createAttributeEditorContext() );
+      QgsAttributeEditorContext context;
       context.setFormMode( QgsAttributeEditorContext::StandaloneDialog );
       QgsAttributeDialog *dialog = new QgsAttributeDialog( vl, &newFeature, false, nullptr, true, context );
 

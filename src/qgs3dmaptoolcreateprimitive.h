@@ -26,6 +26,7 @@ class Qgs3DCreatePrimitiveDialog;
 class QPoint;
 class QgsRubberBand3D;
 class QgsLateralPanelWidget;
+class QgsMapLayer;
 
 namespace Qt3DExtras
 {
@@ -61,7 +62,7 @@ class Qgs3DMapToolCreatePrimitive : public Qgs3DMapTool
      * \param canvas 3D canvas parent
      * \param type primitive type to create
      */
-    Qgs3DMapToolCreatePrimitive( Qgs3DMapCanvas *canvas, QgsLateralPanelWidget *panel, PrimitiveType type );
+    Qgs3DMapToolCreatePrimitive( Qgs3DMapCanvas *canvas, QgsLateralPanelWidget *panel, QgsMapLayer *activeLayer, PrimitiveType type );
     ~Qgs3DMapToolCreatePrimitive() override;
 
     void activate() override;
@@ -103,6 +104,8 @@ class Qgs3DMapToolCreatePrimitive : public Qgs3DMapTool
 
     std::unique_ptr<Qt3DCore::QEntity> mPrimitiveLineEntity = nullptr;
     QgsLateralPanelWidget *mPanel = nullptr;
+
+    QgsMapLayer *mActiveLayer = nullptr;
 
     /**
      * update temp primitive according to last parameter values

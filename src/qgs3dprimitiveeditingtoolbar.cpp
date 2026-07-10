@@ -56,12 +56,13 @@ bool Qgs3DPrimitiveEditingToolBar::accept( QgsMapLayer *layer ) const
 }
 
 
-void Qgs3DPrimitiveEditingToolBar::activate( QgsMapLayer * /*layer*/ )
+void Qgs3DPrimitiveEditingToolBar::activate( QgsMapLayer *layer )
 {
   for ( auto action : findChildren<QAction *>() )
     action->setVisible( true );
 
   setEnabled( true );
+  mActiveLayer = layer;
 }
 
 void Qgs3DPrimitiveEditingToolBar::deactivate()
@@ -119,7 +120,7 @@ void Qgs3DPrimitiveEditingToolBar::createPrimitive( const QAction *action, Qgs3D
   if ( mCreatePrimitiveMapTool != nullptr )
     mCreatePrimitiveMapTool->deleteLater();
 
-  mCreatePrimitiveMapTool = new Qgs3DMapToolCreatePrimitive( mParentWidget->mapCanvas3D(), mParentWidget->lateralPanel(), type );
+  mCreatePrimitiveMapTool = new Qgs3DMapToolCreatePrimitive( mParentWidget->mapCanvas3D(), mParentWidget->lateralPanel(), mActiveLayer, type );
   mParentWidget->mapCanvas3D()->setMapTool( mCreatePrimitiveMapTool );
   mCreatePrimitiveAction->setIcon( action->icon() );
 }

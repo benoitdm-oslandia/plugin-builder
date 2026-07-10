@@ -68,6 +68,11 @@ target_include_directories(plugin_primitiveediting PRIVATE
   ${CMAKE_SOURCE_DIR}/src/plugins
 )
 
+target_include_directories(plugin_primitiveediting PUBLIC
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${QGIS_INCLUDE_DIR}
+)
+
 # Link libraries
 # We use the targets provided by find_package for Qt.
 # For QGIS, we link against the core library names as per the original CMakeLists.txt.

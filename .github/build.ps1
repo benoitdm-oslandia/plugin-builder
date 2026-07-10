@@ -1,11 +1,11 @@
-# Set environment PATH
-$extraPaths = "C:\ProgramData\chocolatey\bin", "C:\Program Files\CMake\bin"
-foreach ($path in $extraPaths) {
-    if ($env:PATH -notlike "*$path*") {
-        $env:PATH += ";$path"
-    }
-}
-Write-Host "PATH: $env:PATH"
+# # Set environment PATH
+# $extraPaths = "C:\ProgramData\chocolatey\bin", "C:\Program Files\CMake\bin"
+# foreach ($path in $extraPaths) {
+#     if ($env:PATH -notlike "*$path*") {
+#         $env:PATH += ";$path"
+#     }
+# }
+# Write-Host "PATH: $env:PATH"
 
 # # Search for Qt6 cmake file
 # $searchDir = "C:/OSGeo4W/apps/Qt6"

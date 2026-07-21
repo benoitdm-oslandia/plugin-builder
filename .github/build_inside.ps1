@@ -1,4 +1,4 @@
-git clone -b $Env:QGIS_BRANCH git@github.com:qgis/QGIS.git
+git clone -b $Env:QGIS_BRANCH https://github.com/qgis/QGIS.git
 
 New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
 Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force

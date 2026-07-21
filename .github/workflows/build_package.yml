@@ -26,10 +26,17 @@ jobs:
       Qt6_DIR: "C:/OSGeo4W/apps/Qt6"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      # - name: Install Build Tools
-      #   run: choco install -y cmake ninja vcredist140 visualstudio2022buildtools
+      - name: Retrieve qgis
+        uses: actions/checkout@v7
+        with:
+          repository: "qgis/QGIS.git"
+          ref: "${{ matrix.build_config.qgis_branch }}"
+          path: "QGIS"
+
+      - name: Install Build Tools
+        run: choco install -y winflexbison3
 
       - name: Create OSGeo4W root
         shell: pwsh
@@ -63,10 +70,7 @@ jobs:
           $exe = 'osgeo4w-setup.exe'
           $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
           $qtVersion = '${{ matrix.build_config.qt_version }}'
-          $qtPackages = switch ($qtVersion) {
-            '6' { 'qgis-${{ matrix.build_config.release }}-dev-deps, qgis-${{ matrix.build_config.release }}-dev' }
-            default { 'qt5-devel,qt5-libs,qt5-tools,qt5-libs-symbols' }
-          }
+          $qtPackages = 'python3,python3-pyqt6-sip,qt6-devel,qt6-libs,qt6-tools,opencl-devel,zstd-devel,qgis-${{ matrix.build_config.release }}-dev-deps,proj-devel,gdal-devel,sqlite3-devel'
 
           Invoke-WebRequest -Uri $url -OutFile $exe
           Start-Process ('.\' + $exe) -ArgumentList @(
@@ -98,7 +102,6 @@ jobs:
           $Env:OSGEO4W_ROOT = $env:EXT_OSGEO4W_ROOT
           $Env:BUILD_DIR = '${{ steps.strings.outputs.build-output-dir }}'
           $Env:PROJ_DIR = '${{ github.workspace }}'
-          $Env:QGIS_BRANCH = '${{ matrix.build_config.qgis_branch }}'
           & .github/build_inside.ps1
 
       # - name: Build project external

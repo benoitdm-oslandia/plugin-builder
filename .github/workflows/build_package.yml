@@ -26,7 +26,7 @@ jobs:
       Qt6_DIR: "C:/OSGeo4W/apps/Qt6"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # - name: Install Build Tools
       #   run: choco install -y cmake ninja vcredist140 visualstudio2022buildtools
@@ -57,6 +57,13 @@ jobs:
       #     "package-url=$packageUrl" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
       #     "qgis-subdir=$($packageInfo.qgisSubdir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
+      - name: Retrieve qgis
+        uses: actions/checkout@v7
+        with:
+          repository: "qgis/QGIS.git"
+          ref: "${{ matrix.build_config.qgis_branch }}"
+          path: "QGIS"
+
       - name: Install OSGeo4W
         shell: pwsh
         run: |
@@ -64,7 +71,7 @@ jobs:
           $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
           $qtVersion = '${{ matrix.build_config.qt_version }}'
           $qtPackages = switch ($qtVersion) {
-            '6' { 'qgis-${{ matrix.build_config.release }}-dev-deps, qgis-${{ matrix.build_config.release }}-dev' }
+            '6' { 'qt6-devel,qt6-libs,qt6-tools,qgis-${{ matrix.build_config.release }}-dev-deps' }
             default { 'qt5-devel,qt5-libs,qt5-tools,qt5-libs-symbols' }
           }
 
@@ -98,7 +105,6 @@ jobs:
           $Env:OSGEO4W_ROOT = $env:EXT_OSGEO4W_ROOT
           $Env:BUILD_DIR = '${{ steps.strings.outputs.build-output-dir }}'
           $Env:PROJ_DIR = '${{ github.workspace }}'
-          $Env:QGIS_BRANCH = '${{ matrix.build_config.qgis_branch }}'
           & .github/build_inside.ps1
 
       # - name: Build project external

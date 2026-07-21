@@ -1,5 +1,3 @@
-git clone -b $Env:QGIS_BRANCH https://github.com/qgis/QGIS.git
-
 New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
 Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force
 Copy-Item -Path "src" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
@@ -43,4 +41,4 @@ cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
     -DWITH_SFCGAL=ON `
     -DQT6_PATH="$qt6PathUnix"
 
-cmake --build $env:BUILD_DIR/QGIS --config Release
+cmake --build $env:BUILD_DIR --config Release

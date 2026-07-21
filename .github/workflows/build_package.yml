@@ -31,26 +31,26 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path $env:EXT_OSGEO4W_ROOT | Out-Null
 
-      - name: Resolve and download QGIS development package
-        id: qgis-package
-        shell: pwsh
-        run: |
-          $version = '${{ matrix.build_config.qgis_version }}'
-          $release = '${{ matrix.build_config.release }}'
-          $rootUrl = 'https://download.osgeo.org/osgeo4w/v2/x86_64/release/qgis'
+      # - name: Resolve and download QGIS development package
+      #   id: qgis-package
+      #   shell: pwsh
+      #   run: |
+      #     $version = '${{ matrix.build_config.qgis_version }}'
+      #     $release = '${{ matrix.build_config.release }}'
+      #     $rootUrl = 'https://download.osgeo.org/osgeo4w/v2/x86_64/release/qgis'
 
-          $packageInfo = switch ($release) {
-            'ltr' { @{ subdir = 'qgis-ltr'; filePrefix = 'qgis-ltr-devel'; qgisSubdir = 'qgis-ltr' } }
-            default { @{ subdir = 'qgis'; filePrefix = 'qgis-devel'; qgisSubdir = 'qgis' } }
-          }
+      #     $packageInfo = switch ($release) {
+      #       'ltr' { @{ subdir = 'qgis-ltr'; filePrefix = 'qgis-ltr-devel'; qgisSubdir = 'qgis-ltr' } }
+      #       default { @{ subdir = 'qgis'; filePrefix = 'qgis-devel'; qgisSubdir = 'qgis' } }
+      #     }
 
-          $archiveName = "$($packageInfo.filePrefix)-$version.tar.bz2"
-          $packageUrl = "$rootUrl/$($packageInfo.subdir)/$($packageInfo.filePrefix)/$archiveName"
-          Invoke-WebRequest -Uri $packageUrl -OutFile $archiveName
-          tar -xf $archiveName -C $env:EXT_OSGEO4W_ROOT
+      #     $archiveName = "$($packageInfo.filePrefix)-$version.tar.bz2"
+      #     $packageUrl = "$rootUrl/$($packageInfo.subdir)/$($packageInfo.filePrefix)/$archiveName"
+      #     Invoke-WebRequest -Uri $packageUrl -OutFile $archiveName
+      #     tar -xf $archiveName -C $env:EXT_OSGEO4W_ROOT
 
-          "package-url=$packageUrl" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
-          "qgis-subdir=$($packageInfo.qgisSubdir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+      #     "package-url=$packageUrl" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+      #     "qgis-subdir=$($packageInfo.qgisSubdir)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
       - name: Install OSGeo4W
         shell: pwsh
@@ -59,7 +59,7 @@ jobs:
           $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
           $qtVersion = '${{ matrix.build_config.qt_version }}'
           $qtPackages = switch ($qtVersion) {
-            '6' { 'qt6-devel,qt6-libs,qt6-tools' }
+            '6' { 'qgis-${{ matrix.build_config.release }}-dev-deps, qgis-${{ matrix.build_config.release }}-dev' }
             default { 'qt5-devel,qt5-libs,qt5-tools,qt5-libs-symbols' }
           }
 

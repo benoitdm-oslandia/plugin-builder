@@ -1,0 +1,71 @@
+
+# Find Qt6 Dependencies
+find_package(Qt6 COMPONENTS Core Gui Xml Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras REQUIRED)
+
+# Source files
+set (SRCS
+  src/primitive_editing_plugin.cpp
+  src/qgs3dcreateprimitivedialog.cpp
+  src/qgs3dcreateprimitiveboxdialog.cpp
+  src/qgs3dcreateprimitiveconedialog.cpp
+  src/qgs3dcreateprimitivecylinderdialog.cpp
+  src/qgs3dcreateprimitivespheredialog.cpp
+  src/qgs3dcreateprimitivetorusdialog.cpp
+  src/qgs3dmaptoolcreateprimitive.cpp
+  src/qgs3dprimitiveeditingtoolbar.cpp
+)
+
+# UI files
+set (UIS
+  src/createprimitivedialog.ui
+)
+
+# Resource files
+set (RCCS
+  resources/images.qrc
+)
+
+########################################################
+# Build
+
+qt_wrap_ui(UIS_H ${UIS})
+
+# Create the plugin library as a MODULE
+# With AUTOUIC and AUTORCC enabled, we list .ui and .qrc files directly in the source list.
+add_library (plugin_primitiveediting MODULE
+  ${SRCS}
+  ${RCCS}
+  ${UIS_H}
+)
+
+# Link libraries
+# We use the targets provided by find_package for Qt.
+# For QGIS, we link against the core library names as per the original CMakeLists.txt.
+target_link_libraries(plugin_primitiveediting
+  Qt6::Core
+  Qt6::Gui
+  Qt6::Xml
+  Qt6::Widgets
+  Qt6::3DCore
+  Qt6::3DRender
+  Qt6::3DExtras
+  qgis_core
+  qgis_gui
+  qgis_3d
+  qgis_app
+)
+
+include_directories(
+  ${CMAKE_SOURCE_DIR}/src/plugins
+
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+########################################################
+# Install
+
+install(TARGETS plugin_primitiveediting
+	RUNTIME DESTINATION ${QGIS_PLUGIN_DIR}
+	LIBRARY DESTINATION ${QGIS_PLUGIN_DIR}
+)

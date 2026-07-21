@@ -1,8 +1,10 @@
 git clone -b $Env:QGIS_BRANCH git@github.com:qgis/QGIS.git
 
-mkdir QGIS/src/plugins/primitive_editing
-cp CMakeLists_inside.txt QGIS/src/plugins/primitive_editing/CMakeLists.txt
-cp -a src resources tests QGIS/src/plugins/primitive_editing/
+New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
+Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force
+Copy-Item -Path "src" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
+Copy-Item -Path "resources" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
+Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 
 cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
     -DCMAKE_BUILD_TYPE=Release `

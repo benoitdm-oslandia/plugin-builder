@@ -18,11 +18,15 @@ Copy-Item -Path "src" -Destination "QGIS/src/plugins/primitive_editing/" -Recurs
 Copy-Item -Path "resources" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 
+# Disabled options:
+# - do no use -GNinja as cmake will use mingw64
+# - -DCMAKE_CXX_FLAGS=-Wno-macro-redefined
+# - -DQT6_PATH="$qt6PathUnix"
+
 cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
     -DCMAKE_BUILD_TYPE=Release `
     -DAGGRESSIVE_SAFE_MODE=OFF `
     -DBUILD_WITH_QT6=ON `
-    -DCMAKE_CXX_FLAGS=-Wno-macro-redefined `
     -DENABLE_MODELTEST=OFF `
     -DENABLE_PGTEST=OFF `
     -DENABLE_TESTS=OFF `
@@ -51,7 +55,6 @@ cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
     -DWITH_QWTPOLAR=OFF `
     -DWITH_SERVER=OFF `
     -DWITH_SERVER_LANDINGPAGE_WEBAPP=OFF `
-    -DWITH_SFCGAL=ON `
-    -DQT6_PATH="$qt6PathUnix"
+    -DWITH_SFCGAL=ON
 
 cmake --build $env:BUILD_DIR --config Release

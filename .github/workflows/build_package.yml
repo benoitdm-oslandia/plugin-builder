@@ -28,15 +28,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # - name: Install Build Tools
-      #   run: choco install -y cmake ninja vcredist140 visualstudio2022buildtools
-
       - name: Retrieve qgis
         uses: actions/checkout@v7
         with:
           repository: "qgis/QGIS.git"
           ref: "${{ matrix.build_config.qgis_branch }}"
           path: "QGIS"
+
+      - name: Install Build Tools
+        run: choco install -y winflexbison3
 
       - name: Create OSGeo4W root
         shell: pwsh
@@ -70,7 +70,7 @@ jobs:
           $exe = 'osgeo4w-setup.exe'
           $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
           $qtVersion = '${{ matrix.build_config.qt_version }}'
-          $qtPackages = 'qt6-devel,qt6-libs,qt6-tools,qgis-${{ matrix.build_config.release }}-dev-deps'
+          $qtPackages = 'qt6-devel,qt6-libs,qt6-tools,opencl-devel,qgis-${{ matrix.build_config.release }}-dev-deps'
 
           Invoke-WebRequest -Uri $url -OutFile $exe
           Start-Process ('.\' + $exe) -ArgumentList @(

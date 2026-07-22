@@ -1,16 +1,16 @@
-# Search for cl.exe
-$searchDir = "C:/Program Files/Microsoft Visual Studio/"
-$fileName = "cl.exe"
-Write-Host "Searching for $fileName in $searchDir..."
+# # Search for cl.exe
+# $searchDir = "C:/Program Files/Microsoft Visual Studio/"
+# $fileName = "cl.exe"
+# Write-Host "Searching for $fileName in $searchDir..."
 
-$file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+# $file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
 
-if ($file) {
-    Write-Host "CL.EXE found at: $file"
-} else {
-    Write-Error "File not found."
-    exit 1
-}
+# if ($file) {
+#     Write-Host "CL.EXE found at: $file"
+# } else {
+#     Write-Error "File not found."
+#     exit 1
+# }
 
 New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
 Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force

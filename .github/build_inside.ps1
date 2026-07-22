@@ -1,3 +1,17 @@
+# Search for cl.exe
+$searchDir = "C:/Program Files/Microsoft Visual Studio/"
+$fileName = "cl.exe"
+Write-Host "Searching for $fileName in $searchDir..."
+
+$file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+
+if ($file) {
+    Write-Host "CL.EXE found at: $file"
+} else {
+    Write-Error "File not found."
+    exit 1
+}
+
 New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
 Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force
 Copy-Item -Path "src" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
@@ -6,7 +20,6 @@ Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recu
 
 cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
     -DCMAKE_BUILD_TYPE=Release `
-    -GNinja `
     -DAGGRESSIVE_SAFE_MODE=OFF `
     -DBUILD_WITH_QT6=ON `
     -DCMAKE_CXX_FLAGS=-Wno-macro-redefined `

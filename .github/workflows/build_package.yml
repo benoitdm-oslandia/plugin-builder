@@ -43,9 +43,6 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path $env:EXT_OSGEO4W_ROOT | Out-Null
 
-      - name: Install Build Tools
-        run: choco install -y cmake ninja vcredist140
-
       # - name: Resolve and download QGIS development package
       #   id: qgis-package
       #   shell: pwsh

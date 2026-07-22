@@ -53,7 +53,7 @@ jobs:
 
           $packageInfo = switch ($release) {
             'ltr' { @{ subdir = 'qgis-ltr'; filePrefix = 'qgis-ltr-devel'; qgisSubdir = 'qgis-ltr' } }
-            default { @{ subdir = 'qgis'; filePrefix = 'qgis-rel-devel'; qgisSubdir = 'qgis' } }
+            default { @{ subdir = 'qgis'; filePrefix = 'qgis-devel'; qgisSubdir = 'qgis' } }
           }
 
           $archiveName = "$($packageInfo.filePrefix)-$version.tar.bz2"

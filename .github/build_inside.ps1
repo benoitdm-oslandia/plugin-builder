@@ -13,6 +13,9 @@ Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recu
 
 # ============== Prepare build
 
+# remove already installed python
+Remove-Item -Recurse C:/hostedtoolcache/windows/Python/
+
 # Search for SetupAPI lib
 $searchDir = "C:/Program Files (x86)/Windows Kits"
 $fileName = "SetupAPI.lib"

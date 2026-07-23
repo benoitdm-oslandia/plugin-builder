@@ -22,7 +22,7 @@ $file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction S
 
 if ($file) {
     Write-Host "File '$fileName' found at: $file"
-    $setupapi_dir = Split-Path $file -Parent
+    $setupapidir = Split-Path $file -Parent
 } else {
     Write-Error "File '$fileName' not found."
     exit 1
@@ -58,7 +58,7 @@ cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
   -DWITH_SERVER=OFF `
   -DWITH_SERVER_LANDINGPAGE_WEBAPP=OFF `
   -DWITH_SFCGAL=ON -DCMAKE_MODULE_PATH="$Env:OSGEO4W_ROOT/cmake"`
-  -DCMAKE_PREFIX_PATH="$Env:OSGEO4W_ROOT/apps/qt6;$Env:OSGEO4W_ROOT;$setupapi_dir"`
+  -DCMAKE_PREFIX_PATH="$Env:OSGEO4W_ROOT/apps/qt6;$Env:OSGEO4W_ROOT;$setupapidir"`
   -DQt6_DIR="$Env:OSGEO4W_ROOT/apps/qt6/lib/cmake/Qt6" `
   -DCUSTOM_PLUGINS=primitive_editing
 

@@ -22,7 +22,7 @@ $file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction S
 
 if ($file) {
     Write-Host "File '$fileName' found at: $file"
-    $setupapi_dir = Split-Path $absoluteFile -Parent
+    $setupapi_dir = Split-Path $file -Parent
 } else {
     Write-Error "File '$fileName' not found."
     exit 1

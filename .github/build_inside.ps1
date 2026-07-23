@@ -16,6 +16,9 @@ Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recu
 # remove already installed python
 Remove-Item -Recurse C:/hostedtoolcache/windows/Python/
 
+# Update path to add Osgeo4W python support
+$Env:path="$Env:path;$Env:OSGEO4W_ROOT\apps\Python312;$Env:OSGEO4W_ROOT\apps\Python312\Scripts;$Env:OSGEO4W_ROOT\bin;"
+
 # Search for SetupAPI lib
 $searchDir = "C:/Program Files (x86)/Windows Kits"
 $fileName = "SetupAPI.lib"
@@ -35,7 +38,7 @@ if ($file) {
 # - do no use -GNinja as cmake will use mingw64
 # - remove -DCMAKE_CXX_FLAGS=-Wno-macro-redefined seems to generate errors
 
-cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
+cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DCMAKE_BUILD_TYPE=Release `
   -DAGGRESSIVE_SAFE_MODE=OFF `
   -DENABLE_MODELTEST=OFF `
@@ -67,4 +70,4 @@ cmake -S $Env:PROJ_DIR/QGIS -B $env:BUILD_DIR `
   -DCUSTOM_PLUGINS=primitive_editing
 
 # ============== Build
-cmake --build $env:BUILD_DIR --config Release
+cmake --build $Env:BUILD_DIR --config Release

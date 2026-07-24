@@ -38,6 +38,10 @@ if ($file) {
 # - do no use -GNinja as cmake will use mingw64
 # - remove -DCMAKE_CXX_FLAGS=-Wno-macro-redefined seems to generate errors
 
+# Debug: Check for zstd library filename
+Write-Host "Checking for ZSTD libraries in $Env:OSGEO4W_ROOT\lib..."
+Get-ChildItem -Path "$Env:OSGEO4W_ROOT\lib" -Filter "zstd*"
+
 cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DCMAKE_BUILD_TYPE=Release `
   -DAGGRESSIVE_SAFE_MODE=OFF `
@@ -67,6 +71,8 @@ cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DUSE_OPENCL=OFF `
   -DCMAKE_MODULE_PATH="$Env:OSGEO4W_ROOT/cmake" `
   -DCMAKE_PREFIX_PATH="$Env:OSGEO4W_ROOT/apps/qt6;$Env:OSGEO4W_ROOT;$setupapidir" `
+  -DCMAKE_LIBRARY_PATH="$Env:OSGEO4W_ROOT/lib" `
+  -DCMAKE_INCLUDE_PATH="$Env:OSGEO4W_ROOT/include" `
   -DQt6_DIR="$Env:OSGEO4W_ROOT/apps/qt6/lib/cmake/Qt6" `
   -DCUSTOM_PLUGINS=primitive_editing
 

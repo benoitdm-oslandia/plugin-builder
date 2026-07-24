@@ -70,7 +70,7 @@ jobs:
           $exe = 'osgeo4w-setup.exe'
           $url = 'https://download.osgeo.org/osgeo4w/v2/' + $exe
           $qtVersion = '${{ matrix.build_config.qt_version }}'
-          $qtPackages = 'python3,python3-pyqt6-sip,qt6-devel,qt6-libs,qt6-tools,opencl-devel,qgis-${{ matrix.build_config.release }}-dev-deps,proj-devel,gdal-devel,sqlite3-devel'
+          $qtPackages = 'python3,python3-pyqt6-sip,qt6-devel,qt6-libs,qt6-tools,opencl-devel,zstd-devel,qgis-${{ matrix.build_config.release }}-dev-deps,proj-devel,gdal-devel,sqlite3-devel'
 
           Invoke-WebRequest -Uri $url -OutFile $exe
           Start-Process ('.\' + $exe) -ArgumentList @(

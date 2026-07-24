@@ -24,7 +24,7 @@ $searchDir = "C:/Program Files (x86)/Windows Kits"
 $fileName = "SetupAPI.lib"
 Write-Host "Searching for $fileName in $searchDir..."
 
-$file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+$file = Get-ChildItem -Path $searchDir -Filter $fileName -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.FullName -like "*x64*" } | Select-Object -First 1
 
 if ($file) {
     Write-Host "File '$fileName' found at: $file"

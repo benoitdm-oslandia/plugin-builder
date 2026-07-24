@@ -76,5 +76,8 @@ cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DQt6_DIR="$Env:OSGEO4W_ROOT/apps/qt6/lib/cmake/Qt6" `
   -DCUSTOM_PLUGINS=primitive_editing
 
+
+cmake --build $Env:BUILD_DIR --target help
+
 # ============== Build
-cmake --build $Env:BUILD_DIR --config Release
+# cmake --build $Env:BUILD_DIR --config Release

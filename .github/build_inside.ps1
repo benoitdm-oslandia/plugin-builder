@@ -1,17 +1,18 @@
-# ============== Due to some cmake errors, the relative path is lost and resources are searched starting
+Write-Host "====== Make osgeo4w links..."
+# Due to some cmake errors, the relative path is lost and resources are searched starting
 # at '/'. These links helps cmake to find the needed resources
 New-Item -Path C:\bin -ItemType SymbolicLink -Value $Env:OSGEO4W_ROOT\bin
 New-Item -Path C:\lib -ItemType SymbolicLink -Value $Env:OSGEO4W_ROOT\lib
 New-Item -Path C:\include -ItemType SymbolicLink -Value $Env:OSGEO4W_ROOT\include
 
-# ============== Copy plugin sources to QGIS project
+Write-Host "====== Copy plugin sources to QGIS project..."
 New-Item -ItemType Directory -Force -Path QGIS/src/plugins/primitive_editing
 Copy-Item -Path "CMakeLists_inside.txt" -Destination "QGIS/src/plugins/primitive_editing/CMakeLists.txt" -Force
 Copy-Item -Path "src" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 Copy-Item -Path "resources" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 Copy-Item -Path "tests" -Destination "QGIS/src/plugins/primitive_editing/" -Recurse -Force
 
-# ============== Prepare build
+Write-Host "====== Prepare build..."
 
 # remove already installed python
 Remove-Item -Recurse C:/hostedtoolcache/windows/Python/
@@ -38,10 +39,7 @@ if ($file) {
 # - do no use -GNinja as cmake will use mingw64
 # - remove -DCMAKE_CXX_FLAGS=-Wno-macro-redefined seems to generate errors
 
-# Debug: Check for zstd library filename
-Write-Host "Checking for ZSTD libraries in $Env:OSGEO4W_ROOT\lib..."
-Get-ChildItem -Path "$Env:OSGEO4W_ROOT\lib" -Filter "zstd*"
-
+Write-Host "====== Running cmake -S..."
 cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DCMAKE_BUILD_TYPE=Release `
   -DAGGRESSIVE_SAFE_MODE=OFF `
@@ -77,7 +75,8 @@ cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
   -DCUSTOM_PLUGINS=primitive_editing
 
 
+Write-Host "====== Running cmake --target help..."
 cmake --build $Env:BUILD_DIR --target help
 
-# ============== Build
-# cmake --build $Env:BUILD_DIR --config Release
+Write-Host "====== Running cmake --build..."
+cmake --build $Env:BUILD_DIR --config Release plugin_primitiveediting

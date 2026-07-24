@@ -76,7 +76,7 @@ cmake -S $Env:PROJ_DIR/QGIS -B $Env:BUILD_DIR `
 
 
 Write-Host "====== Running cmake --target help..."
-cmake --build $Env:BUILD_DIR --target help
+cmake --build $Env:BUILD_DIR --config Release --target help
 
 Write-Host "====== Running cmake --build..."
-cmake --build $Env:BUILD_DIR --config Release plugin_primitiveediting
+cmake --build $Env:BUILD_DIR --config Release --target plugin_primitiveediting

@@ -61,7 +61,7 @@ cmake -S $env:qgis_dir -B $Env:BUILD_DIR `
   -DENABLE_TESTS=OFF `
   -DENABLE_UNITY_BUILDS=OFF `
   -DWITH_3D=ON `
-  -DWITH_ANALYSIS=ON `
+  -DWITH_ANALYSIS=OFF `
   -DWITH_APIDOC=OFF `
   -DWITH_BINDINGS=ON `
   -DWITH_CLAZY=OFF `
@@ -95,4 +95,3 @@ cmake --build $Env:BUILD_DIR --config Release --target help
 
 Write-Host "====== Running cmake --build..."
 cmake --build $Env:BUILD_DIR --config Release --target plugin_primitiveediting -j
-

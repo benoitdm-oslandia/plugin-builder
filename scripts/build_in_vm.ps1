@@ -5,7 +5,7 @@ $Env:PROJ_DIR = "./plugin"
 $env:PROJ_BRANCH = "feat/build3"
 
 $env:OSGEO4W_ROOT = "C:/OSGeo4W"
-$env:Qt6_DIR = "C:/OSGeo4W/apps/Qt6"
+$env:Qt6_DIR = "${env:OSGEO4W_ROOT}/apps/Qt6"
 
 $env:qgis_dir = "./QGIS"
 $env:qgis_version = "4.2.0-1"
@@ -20,6 +20,7 @@ if (-not (Test-Path -Path $Env:PROJ_DIR)) {
 }
 git -C $Env:PROJ_DIR checkout $env:PROJ_BRANCH
 git -C $Env:PROJ_DIR reset --hard $env:PROJ_BRANCH
+git -C $Env:PROJ_DIR clean -fdx
 
 Write-Host "====== Cloning QGIS $env:qgis_branch ..."
 if (-not (Test-Path -Path $env:qgis_dir)) {
@@ -27,6 +28,7 @@ if (-not (Test-Path -Path $env:qgis_dir)) {
 }
 git -C $env:qgis_dir checkout $env:qgis_branch
 git -C $env:qgis_dir reset --hard $env:qgis_branch
+git -C $env:qgis_dir clean -fdx
 
 if ((Get-Command "choco.exe" -ErrorAction SilentlyContinue) -eq $null) {
   Write-Host "====== Installing choco ..."

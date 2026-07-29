@@ -1,3 +1,6 @@
+$ErrorActionPreference = "Stop"
+$currentPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 Write-Host "====== Make osgeo4w links..."
 # Due to some cmake errors, the relative path is lost and resources are searched starting
 # at '/'. These links helps cmake to find the needed resources
@@ -17,6 +20,11 @@ Copy-Item -Path "$Env:PROJ_DIR/CMakeLists_inside.txt" -Destination "$env:qgis_di
 Copy-Item -Path "$Env:PROJ_DIR/src" -Destination "$env:qgis_dir/src/plugins/primitive_editing/" -Recurse -Force
 Copy-Item -Path "$Env:PROJ_DIR/resources" -Destination "$env:qgis_dir/src/plugins/primitive_editing/" -Recurse -Force
 Copy-Item -Path "$Env:PROJ_DIR/tests" -Destination "$env:qgis_dir/src/plugins/primitive_editing/" -Recurse -Force
+
+if (Test-Path -Path "${currentPath}/${env:qgis_branch}.patch") {
+  Write-Host "====== Applying QGIS patch..."
+  git -C $env:qgis_dir apply "${currentPath}/${env:qgis_branch}.patch"
+}
 
 Write-Host "====== Prepare build..."
 

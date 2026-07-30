@@ -18,13 +18,13 @@
 
 #include "primitive_editing_plugin.h"
 
-#include "qgisapp.h"
 #include "qgisinterface.h"
 #include "qgs3dmapcanvaswidget.h"
 #include "qgs3dprimitiveeditingtoolbar.h"
 
 #include <QAction>
 #include <QString>
+#include <QThread>
 
 #include "moc_primitive_editing_plugin.cpp"
 
@@ -50,13 +50,13 @@ QgsPrimitiveEditingPlugin::~QgsPrimitiveEditingPlugin()
 void QgsPrimitiveEditingPlugin::initGui()
 {
   // for existing 3D canvas
-  connect( QgisApp::instance(), &QgisApp::projectRead, this, &QgsPrimitiveEditingPlugin::addToolbarToNewProject );
+  connect( mQGisIface, &QgisInterface::projectRead, this, &QgsPrimitiveEditingPlugin::addToolbarToNewProject );
 
   // for future 3D canvas
-  connect( QgisApp::instance()->actionNew3DMapCanvas(), &QAction::triggered, this, &QgsPrimitiveEditingPlugin::addToolbarToNew3DCanvas );
+  connect( mQGisIface->actionNew3DMapCanvas(), &QAction::triggered, this, &QgsPrimitiveEditingPlugin::addToolbarToNew3DCanvas );
 }
 
-void QgsPrimitiveEditingPlugin::addToolbarTo3DCanvas( Qgs3DMapCanvasWidget *mapView )
+void QgsPrimitiveEditingPlugin::addToolbarTo3DCanvas( Qgs3DMapCanvasWidgetInterface *mapView )
 {
   if ( mapView )
   {
@@ -71,9 +71,9 @@ void QgsPrimitiveEditingPlugin::addToolbarTo3DCanvas( Qgs3DMapCanvasWidget *mapV
 
 void QgsPrimitiveEditingPlugin::addToolbarToNewProject()
 {
-  for ( Qgs3DMapCanvasWidget *mapView : QgisApp::instance()->get3DMapViews() )
+  for ( Qgs3DMapCanvas *canvas : mQGisIface->mapCanvases3D() )
   {
-    addToolbarTo3DCanvas( mapView );
+    addToolbarTo3DCanvas( canvas->canvasWidgetInterface() );
   }
 }
 
@@ -84,7 +84,7 @@ void QgsPrimitiveEditingPlugin::addToolbarToNew3DCanvas()
   QThread::msleep( 100 );
   QThread::yieldCurrentThread();
 
-  addToolbarTo3DCanvas( QgisApp::instance()->get3DMapViews().last() );
+  addToolbarTo3DCanvas( mQGisIface->mapCanvases3D().last()->canvasWidgetInterface() );
 }
 
 void QgsPrimitiveEditingPlugin::help()
@@ -92,7 +92,7 @@ void QgsPrimitiveEditingPlugin::help()
 
 void QgsPrimitiveEditingPlugin::unload()
 {
-  connect( QgisApp::instance()->actionNew3DMapCanvas(), &QAction::triggered, this, &QgsPrimitiveEditingPlugin::addToolbarToNew3DCanvas );
+  connect( mQGisIface->actionNew3DMapCanvas(), &QAction::triggered, this, &QgsPrimitiveEditingPlugin::addToolbarToNew3DCanvas );
 }
 
 /**

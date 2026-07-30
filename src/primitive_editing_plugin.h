@@ -26,7 +26,7 @@
 class QAction;
 class QgisInterface;
 class QgsPrimitiveEditingProgressDialog;
-class Qgs3DMapCanvasWidget;
+class Qgs3DMapCanvasWidgetInterface;
 
 class QgsPrimitiveEditingPlugin : public QObject, public QgisPlugin
 {
@@ -53,7 +53,7 @@ class QgsPrimitiveEditingPlugin : public QObject, public QgisPlugin
     //! Pointer to the QGIS interface object
     QgisInterface *mQGisIface = nullptr;
 
-    void addToolbarTo3DCanvas( Qgs3DMapCanvasWidget *mapView );
+    void addToolbarTo3DCanvas( Qgs3DMapCanvasWidgetInterface *mapView );
 
   private slots:
 };

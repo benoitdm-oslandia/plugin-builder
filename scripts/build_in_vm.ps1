@@ -17,17 +17,21 @@ $Env:BUILD_DIR = "./build"
 Write-Host "====== Cloning plugin $env:PROJ_BRANCH..."
 if (-not (Test-Path -Path $Env:PROJ_DIR)) {
   git clone https://github.com/benoitdm-oslandia/plugin-builder.git $Env:PROJ_DIR
+} else {
+  git -C $Env:PROJ_DIR fetch
 }
 git -C $Env:PROJ_DIR checkout $env:PROJ_BRANCH
-git -C $Env:PROJ_DIR reset --hard $env:PROJ_BRANCH
+git -C $Env:PROJ_DIR reset --hard origin/$env:PROJ_BRANCH
 git -C $Env:PROJ_DIR clean -fdx
 
 Write-Host "====== Cloning QGIS $env:qgis_branch ..."
 if (-not (Test-Path -Path $env:qgis_dir)) {
   git clone https://github.com/qgis/qgis.git $env:qgis_dir
+} else {
+  git -C $Env:qgis_dir fetch
 }
 git -C $env:qgis_dir checkout $env:qgis_branch
-git -C $env:qgis_dir reset --hard $env:qgis_branch
+git -C $env:qgis_dir reset --hard origin/$env:qgis_branch
 git -C $env:qgis_dir clean -fdx
 
 if ((Get-Command "choco.exe" -ErrorAction SilentlyContinue) -eq $null) {

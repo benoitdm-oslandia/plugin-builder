@@ -23,8 +23,10 @@ Copy-Item -Path "$Env:PROJ_DIR/tests" -Destination "$env:qgis_dir/src/plugins/pr
 
 if (Test-Path -Path "${currentPath}/${env:qgis_branch}.patch") {
   Write-Host "====== Applying QGIS patch..."
-  git -C $env:qgis_dir apply "${currentPath}/${env:qgis_branch}.patch"
+  git -C $env:qgis_dir apply --3way "${currentPath}/${env:qgis_branch}.patch"
 }
+(Get-Content $env:qgis_dir/src/app/CMakeLists.txt) | Where-Object { $_ -notmatch '3d/qgsunlitmaterialwidget\.' } | Set-Content $env:qgis_dir/src/app/CMakeLists.txt
+(Get-Content $env:qgis_dir/src/3d/CMakeLists.txt) | Where-Object { $_ -notmatch 'materials/qgsunlitmaterial3dhandler\.' } | Set-Content $env:qgis_dir/src/3d/CMakeLists.txt
 
 Write-Host "====== Prepare build..."
 

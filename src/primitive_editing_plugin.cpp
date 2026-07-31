@@ -19,7 +19,7 @@
 #include "primitive_editing_plugin.h"
 
 #include "qgisinterface.h"
-#include "qgs3dmapcanvaswidget.h"
+#include "qgs3dmapcanvas.h"
 #include "qgs3dprimitiveeditingtoolbar.h"
 
 #include <QAction>

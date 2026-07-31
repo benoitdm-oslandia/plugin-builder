@@ -75,6 +75,7 @@ target_link_libraries(plugin_primitiveediting PRIVATE
   qgis_core
   qgis_gui
   qgis_3d
+  qgis_app
 )
 
 ########################################################

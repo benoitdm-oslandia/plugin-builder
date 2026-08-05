@@ -1,46 +1,16 @@
 diff --git a/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in b/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
-index 7051d9deedb..57b7a8aa0ec 100644
+index 7051d9deedb..7fffec84c28 100644
 --- a/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
 +++ b/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
-@@ -12,6 +12,28 @@
+@@ -11,7 +11,6 @@
  
  
  
-+
-+class Qgs3DMapCanvasWidgetInterface
-+{
-+%Docstring(signature="appended")
-+Convenience wrapper to wrap Qgs3DMapCanvasWidget function from
-+Qgs3DMapCanvas.
-+
-+.. versionadded:: 4.4
-+%End
-+
-+%TypeHeaderCode
-+#include "qgs3dmapcanvas.h"
-+%End
-+  public:
-+    Qgs3DMapCanvasWidgetInterface();
-+    virtual ~Qgs3DMapCanvasWidgetInterface();
-+
-+
-+
-+
-+};
-+
+-
  class Qgs3DMapCanvas : QWindow
  {
  %Docstring(signature="appended")
-@@ -37,7 +59,7 @@ used with QGIS.
- #include "qgs3dmapcanvas.h"
- %End
-   public:
--    Qgs3DMapCanvas();
-+    Qgs3DMapCanvas( Qgs3DMapCanvasWidgetInterface *widgetInterface = 0 );
-     ~Qgs3DMapCanvas();
- 
-     Qgs3DMapSettings *mapSettings();
-@@ -57,6 +79,7 @@ scene has not been initialized yet with
+@@ -57,6 +56,7 @@ scene has not been initialized yet with
  :py:func:`~Qgs3DMapCanvas.setMapSettings`
  %End
  
@@ -227,10 +197,10 @@ index 00000000000..0b9345f9dcd
 +  exit $RET
 +fi
 diff --git a/src/3d/CMakeLists.txt b/src/3d/CMakeLists.txt
-index 67ef137e338..479934f5820 100644
+index 67ef137e338..651f7720618 100644
 --- a/src/3d/CMakeLists.txt
 +++ b/src/3d/CMakeLists.txt
-@@ -13,6 +13,7 @@ set(QGIS_3D_SRCS
+@@ -13,12 +13,14 @@ set(QGIS_3D_SRCS
    qgsannotationlayerchunkloader_p.cpp
    qgs3danimationsettings.cpp
    qgs3dexportobject.cpp
@@ -238,7 +208,22 @@ index 67ef137e338..479934f5820 100644
    qgs3dhighlightfeaturehandler.cpp
    qgs3dmapexportsettings.cpp
    qgs3dmapscene.cpp
-@@ -99,6 +100,7 @@ set(QGIS_3D_SRCS
+   qgs3dmapsettings.cpp
+   qgs3dmaptool.cpp
+   qgs3dmapcanvas.cpp
++  qgs3dmapcanvaswidgetinterface.cpp
+   qgscolorgradingsettings.cpp
+   qgscrosssection.cpp
+   qgs3drendercontext.cpp
+@@ -37,6 +39,7 @@ set(QGIS_3D_SRCS
+   qgsglobechunkedentity.cpp
+   qgsgltf3dutils.cpp
+   qgsimagetexture.cpp
++  qgslateralpanelwidget.cpp
+   qgslayoutitem3dmap.cpp
+   qgslayerstylewatcher.cpp
+   qgsmapoverlayentity.cpp
+@@ -99,6 +102,7 @@ set(QGIS_3D_SRCS
    materials/qgssimplelinematerial3dhandler.cpp
    materials/qgstexturematerial.cpp
    materials/qgsunlitmaterial.cpp
@@ -246,7 +231,7 @@ index 67ef137e338..479934f5820 100644
  
    processing/qgs3dalgorithms.cpp
    processing/qgsalgorithmtessellate.cpp
-@@ -171,6 +173,7 @@ set(QGIS_3D_HDRS
+@@ -171,6 +175,7 @@ set(QGIS_3D_HDRS
    qgs3danimationsettings.h
    qgs3daxis.h
    qgs3daxissettings.h
@@ -254,7 +239,23 @@ index 67ef137e338..479934f5820 100644
    qgs3dhighlightfeaturehandler.h
    qgs3dmapscene.h
    qgs3dmapsettings.h
-@@ -249,6 +252,7 @@ set(QGIS_3D_HDRS
+@@ -181,6 +186,7 @@ set(QGIS_3D_HDRS
+   qgs3dtypes.h
+   qgs3dutils.h
+   qgs3dmapcanvas.h
++  qgs3dmapcanvaswidgetinterface.h
+   qgscolorgradingsettings.h
+   qgscrosssection.h
+   qgs3dwiredmesh_p.h
+@@ -200,6 +206,7 @@ set(QGIS_3D_HDRS
+   qgsgeotransform.h
+   qgsglobechunkedentity.h
+   qgsgltf3dutils.h
++  qgslateralpanelwidget.h
+   qgslayoutitem3dmap.h
+   qgslayerstylewatcher.h
+   qgsmapoverlayentity.h
+@@ -249,6 +256,7 @@ set(QGIS_3D_HDRS
    materials/qgssimplelinematerial3dhandler.h
    materials/qgstexturematerial.h
    materials/qgsunlitmaterial.h
@@ -370,17 +371,17 @@ index 00000000000..ee0564018cc
 +
 +#endif // QGS3DEDITINGTOOLBAR_H
 diff --git a/src/3d/qgs3dmapcanvas.cpp b/src/3d/qgs3dmapcanvas.cpp
-index 9af8b5b9002..9c321bf4de7 100644
+index 9af8b5b9002..57b96b0ff66 100644
 --- a/src/3d/qgs3dmapcanvas.cpp
 +++ b/src/3d/qgs3dmapcanvas.cpp
-@@ -28,6 +28,7 @@
+@@ -16,6 +16,7 @@
+ #include "qgs3dmapcanvas.h"
  
- #include <QString>
- #include <QTimer>
-+#include <QTabBar>
- #include <Qt3DCore/QAspectEngine>
- #include <Qt3DCore/QCoreAspect>
- #include <Qt3DInput/QInputAspect>
+ #include "qgs3daxis.h"
++#include "qgs3dmapcanvaswidgetinterface.h"
+ #include "qgs3dmapscene.h"
+ #include "qgs3dmapsettings.h"
+ #include "qgs3dmaptool.h"
 @@ -41,8 +42,8 @@
  
  using namespace Qt::StringLiterals;
@@ -392,16 +393,15 @@ index 9af8b5b9002..9c321bf4de7 100644
    , m_renderAspect( new Qt3DRender::QRenderAspect )
    , m_inputAspect( new Qt3DInput::QInputAspect )
    , m_logicAspect( new Qt3DLogic::QLogicAspect )
-@@ -50,6 +51,8 @@ Qgs3DMapCanvas::Qgs3DMapCanvas()
+@@ -50,6 +51,7 @@ Qgs3DMapCanvas::Qgs3DMapCanvas()
    , m_defaultCamera( new Qt3DRender::QCamera )
    , m_inputSettings( new Qt3DInput::QInputSettings )
    , m_root( new Qt3DCore::QEntity )
-+  , m_widgetInterface( widgetInterface )
-+
++  , mWidgetInterface( widgetInterface )
  {
    setSurfaceType( QSurface::OpenGLSurface );
  
-@@ -85,8 +88,11 @@ Qgs3DMapCanvas::~Qgs3DMapCanvas()
+@@ -85,8 +87,11 @@ Qgs3DMapCanvas::~Qgs3DMapCanvas()
    mScene = nullptr;
    mMapSettings->deleteLater();
    mMapSettings = nullptr;
@@ -410,11 +410,11 @@ index 9af8b5b9002..9c321bf4de7 100644
 -  delete m_aspectEngine;
 +Qgs3DMapCanvasWidgetInterface *Qgs3DMapCanvas::canvasWidgetInterface()
 +{
-+  return m_widgetInterface;
++  return mWidgetInterface;
  }
  
  void Qgs3DMapCanvas::setRootEntity( Qt3DCore::QEntity *root )
-@@ -328,7 +334,6 @@ bool Qgs3DMapCanvas::eventFilter( QObject *watched, QEvent *event )
+@@ -328,7 +333,6 @@ bool Qgs3DMapCanvas::eventFilter( QObject *watched, QEvent *event )
        event->accept();
        return true;
      }
@@ -422,12 +422,209 @@ index 9af8b5b9002..9c321bf4de7 100644
    }
  
    if ( !mMapTool )
-@@ -405,3 +410,93 @@ void Qgs3DMapCanvas::clearHighlights()
+diff --git a/src/3d/qgs3dmapcanvas.h b/src/3d/qgs3dmapcanvas.h
+index 2166da35938..7f302d30215 100644
+--- a/src/3d/qgs3dmapcanvas.h
++++ b/src/3d/qgs3dmapcanvas.h
+@@ -73,7 +73,7 @@ class QgsRectangle;
+ class QgsRubberBand3D;
+ class QgsTemporalController;
+ class QgsWindow3DEngine;
+-
++class Qgs3DMapCanvasWidgetInterface;
+ 
+ /**
+  * \ingroup qgis_3d
+@@ -89,7 +89,11 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
  {
-   mHighlightsHandler->clearHighlights();
- }
+     Q_OBJECT
+   public:
++#ifndef SIP_RUN
++    Qgs3DMapCanvas( Qgs3DMapCanvasWidgetInterface *widgetInterface = nullptr );
++#else
+     Qgs3DMapCanvas();
++#endif
+     ~Qgs3DMapCanvas() override;
+ 
+     //! Returns access to the 3D scene configuration
+@@ -101,6 +105,9 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     //! Returns access to the view's camera controller. Returns NULLPTR if the scene has not been initialized yet with setMapSettings()
+     QgsCameraController *cameraController();
+ 
++    //! Returns widget interface to Qgs3DMapCanvasWidget
++    Qgs3DMapCanvasWidgetInterface *canvasWidgetInterface() SIP_SKIP;
 +
-+// =======================================
+     /**
+      * Sets the active map \a tool that will receive events from the 3D canvas. Does not transfer ownership.
+      * If the tool is NULLPTR, events will be used for camera manipulation.
+@@ -268,7 +275,7 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     bool eventFilter( QObject *watched, QEvent *event ) override;
+ 
+   private:
+-    Qt3DCore::QAspectEngine *m_aspectEngine;
++    std::unique_ptr<Qt3DCore::QAspectEngine> m_aspectEngine;
+ 
+     // Aspects
+     Qt3DRender::QRenderAspect *m_renderAspect;
+@@ -306,6 +313,8 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     std::unique_ptr<Qgs3DHighlightFeatureHandler> mHighlightsHandler = nullptr;
+ 
+     QgsCrossSection mCrossSection;
++
++    Qgs3DMapCanvasWidgetInterface *mWidgetInterface;
+ };
+ 
+ #endif //QGS3DMAPCANVAS_H
+diff --git a/src/3d/qgs3dmapcanvaswidgetinterface.cpp b/src/3d/qgs3dmapcanvaswidgetinterface.cpp
+new file mode 100644
+index 00000000000..7a35a73cb85
+--- /dev/null
++++ b/src/3d/qgs3dmapcanvaswidgetinterface.cpp
+@@ -0,0 +1,38 @@
++/***************************************************************************
++  qgs3dmapcanvaswidgetinterface.cpp
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgs3dmapcanvaswidgetinterface.h"
++
++#include "qgs3deditingtoolbar.h"
++
++void Qgs3DMapCanvasWidgetInterface::addEditingToolBar( Qgs3DEditingToolBar *newToolBar )
++{
++  ( void ) newToolBar;
++};
++
++QList<Qgs3DEditingToolBar *> Qgs3DMapCanvasWidgetInterface::editingToolBars() const
++{
++  return {};
++}
++
++Qgs3DMapCanvas *Qgs3DMapCanvasWidgetInterface::mapCanvas3D()
++{
++  return nullptr;
++}
++
++QgsLateralPanelWidget *Qgs3DMapCanvasWidgetInterface::lateralPanel() const
++{
++  return nullptr;
++}
+diff --git a/src/3d/qgs3dmapcanvaswidgetinterface.h b/src/3d/qgs3dmapcanvaswidgetinterface.h
+new file mode 100644
+index 00000000000..9f20aa742c1
+--- /dev/null
++++ b/src/3d/qgs3dmapcanvaswidgetinterface.h
+@@ -0,0 +1,55 @@
++/***************************************************************************
++  qgs3dmapcanvaswidgetinterface.h
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGS3DMAPCANVASWIDGETINTERFACE_H
++#define QGS3DMAPCANVASWIDGETINTERFACE_H
++
++#include "qgis.h"
++#include "qgis_3d.h"
++
++class Qgs3DEditingToolBar;
++class Qgs3DMapCanvas;
++class QgsLateralPanelWidget;
++
++/**
++ * \ingroup qgis_3d
++ * \brief Convenience wrapper to wrap Qgs3DMapCanvasWidget function from Qgs3DMapCanvas.
++ *
++ * \since QGIS 4.4
++ */
++class _3D_EXPORT Qgs3DMapCanvasWidgetInterface
++{
++  public:
++    Qgs3DMapCanvasWidgetInterface() = default;
++    virtual ~Qgs3DMapCanvasWidgetInterface() = default;
++
++    /**
++     * Add new editing toolbar.
++     * Takes ownership
++     * \param newToolBar new toolbar
++     */
++    virtual void addEditingToolBar( Qgs3DEditingToolBar *newToolBar ) SIP_SKIP;
++
++    //! Returns all added editing toolbars
++    virtual QList<Qgs3DEditingToolBar *> editingToolBars() const SIP_SKIP;
++
++    //! Returns 3D mapCanvas
++    virtual Qgs3DMapCanvas *mapCanvas3D() SIP_SKIP;
++
++    //! Returns lateral panel widget
++    virtual QgsLateralPanelWidget *lateralPanel() const SIP_SKIP;
++};
++
++#endif //QGS3DMAPCANVASWIDGETINTERFACE_H
+diff --git a/src/3d/qgsgeotransform.h b/src/3d/qgsgeotransform.h
+index da5c71a3ae6..f88e4876815 100644
+--- a/src/3d/qgsgeotransform.h
++++ b/src/3d/qgsgeotransform.h
+@@ -28,6 +28,7 @@
+ //
+ 
+ 
++#include "qgis_3d.h"
+ #include "qgsvector3d.h"
+ 
+ #include <Qt3DCore/QTransform>
+@@ -40,7 +41,7 @@
+  * - stores translation as QgsVector3D, i.e. in double precision
+  * - reacts to map scene's origin shifts and updates the QTransform accordingly
+  */
+-class QgsGeoTransform : public Qt3DCore::QTransform
++class _3D_EXPORT QgsGeoTransform : public Qt3DCore::QTransform
+ {
+     Q_OBJECT
+   public:
+diff --git a/src/3d/qgslateralpanelwidget.cpp b/src/3d/qgslateralpanelwidget.cpp
+new file mode 100644
+index 00000000000..0f67d774a6b
+--- /dev/null
++++ b/src/3d/qgslateralpanelwidget.cpp
+@@ -0,0 +1,106 @@
++/***************************************************************************
++  qgslateralpanelwidget.cpp
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgslateralpanelwidget.h"
++#include <QTabBar>
++
 +
 +QgsLateralPanelWidget::QgsLateralPanelWidget( QAction *toggleAction, QWidget *parent )
 +  : QTabWidget( parent )
@@ -516,29 +713,43 @@ index 9af8b5b9002..9c321bf4de7 100644
 +{
 +  mToggleAction->setChecked( false );
 +}
-diff --git a/src/3d/qgs3dmapcanvas.h b/src/3d/qgs3dmapcanvas.h
-index 2166da35938..a636060540f 100644
---- a/src/3d/qgs3dmapcanvas.h
-+++ b/src/3d/qgs3dmapcanvas.h
-@@ -24,6 +24,7 @@
- #include "qgsraycastresult.h"
- 
- #include <QtGui/QWindow>
+diff --git a/src/3d/qgslateralpanelwidget.h b/src/3d/qgslateralpanelwidget.h
+new file mode 100644
+index 00000000000..c88731bc68b
+--- /dev/null
++++ b/src/3d/qgslateralpanelwidget.h
+@@ -0,0 +1,98 @@
++/***************************************************************************
++  qgslateralpanelwidget.h
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGSLATERALPANELWIDGET_H
++#define QGSLATERALPANELWIDGET_H
++
++#include "qgis.h"
++#include "qgis_3d.h"
++#include "qgslateralpanelwidget.h"
++
 +#include <QTabWidget>
- 
- #ifndef SIP_RUN
- namespace Qt3DCore
-@@ -73,8 +74,118 @@ class QgsRectangle;
- class QgsRubberBand3D;
- class QgsTemporalController;
- class QgsWindow3DEngine;
++
 +class Qgs3DEditingToolBar;
 +class Qgs3DMapCanvas;
 +
 +/**
 + * \ingroup qgis_3d
 + * Provide abstraction to lateral panel
-+ * \since QGIS 4.4.0
++ * \since QGIS 4.4
 + */
 +class _3D_EXPORT QgsLateralPanelWidget : public QTabWidget SIP_SKIP
 +{
@@ -604,109 +815,10 @@ index 2166da35938..a636060540f 100644
 +  private:
 +    QAction *mToggleAction = nullptr;
 +};
- 
- 
-+/**
-+ * \ingroup qgis_3d
-+ * \brief Convenience wrapper to wrap Qgs3DMapCanvasWidget function from Qgs3DMapCanvas.
-+ *
-+ * \since QGIS 4.4
-+ */
-+class _3D_EXPORT Qgs3DMapCanvasWidgetInterface
-+{
-+  public:
-+    Qgs3DMapCanvasWidgetInterface() = default;
-+    virtual ~Qgs3DMapCanvasWidgetInterface() = default;
 +
-+    virtual void addEditingToolBar( Qgs3DEditingToolBar *newToolBar ) SIP_SKIP //
-+    {
-+      ( void ) newToolBar;
-+    };
-+
-+    /**
-+     * Returns all added editing toolbars
-+     */
-+    virtual QList<Qgs3DEditingToolBar *> editingToolBars() const SIP_SKIP //
-+    {
-+      return {};
-+    }
-+
-+    //! Returns 3D mapCanvas
-+    virtual Qgs3DMapCanvas *mapCanvas3D() SIP_SKIP //
-+    {
-+      return nullptr;
-+    }
-+
-+    //! Returns lateral panel widget
-+    virtual QgsLateralPanelWidget *lateralPanel() const SIP_SKIP //
-+    {
-+      return nullptr;
-+    }
-+};
-+
- /**
-  * \ingroup qgis_3d
-  * \brief Convenience wrapper to simplify the creation of a 3D window ready to be used with QGIS.
-@@ -89,7 +200,7 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
- {
-     Q_OBJECT
-   public:
--    Qgs3DMapCanvas();
-+    Qgs3DMapCanvas( Qgs3DMapCanvasWidgetInterface *widgetInterface = nullptr );
-     ~Qgs3DMapCanvas() override;
- 
-     //! Returns access to the 3D scene configuration
-@@ -101,6 +212,9 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
-     //! Returns access to the view's camera controller. Returns NULLPTR if the scene has not been initialized yet with setMapSettings()
-     QgsCameraController *cameraController();
- 
-+    //! Returns widget interface to Qgs3DMapCanvasWidget
-+    Qgs3DMapCanvasWidgetInterface *canvasWidgetInterface() SIP_SKIP;
-+
-     /**
-      * Sets the active map \a tool that will receive events from the 3D canvas. Does not transfer ownership.
-      * If the tool is NULLPTR, events will be used for camera manipulation.
-@@ -268,7 +382,7 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
-     bool eventFilter( QObject *watched, QEvent *event ) override;
- 
-   private:
--    Qt3DCore::QAspectEngine *m_aspectEngine;
-+    std::unique_ptr<Qt3DCore::QAspectEngine> m_aspectEngine;
- 
-     // Aspects
-     Qt3DRender::QRenderAspect *m_renderAspect;
-@@ -306,6 +420,8 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
-     std::unique_ptr<Qgs3DHighlightFeatureHandler> mHighlightsHandler = nullptr;
- 
-     QgsCrossSection mCrossSection;
-+
-+    Qgs3DMapCanvasWidgetInterface *m_widgetInterface;
- };
- 
- #endif //QGS3DMAPCANVAS_H
-diff --git a/src/3d/qgsgeotransform.h b/src/3d/qgsgeotransform.h
-index da5c71a3ae6..f88e4876815 100644
---- a/src/3d/qgsgeotransform.h
-+++ b/src/3d/qgsgeotransform.h
-@@ -28,6 +28,7 @@
- //
- 
- 
-+#include "qgis_3d.h"
- #include "qgsvector3d.h"
- 
- #include <Qt3DCore/QTransform>
-@@ -40,7 +41,7 @@
-  * - stores translation as QgsVector3D, i.e. in double precision
-  * - reacts to map scene's origin shifts and updates the QTransform accordingly
-  */
--class QgsGeoTransform : public Qt3DCore::QTransform
-+class _3D_EXPORT QgsGeoTransform : public Qt3DCore::QTransform
- {
-     Q_OBJECT
-   public:
++#endif //QGSLATERALPANELWIDGET_H
 diff --git a/src/app/3d/qgs3dmapcanvaswidget.cpp b/src/app/3d/qgs3dmapcanvaswidget.cpp
-index e6dbdf3cb07..68f584114c8 100644
+index e6dbdf3cb07..be489e22df5 100644
 --- a/src/app/3d/qgs3dmapcanvaswidget.cpp
 +++ b/src/app/3d/qgs3dmapcanvaswidget.cpp
 @@ -20,7 +20,7 @@
@@ -729,7 +841,14 @@ index e6dbdf3cb07..68f584114c8 100644
  #include "qgs3dutils.h"
  #include "qgsannotationlayer.h"
  #include "qgsapplication.h"
-@@ -70,7 +69,9 @@
+@@ -64,13 +63,16 @@
+ #include "qgssettingstree.h"
+ #include "qgsshortcutsmanager.h"
+ #include "qgswindow3dengine.h"
++#include "qgslateralpanelwidget.h"
+ 
+ #include <QAction>
+ #include <QActionGroup>
  #include <QProgressBar>
  #include <QShortcut>
  #include <QString>
@@ -739,7 +858,7 @@ index e6dbdf3cb07..68f584114c8 100644
  #include <QWidget>
  
  #include "moc_qgs3dmapcanvaswidget.cpp"
-@@ -104,97 +105,27 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -104,97 +106,27 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
    // Editing toolbar
    mEditingToolBar = new QToolBar( this );
    mEditingToolBar->setWindowTitle( tr( "Editing Toolbar" ) );
@@ -847,7 +966,7 @@ index e6dbdf3cb07..68f584114c8 100644
  
    toolBar->addSeparator();
  
-@@ -205,15 +136,17 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -205,15 +137,17 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
    actionMeasurementTool->setCheckable( true );
  
    // Create action group to make the action exclusive
@@ -874,7 +993,7 @@ index e6dbdf3cb07..68f584114c8 100644
  
    mActionAnim = toolBar->addAction( QIcon( QgsApplication::iconPath( "mTaskRunning.svg" ) ), tr( "Animations" ), this, &Qgs3DMapCanvasWidget::toggleAnimations );
    mActionAnim->setCheckable( true );
-@@ -387,7 +320,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -387,7 +321,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
    connect( configureAction, &QAction::triggered, this, &Qgs3DMapCanvasWidget::configure );
    toolBar->addAction( configureAction );
  
@@ -883,7 +1002,7 @@ index e6dbdf3cb07..68f584114c8 100644
    mCanvas->setMinimumSize( QSize( 200, 200 ) );
  
    connect( mCanvas, &Qgs3DMapCanvas::savedAsImage, this, []( const QString &fileName ) {
-@@ -411,8 +344,6 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -411,8 +345,6 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
  
    mMapToolMeasureLine = new Qgs3DMapToolMeasureLine( this );
  
@@ -892,7 +1011,7 @@ index e6dbdf3cb07..68f584114c8 100644
    mLabelPendingJobs = new QLabel( this );
    mProgressPendingJobs = new QProgressBar( this );
    mProgressPendingJobs->setRange( 0, 0 );
-@@ -443,6 +374,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -443,6 +375,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
      mLabelNavSpeedHideTimeout->stop();
    } );
  
@@ -900,7 +1019,7 @@ index e6dbdf3cb07..68f584114c8 100644
    QVBoxLayout *layout = new QVBoxLayout;
    layout->setContentsMargins( 0, 0, 0, 0 );
    layout->setSpacing( 0 );
-@@ -454,20 +386,29 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -454,20 +387,29 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
    mContainer = QWidget::createWindowContainer( mCanvas );
    mContainer->setMinimumSize( QSize( 200, 200 ) );
    mContainer->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding );
@@ -932,7 +1051,7 @@ index e6dbdf3cb07..68f584114c8 100644
    toggleNavigationWidget( setting.value( u"/3D/navigationWidget/visibility"_s, false, QgsSettings::Gui ).toBool() );
  
    layout->addLayout( hLayout );
-@@ -491,6 +432,10 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+@@ -491,6 +433,10 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
    connect( mDockableWidgetHelper, &QgsDockableWidgetHelper::closed, this, [this]() { QgisApp::instance()->close3DMapView( canvasName() ); } );
    connect( dockAction, &QAction::toggled, this, [toolBar]( const bool isSmallSize ) { toolBar->setIconSize( QgisApp::instance()->iconSize( isSmallSize ) ); } );
  
@@ -943,7 +1062,7 @@ index e6dbdf3cb07..68f584114c8 100644
    updateLayerRelatedActions( QgisApp::instance()->activeLayer() );
    mEditingToolBar->setVisible( setting.value( u"/3D/editingToolbar/visibility"_s, false, QgsSettings::Gui ).toBool() );
  
-@@ -519,6 +464,37 @@ Qgs3DMapCanvasWidget::~Qgs3DMapCanvasWidget()
+@@ -519,6 +465,37 @@ Qgs3DMapCanvasWidget::~Qgs3DMapCanvasWidget()
    delete mDockableWidgetHelper;
  }
  
@@ -981,7 +1100,7 @@ index e6dbdf3cb07..68f584114c8 100644
  void Qgs3DMapCanvasWidget::saveAsImage()
  {
    const QPair<QString, QString> fileNameAndFilter = QgsGuiUtils::getSaveAsImageName( this, tr( "Choose a file name to save the 3D map canvas to an image" ) );
-@@ -572,140 +548,78 @@ void Qgs3DMapCanvasWidget::measureLine()
+@@ -572,140 +549,78 @@ void Qgs3DMapCanvasWidget::measureLine()
    mCanvas->setMapTool( action->isChecked() ? mMapToolMeasureLine : nullptr );
  }
  
@@ -1172,7 +1291,7 @@ index e6dbdf3cb07..68f584114c8 100644
  }
  
  bool Qgs3DMapCanvasWidget::eventFilter( QObject *watched, QEvent *event )
-@@ -730,7 +644,14 @@ bool Qgs3DMapCanvasWidget::eventFilter( QObject *watched, QEvent *event )
+@@ -730,7 +645,14 @@ bool Qgs3DMapCanvasWidget::eventFilter( QObject *watched, QEvent *event )
  
  void Qgs3DMapCanvasWidget::toggleNavigationWidget( const bool visibility )
  {
@@ -1188,7 +1307,7 @@ index e6dbdf3cb07..68f584114c8 100644
    QgsSettings setting;
    setting.setValue( u"/3D/navigationWidget/visibility"_s, visibility, QgsSettings::Gui );
  }
-@@ -740,6 +661,12 @@ void Qgs3DMapCanvasWidget::toggleEditingToolbar( const bool visibility )
+@@ -740,6 +662,12 @@ void Qgs3DMapCanvasWidget::toggleEditingToolbar( const bool visibility )
    mEditingToolBar->setVisible( visibility );
    QgsSettings setting;
    setting.setValue( u"/3D/editingToolbar/visibility"_s, visibility, QgsSettings::Gui );
@@ -1201,7 +1320,7 @@ index e6dbdf3cb07..68f584114c8 100644
  }
  
  void Qgs3DMapCanvasWidget::toggleFpsCounter( const bool visibility )
-@@ -749,7 +676,14 @@ void Qgs3DMapCanvasWidget::toggleFpsCounter( const bool visibility )
+@@ -749,7 +677,14 @@ void Qgs3DMapCanvasWidget::toggleFpsCounter( const bool visibility )
  
  void Qgs3DMapCanvasWidget::toggleDebugWidget( const bool visibility ) const
  {
@@ -1217,7 +1336,7 @@ index e6dbdf3cb07..68f584114c8 100644
  }
  
  // this is used only for keyboard shortcut, you should supply the visibility value
-@@ -758,7 +692,7 @@ void Qgs3DMapCanvasWidget::toggleDebugWidget() const
+@@ -758,7 +693,7 @@ void Qgs3DMapCanvasWidget::toggleDebugWidget() const
    Qgis::Map3DDebugFlags debugFlags = mCanvas->mapSettings()->debugFlags();
    debugFlags.setFlag( Qgis::Map3DDebugFlag::ShowDebugPanel, !debugFlags.testFlag( Qgis::Map3DDebugFlag::ShowDebugPanel ) );
    mCanvas->mapSettings()->setDebugFlags( debugFlags );
@@ -1226,7 +1345,7 @@ index e6dbdf3cb07..68f584114c8 100644
  }
  
  void Qgs3DMapCanvasWidget::setMapSettings( Qgs3DMapSettings *map )
-@@ -1116,166 +1050,6 @@ void Qgs3DMapCanvasWidget::onGpuMemoryLimitReached()
+@@ -1116,166 +1051,6 @@ void Qgs3DMapCanvasWidget::onGpuMemoryLimitReached()
    mGpuMemoryLimitReachedReported = true;
  }
  
@@ -1394,14 +1513,14 @@ index e6dbdf3cb07..68f584114c8 100644
  {
    if ( !qobject_cast<QgsMapToolExtent *>( mMainCanvas->mapTool() ) )
 diff --git a/src/app/3d/qgs3dmapcanvaswidget.h b/src/app/3d/qgs3dmapcanvaswidget.h
-index 5dbb1c6cebf..36cc0fdfab7 100644
+index 5dbb1c6cebf..86e2fa3b9dc 100644
 --- a/src/app/3d/qgs3dmapcanvaswidget.h
 +++ b/src/app/3d/qgs3dmapcanvaswidget.h
 @@ -17,6 +17,7 @@
  #define QGS3DMAPCANVASWIDGET_H
  
  #include "qgis_app.h"
-+#include "qgs3dmapcanvas.h"
++#include "qgs3dmapcanvaswidgetinterface.h"
  #include "qgsgeometry.h"
  #include "qgsrectangle.h"
  #include "qobjectuniqueptr.h"
@@ -1442,32 +1561,18 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
  
      Qgs3DAnimationWidget *animationWidget() { return mAnimationWidget; }
  
-@@ -98,6 +104,14 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -98,6 +104,10 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
  
      QgsDockableWidgetHelper *dockableWidgetHelper() { return mDockableWidgetHelper; }
  
-+    /**
-+     * Add new editing toolbar.
-+     * Takes ownership
-+     * \param newToolBar new toolbar
-+     */
 +    void addEditingToolBar( Qgs3DEditingToolBar *newToolBar ) override;
 +    QList<Qgs3DEditingToolBar *> editingToolBars() const override;
++    QgsLateralPanelWidget *lateralPanel() const override;
 +
      void setCanvasName( const QString &name );
      QString canvasName() const { return mCanvasName; }
  
-@@ -119,6 +133,9 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
- 
-     void updateProfileCursorPosition( QgsElevationProfile *profile, const QgsPointXY &mapPoint, const QgsProfilePoint &profilePoint );
- 
-+    //! Returns lateral panel widget
-+    QgsLateralPanelWidget *lateralPanel() const override;
-+
-   private slots:
-     void resetView();
-     void configure();
-@@ -128,11 +145,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -128,11 +138,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      void cameraControl();
      void identify();
      void measureLine();
@@ -1479,7 +1584,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      void exportScene();
      void toggleNavigationWidget( bool visibility );
      void toggleEditingToolbar( bool visibility );
-@@ -159,8 +171,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -159,8 +164,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      void onExtentChanged();
      void onGpuMemoryLimitReached();
  
@@ -1488,7 +1593,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      void onCrossSectionToolFinished();
  
    private:
-@@ -171,6 +181,8 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -171,6 +174,8 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      void updateProfileRubberBands( QgsElevationProfile *profile );
      void hideProfileRubberBands( QgsElevationProfile *profile );
  
@@ -1497,7 +1602,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      QString mCanvasName;
      Qgs3DMapCanvas *mCanvas = nullptr;
      Qgs3DAnimationWidget *mAnimationWidget = nullptr;
-@@ -182,7 +194,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -182,7 +187,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      QTimer *mLabelNavSpeedHideTimeout = nullptr;
      Qgs3DMapToolIdentify *mMapToolIdentify = nullptr;
      Qgs3DMapToolMeasureLine *mMapToolMeasureLine = nullptr;
@@ -1505,7 +1610,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      QgsGeometry mCrossSectionLine;
      QObjectUniquePtr<QgsRubberBand> mCrossSectionRubberBand;
      std::unique_ptr<QgsMapToolExtent> mMapToolExtent;
-@@ -193,7 +204,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -193,7 +197,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      QMenu *mCameraMenu = nullptr;
      QMenu *mCrossSectionMenu = nullptr;
      QMenu *mEffectsMenu = nullptr;
@@ -1513,7 +1618,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      QList<QAction *> mMapThemeMenuPresetActions;
      QAction *mActionEnableShadows = nullptr;
      QAction *mActionEnableEyeDome = nullptr;
-@@ -213,14 +223,14 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -213,14 +216,14 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      QAction *mActionSetSceneExtent = nullptr;
      QAction *mActionSetClippingPlanes = nullptr;
      QAction *mActionDisableClippingPlanes = nullptr;
@@ -1531,7 +1636,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      QgsDockableWidgetHelper *mDockableWidgetHelper = nullptr;
      QObjectUniquePtr<QgsRubberBand> mViewFrustumHighlight;
      QObjectUniquePtr<QgsRubberBand> mViewExtentHighlight;
-@@ -229,6 +239,10 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -229,6 +232,10 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      QgsMessageBar *mMessageBar = nullptr;
      bool mGpuMemoryLimitReachedReported = false;
  
@@ -1542,7 +1647,7 @@ index 5dbb1c6cebf..36cc0fdfab7 100644
      //! Container QWidget that encapsulates 3D QWindow
      QWidget *mContainer = nullptr;
      //! On-Screen Navigation widget.
-@@ -237,18 +251,13 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+@@ -237,18 +244,13 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
      Qgs3DDebugWidget *mDebugWidget = nullptr;
  
      QToolBar *mEditingToolBar = nullptr;

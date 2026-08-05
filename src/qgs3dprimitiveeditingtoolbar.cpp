@@ -16,6 +16,7 @@
 #include "qgs3dprimitiveeditingtoolbar.h"
 
 #include "qgs3dmapcanvas.h"
+#include "qgs3dmapcanvaswidgetinterface.h"
 #include "qgsvectorlayer.h"
 
 #include <QAction>

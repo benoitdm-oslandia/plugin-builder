@@ -15,6 +15,7 @@
 
 #include "qgs3dmaptoolcreateprimitive.h"
 
+//#include "qgisapp.h"
 #include "qgs3dcreateprimitiveboxdialog.h"
 #include "qgs3dcreateprimitiveconedialog.h"
 #include "qgs3dcreateprimitivecylinderdialog.h"
@@ -31,6 +32,7 @@
 #include "qgsfeatureaction.h"
 #include "qgsframegraph.h"
 #include "qgsgeotransform.h"
+#include "qgslateralpanelwidget.h"
 #include "qgsraycastcontext.h"
 #include "qgsraycasthit.h"
 #include "qgsraycastingutils.h"
@@ -486,27 +488,6 @@ void Qgs3DMapToolCreatePrimitive::keyReleaseEvent( QKeyEvent *event )
   }
   else if ( event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab )
   {
-    // if ( ( event->key() == Qt::Key_Tab && event->modifiers() & Qt::ShiftModifier )
-    //      || ( event->key() == Qt::Key_Backtab && event->modifiers() ^ Qt::ShiftModifier ) )
-    // {
-    //   handlePreviousParameter();
-    // }
-    // else
-    // {
-    //   if ( mCurrentFieldIdx < 0 )
-    //   {
-    //     mPointOnMap.clear();
-    //     // create fake point
-    //     mPointOnMap << QgsPoint( mDialog->transX(), mDialog->transY(), mDialog->transZ() );
-    //   }
-    //   else
-    //   {
-    //     // create fake point
-    //     mPointOnMap << QgsPoint( mPointOnMap.last().x() + mDialog->getParam( mCurrentFieldIdx ), mPointOnMap.last().y(), mPointOnMap.last().z() );
-    //   }
-    //   handleNextParameter();
-    // }
-
     if ( mShowPrimitiveDialog && !mDone && mCurrentFieldIdx != mDialog->creationParamNumber() )
     {
       qDebug() << u"%1 #%2:"_s.arg( __FUNCTION__ ).arg( __LINE__ ).toStdString() << "focus on param:" << mCurrentFieldIdx;
@@ -562,7 +543,6 @@ void Qgs3DMapToolCreatePrimitive::handlePreviousParameter()
     }
   }
 }
-
 
 void Qgs3DMapToolCreatePrimitive::createPrimitive()
 {

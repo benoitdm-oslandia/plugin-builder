@@ -1,0 +1,2253 @@
+diff --git a/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in b/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
+index 7051d9deedb..7fffec84c28 100644
+--- a/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
++++ b/python/PyQt6/3d/auto_generated/qgs3dmapcanvas.sip.in
+@@ -11,7 +11,6 @@
+ 
+ 
+ 
+-
+ class Qgs3DMapCanvas : QWindow
+ {
+ %Docstring(signature="appended")
+@@ -57,6 +56,7 @@ scene has not been initialized yet with
+ :py:func:`~Qgs3DMapCanvas.setMapSettings`
+ %End
+ 
++
+     void setMapTool( Qgs3DMapTool *tool );
+ %Docstring
+ Sets the active map ``tool`` that will receive events from the 3D
+diff --git a/python/PyQt6/gui/auto_additions/qgisinterface.py b/python/PyQt6/gui/auto_additions/qgisinterface.py
+index 85ab8dc70a4..e07a9f08c88 100644
+--- a/python/PyQt6/gui/auto_additions/qgisinterface.py
++++ b/python/PyQt6/gui/auto_additions/qgisinterface.py
+@@ -2,7 +2,7 @@
+ try:
+     QgisInterface.__attribute_docs__ = {'currentLayerChanged': 'Emitted whenever current (selected) layer changes.\n\nThe pointer to layer can be ``None`` if no layer is selected.\n', 'currentThemeChanged': 'Emitted when the current ``theme`` is changed so plugins can change\ntheir tool button icons.\n', 'layoutDesignerOpened': 'Emitted when a new layout ``designer`` has been opened.\n\n.. seealso:: :py:func:`layoutDesignerWillBeClosed`\n', 'layoutDesignerWillBeClosed': 'Emitted before a layout ``designer`` is going to be closed and deleted.\n\n.. seealso:: :py:func:`layoutDesignerClosed`\n\n.. seealso:: :py:func:`layoutDesignerOpened`\n', 'layoutDesignerClosed': 'Emitted after a layout designer window is closed.\n\n.. seealso:: :py:func:`layoutDesignerWillBeClosed`\n\n.. seealso:: :py:func:`layoutDesignerOpened`\n', 'initializationCompleted': 'Emitted when the initialization is complete.\n', 'projectRead': 'Emitted when a project file is successfully read.\n\n.. note::\n\n   This is useful for plugins that store properties with project files.\n   A plugin can connect to this signal. When it is emitted the plugin\n   knows to then check the project properties for any relevant state.\n', 'newProjectCreated': "Emitted when starting an entirely new project.\n\n.. note::\n\n   This is similar to :py:func:`~QgisInterface.projectRead`; plugins might want to be notified\n   that they're in a new project. Yes, :py:func:`~QgisInterface.projectRead` could have been\n   overloaded to be used in the case of new projects instead. However,\n   it's probably more semantically correct to have an entirely separate\n   signal for when this happens.\n", 'layerSavedAs': 'Emitted when a layer has been saved using save as.\n'}
+     QgisInterface.__virtual_methods__ = ['actionCircle2Points', 'actionCircle3Points', 'actionCircle3Tangents', 'actionCircle2TangentsPoint', 'actionCircleCenterPoint', 'actionEllipseCenter2Points', 'actionEllipseCenterPoint', 'actionEllipseExtent', 'actionEllipseFoci', 'actionRectangleCenterPoint', 'actionRectangleExtent', 'actionRectangle3PointsDistance', 'actionRectangle3PointsProjected', 'actionRegularPolygon2Points', 'actionRegularPolygonCenterPoint', 'actionRegularPolygonCenterCorner', 'takeAppScreenShots', 'showApiDocumentation']
+-    QgisInterface.__abstract_methods__ = ['pluginManagerInterface', 'showPluginManager', 'layerTreeView', 'gpsTools', 'addCustomActionForLayerType', 'addCustomActionForLayer', 'removeCustomActionForLayerType', 'mapCanvases', 'createNewMapCanvas', 'closeMapCanvas', 'mapCanvases3D', 'createNewMapCanvas3D', 'closeMapCanvas3D', 'iconSize', 'editableLayers', 'activeLayer', 'mapCanvas', 'activeDecorations', 'layerTreeCanvasBridge', 'mainWindow', 'messageBar', 'openLayoutDesigners', 'defaultStyleSheetOptions', 'defaultStyleSheetFont', 'cadDockWidget', 'projectMenu', 'projectImportExportMenu', 'addProjectImportAction', 'removeProjectImportAction', 'addProjectExportAction', 'removeProjectExportAction', 'projectModelsMenu', 'createProjectModelSubMenu', 'editMenu', 'viewMenu', 'layerMenu', 'newLayerMenu', 'addLayerMenu', 'settingsMenu', 'pluginMenu', 'pluginHelpMenu', 'rasterMenu', 'databaseMenu', 'vectorMenu', 'webMenu', 'meshMenu', 'firstRightStandardMenu', 'windowMenu', 'helpMenu', 'fileToolBar', 'layerToolBar', 'dataSourceManagerToolBar', 'openDataSourceManagerPage', 'mapNavToolToolBar', 'digitizeToolBar', 'advancedDigitizeToolBar', 'shapeDigitizeToolBar', 'attributesToolBar', 'selectionToolBar', 'pluginToolBar', 'helpToolBar', 'rasterToolBar', 'vectorToolBar', 'databaseToolBar', 'webToolBar', 'actionNewProject', 'actionOpenProject', 'actionSaveProject', 'actionSaveProjectAs', 'actionSaveMapAsImage', 'actionProjectProperties', 'actionCreatePrintLayout', 'actionShowLayoutManager', 'actionExit', 'actionCutFeatures', 'actionCopyFeatures', 'actionPasteFeatures', 'actionAddFeature', 'actionDeleteSelected', 'actionMoveFeature', 'actionSplitFeatures', 'actionSplitParts', 'actionAddRing', 'actionAddPart', 'actionSimplifyFeature', 'actionDeleteRing', 'actionDeletePart', 'actionVertexTool', 'actionVertexToolActiveLayer', 'mapToolActionGroup', 'actionPan', 'actionPanToSelected', 'actionZoomIn', 'actionZoomOut', 'actionSelect', 'actionSelectRectangle', 'actionSelectPolygon', 'actionSelectFreehand', 'actionSelectRadius', 'actionIdentify', 'actionFeatureAction', 'actionMeasure', 'actionMeasureArea', 'actionZoomFullExtent', 'actionZoomToLayer', 'actionZoomToLayers', 'actionZoomToSelected', 'actionZoomLast', 'actionZoomNext', 'actionZoomActualSize', 'actionMapTips', 'actionNewBookmark', 'actionShowBookmarks', 'actionDraw', 'actionNewVectorLayer', 'actionAddOgrLayer', 'actionAddRasterLayer', 'actionAddPgLayer', 'actionAddWmsLayer', 'actionAddXyzLayer', 'actionAddVectorTileLayer', 'actionAddPointCloudLayer', 'actionAddAfsLayer', 'actionAddAmsLayer', 'actionCopyLayerStyle', 'actionPasteLayerStyle', 'actionOpenTable', 'actionOpenFieldCalculator', 'actionOpenStatisticalSummary', 'actionToggleEditing', 'actionSaveActiveLayerEdits', 'actionAllEdits', 'actionSaveEdits', 'actionSaveAllEdits', 'actionRollbackEdits', 'actionRollbackAllEdits', 'actionCancelEdits', 'actionCancelAllEdits', 'actionLayerSaveAs', 'actionDuplicateLayer', 'actionLayerProperties', 'actionAddToOverview', 'actionAddAllToOverview', 'actionRemoveAllFromOverview', 'actionHideAllLayers', 'actionShowAllLayers', 'actionHideSelectedLayers', 'actionToggleSelectedLayers', 'actionToggleSelectedLayersIndependently', 'actionHideDeselectedLayers', 'actionShowSelectedLayers', 'actionManagePlugins', 'actionPluginListSeparator', 'actionShowPythonDialog', 'actionToggleFullScreen', 'actionOptions', 'actionCustomProjection', 'actionHelpContents', 'actionQgisHomePage', 'actionCheckQgisVersion', 'actionAbout', 'vectorLayerTools', 'messageTimeout', 'statusBarIface', 'layerTreeInsertionPoint', 'userProfileManager', 'zoomFull', 'zoomToPrevious', 'zoomToNext', 'zoomToActiveLayer', 'addVectorLayer', 'addRasterLayer', 'addMeshLayer', 'addVectorTileLayer', 'addPointCloudLayer', 'addTiledSceneLayer', 'addProject', 'newProject', 'reloadConnections', 'setActiveLayer', 'copySelectionToClipboard', 'pasteFromClipboard', 'addToolBarIcon', 'addToolBarWidget', 'removeToolBarIcon', 'addRasterToolBarWidget', 'addRasterToolBarIcon', 'removeRasterToolBarIcon', 'addVectorToolBarIcon', 'addVectorToolBarWidget', 'removeVectorToolBarIcon', 'addDatabaseToolBarIcon', 'addDatabaseToolBarWidget', 'removeDatabaseToolBarIcon', 'addWebToolBarIcon', 'addWebToolBarWidget', 'removeWebToolBarIcon', 'addToolBar', 'openMessageLog', 'addUserInputWidget', 'showLayoutManager', 'openLayoutDesigner', 'showOptionsDialog', 'showProjectPropertiesDialog', 'buildStyleSheet', 'saveStyleSheetOptions', 'addPluginToMenu', 'removePluginMenu', 'insertAddLayerAction', 'removeAddLayerAction', 'addPluginToDatabaseMenu', 'removePluginDatabaseMenu', 'addPluginToRasterMenu', 'removePluginRasterMenu', 'addPluginToVectorMenu', 'removePluginVectorMenu', 'addPluginToWebMenu', 'removePluginWebMenu', 'addPluginToMeshMenu', 'removePluginMeshMenu', 'addDockWidget', 'addTabifiedDockWidget', 'removeDockWidget', 'showLayerProperties', 'showAttributeTable', 'addWindow', 'removeWindow', 'registerMainWindowAction', 'unregisterMainWindowAction', 'registerMapLayerConfigWidgetFactory', 'unregisterMapLayerConfigWidgetFactory', 'registerOptionsWidgetFactory', 'unregisterOptionsWidgetFactory', 'registerProjectPropertiesWidgetFactory', 'unregisterProjectPropertiesWidgetFactory', 'registerDevToolWidgetFactory', 'unregisterDevToolWidgetFactory', 'showApiDocumentation', 'registerApplicationExitBlocker', 'unregisterApplicationExitBlocker', 'registerMapToolHandler', 'unregisterMapToolHandler', 'registerCustomDropHandler', 'unregisterCustomDropHandler', 'registerCustomProjectOpenHandler', 'unregisterCustomProjectOpenHandler', 'registerCustomLayoutDropHandler', 'unregisterCustomLayoutDropHandler', 'openURL', 'openFeatureForm', 'getFeatureForm', 'preloadForm', 'locatorSearch', 'registerLocatorFilter', 'deregisterLocatorFilter', 'invalidateLocatorResults', 'askForDatumTransform', 'browserModel', 'setGpsPanelConnection', 'blockActiveLayerChanges']
++    QgisInterface.__abstract_methods__ = ['pluginManagerInterface', 'showPluginManager', 'layerTreeView', 'gpsTools', 'addCustomActionForLayerType', 'addCustomActionForLayer', 'removeCustomActionForLayerType', 'mapCanvases', 'createNewMapCanvas', 'closeMapCanvas', 'mapCanvases3D', 'createNewMapCanvas3D', 'closeMapCanvas3D', 'iconSize', 'editableLayers', 'activeLayer', 'mapCanvas', 'activeDecorations', 'layerTreeCanvasBridge', 'mainWindow', 'messageBar', 'openLayoutDesigners', 'defaultStyleSheetOptions', 'defaultStyleSheetFont', 'cadDockWidget', 'projectMenu', 'projectImportExportMenu', 'addProjectImportAction', 'removeProjectImportAction', 'addProjectExportAction', 'removeProjectExportAction', 'projectModelsMenu', 'createProjectModelSubMenu', 'editMenu', 'viewMenu', 'layerMenu', 'newLayerMenu', 'addLayerMenu', 'settingsMenu', 'pluginMenu', 'pluginHelpMenu', 'rasterMenu', 'databaseMenu', 'vectorMenu', 'webMenu', 'meshMenu', 'firstRightStandardMenu', 'windowMenu', 'helpMenu', 'fileToolBar', 'layerToolBar', 'dataSourceManagerToolBar', 'openDataSourceManagerPage', 'mapNavToolToolBar', 'digitizeToolBar', 'advancedDigitizeToolBar', 'shapeDigitizeToolBar', 'attributesToolBar', 'selectionToolBar', 'pluginToolBar', 'helpToolBar', 'rasterToolBar', 'vectorToolBar', 'databaseToolBar', 'webToolBar', 'actionNewProject', 'actionOpenProject', 'actionSaveProject', 'actionSaveProjectAs', 'actionSaveMapAsImage', 'actionProjectProperties', 'actionCreatePrintLayout', 'actionShowLayoutManager', 'actionExit', 'actionCutFeatures', 'actionCopyFeatures', 'actionPasteFeatures', 'actionAddFeature', 'actionDeleteSelected', 'actionMoveFeature', 'actionSplitFeatures', 'actionSplitParts', 'actionAddRing', 'actionAddPart', 'actionSimplifyFeature', 'actionDeleteRing', 'actionDeletePart', 'actionVertexTool', 'actionVertexToolActiveLayer', 'mapToolActionGroup', 'actionPan', 'actionPanToSelected', 'actionZoomIn', 'actionZoomOut', 'actionSelect', 'actionSelectRectangle', 'actionSelectPolygon', 'actionSelectFreehand', 'actionSelectRadius', 'actionIdentify', 'actionFeatureAction', 'actionMeasure', 'actionMeasureArea', 'actionZoomFullExtent', 'actionZoomToLayer', 'actionZoomToLayers', 'actionZoomToSelected', 'actionZoomLast', 'actionZoomNext', 'actionZoomActualSize', 'actionMapTips', 'actionNewBookmark', 'actionShowBookmarks', 'actionDraw', 'actionNew3DMapCanvas', 'actionNewVectorLayer', 'actionAddOgrLayer', 'actionAddRasterLayer', 'actionAddPgLayer', 'actionAddWmsLayer', 'actionAddXyzLayer', 'actionAddVectorTileLayer', 'actionAddPointCloudLayer', 'actionAddAfsLayer', 'actionAddAmsLayer', 'actionCopyLayerStyle', 'actionPasteLayerStyle', 'actionOpenTable', 'actionOpenFieldCalculator', 'actionOpenStatisticalSummary', 'actionToggleEditing', 'actionSaveActiveLayerEdits', 'actionAllEdits', 'actionSaveEdits', 'actionSaveAllEdits', 'actionRollbackEdits', 'actionRollbackAllEdits', 'actionCancelEdits', 'actionCancelAllEdits', 'actionLayerSaveAs', 'actionDuplicateLayer', 'actionLayerProperties', 'actionAddToOverview', 'actionAddAllToOverview', 'actionRemoveAllFromOverview', 'actionHideAllLayers', 'actionShowAllLayers', 'actionHideSelectedLayers', 'actionToggleSelectedLayers', 'actionToggleSelectedLayersIndependently', 'actionHideDeselectedLayers', 'actionShowSelectedLayers', 'actionManagePlugins', 'actionPluginListSeparator', 'actionShowPythonDialog', 'actionToggleFullScreen', 'actionOptions', 'actionCustomProjection', 'actionHelpContents', 'actionQgisHomePage', 'actionCheckQgisVersion', 'actionAbout', 'vectorLayerTools', 'messageTimeout', 'statusBarIface', 'layerTreeInsertionPoint', 'userProfileManager', 'zoomFull', 'zoomToPrevious', 'zoomToNext', 'zoomToActiveLayer', 'addVectorLayer', 'addRasterLayer', 'addMeshLayer', 'addVectorTileLayer', 'addPointCloudLayer', 'addTiledSceneLayer', 'addProject', 'newProject', 'reloadConnections', 'setActiveLayer', 'copySelectionToClipboard', 'pasteFromClipboard', 'addToolBarIcon', 'addToolBarWidget', 'removeToolBarIcon', 'addRasterToolBarWidget', 'addRasterToolBarIcon', 'removeRasterToolBarIcon', 'addVectorToolBarIcon', 'addVectorToolBarWidget', 'removeVectorToolBarIcon', 'addDatabaseToolBarIcon', 'addDatabaseToolBarWidget', 'removeDatabaseToolBarIcon', 'addWebToolBarIcon', 'addWebToolBarWidget', 'removeWebToolBarIcon', 'addToolBar', 'openMessageLog', 'addUserInputWidget', 'showLayoutManager', 'openLayoutDesigner', 'showOptionsDialog', 'showProjectPropertiesDialog', 'buildStyleSheet', 'saveStyleSheetOptions', 'addPluginToMenu', 'removePluginMenu', 'insertAddLayerAction', 'removeAddLayerAction', 'addPluginToDatabaseMenu', 'removePluginDatabaseMenu', 'addPluginToRasterMenu', 'removePluginRasterMenu', 'addPluginToVectorMenu', 'removePluginVectorMenu', 'addPluginToWebMenu', 'removePluginWebMenu', 'addPluginToMeshMenu', 'removePluginMeshMenu', 'addDockWidget', 'addTabifiedDockWidget', 'removeDockWidget', 'showLayerProperties', 'showAttributeTable', 'addWindow', 'removeWindow', 'registerMainWindowAction', 'unregisterMainWindowAction', 'registerMapLayerConfigWidgetFactory', 'unregisterMapLayerConfigWidgetFactory', 'registerOptionsWidgetFactory', 'unregisterOptionsWidgetFactory', 'registerProjectPropertiesWidgetFactory', 'unregisterProjectPropertiesWidgetFactory', 'registerDevToolWidgetFactory', 'unregisterDevToolWidgetFactory', 'showApiDocumentation', 'registerApplicationExitBlocker', 'unregisterApplicationExitBlocker', 'registerMapToolHandler', 'unregisterMapToolHandler', 'registerCustomDropHandler', 'unregisterCustomDropHandler', 'registerCustomProjectOpenHandler', 'unregisterCustomProjectOpenHandler', 'registerCustomLayoutDropHandler', 'unregisterCustomLayoutDropHandler', 'openURL', 'openFeatureForm', 'getFeatureForm', 'preloadForm', 'locatorSearch', 'registerLocatorFilter', 'deregisterLocatorFilter', 'invalidateLocatorResults', 'askForDatumTransform', 'browserModel', 'setGpsPanelConnection', 'blockActiveLayerChanges']
+     QgisInterface.__signal_arguments__ = {'currentLayerChanged': ['layer: QgsMapLayer'], 'currentThemeChanged': ['theme: str'], 'layoutDesignerOpened': ['designer: QgsLayoutDesignerInterface'], 'layoutDesignerWillBeClosed': ['designer: QgsLayoutDesignerInterface'], 'layerSavedAs': ['l: QgsMapLayer', 'path: str']}
+ except (NameError, AttributeError):
+     pass
+diff --git a/python/PyQt6/gui/auto_generated/qgisinterface.sip.in b/python/PyQt6/gui/auto_generated/qgisinterface.sip.in
+index 23d09da3af9..b126b3d7338 100644
+--- a/python/PyQt6/gui/auto_generated/qgisinterface.sip.in
++++ b/python/PyQt6/gui/auto_generated/qgisinterface.sip.in
+@@ -794,6 +794,11 @@ dialog.
+     virtual QAction *actionDraw() = 0;
+ %Docstring
+ Returns the native draw action.
++%End
++
++    virtual QAction *actionNew3DMapCanvas() = 0;
++%Docstring
++Returns the native action for new 3d map canvas.
+ %End
+ 
+     virtual QAction *actionNewVectorLayer() = 0;
+diff --git a/scripts/chkdocumentation.sh b/scripts/chkdocumentation.sh
+new file mode 100755
+index 00000000000..a75b609e170
+--- /dev/null
++++ b/scripts/chkdocumentation.sh
+@@ -0,0 +1,44 @@
++#!/usr/bin/env bash
++# shellcheck disable=SC2164
++###########################################################################
++#    chkdocumentation.sh
++#    ---------------------
++#    Date                 : December 2025
++#    Copyright            : (C) 2025 Oslandia
++###########################################################################
++#                                                                         #
++#   This program is free software; you can redistribute it and/or modify  #
++#   it under the terms of the GNU General Public License as published by  #
++#   the Free Software Foundation; either version 2 of the License, or     #
++#   (at your option) any later version.                                   #
++#                                                                         #
++###########################################################################
++
++#
++# Build a docker image with the same Doxygen version than CI
++# and run ./scripts/documentation_check/documentation_check.sh on whole qgis directory
++#
++
++PROG_NAME=$(basename $0)
++
++set -E
++set -o functrace
++function handle_error {
++    local retval=$?
++    local line=${last_lineno:-$1}
++    echo "Failed at $PROG_NAME:$line $BASH_COMMAND"
++    exit $retval
++}
++trap 'handle_error $LINENO ${BASH_LINENO[@]}' ERR
++
++SOURCE_DIR=$(dirname $0)/..
++SOURCE_DIR=$(realpath $SOURCE_DIR)
++DOC_SCRIPT=$SOURCE_DIR/scripts/documentation_check
++
++echo "== Build docker image"
++docker build -t qgis/doc_check:latest -f "$DOC_SCRIPT/Dockerfile" "$DOC_SCRIPT/"
++
++echo "== Run docker image with '$SOURCE_DIR'"
++docker run --rm -ti -v "$SOURCE_DIR:/qgis" qgis/doc_check:latest
++
++echo "== Done!"
+diff --git a/scripts/documentation_check/Dockerfile b/scripts/documentation_check/Dockerfile
+new file mode 100644
+index 00000000000..2eaee69304c
+--- /dev/null
++++ b/scripts/documentation_check/Dockerfile
+@@ -0,0 +1,24 @@
++ARG PYTHON_VERSION=3.13
++FROM python:${PYTHON_VERSION}
++
++WORKDIR /qgis
++
++ARG DOXYGEN_VERSION=1.9.8
++ENV DEBIAN_FRONTEND=noninteractive
++
++RUN cd /usr/local && \
++    wget https://www.doxygen.nl/files/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz && \
++    tar -xzf doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz && \
++    mv doxygen-${DOXYGEN_VERSION} doxygen && \
++    python -m pip install --upgrade pip && \
++    pip install autopep8 nose2 mock termcolor
++
++RUN apt-get update \
++    && apt-get install --no-install-recommends --no-install-suggests -y \
++    cmake\
++    && apt-get clean \
++    && rm -rf /var/lib/apt/lists/*
++
++COPY ./documentation_check.sh /
++
++ENTRYPOINT [ "/documentation_check.sh", "/qgis", "/usr/local/doxygen"]
+diff --git a/scripts/documentation_check/documentation_check.sh b/scripts/documentation_check/documentation_check.sh
+new file mode 100755
+index 00000000000..0b9345f9dcd
+--- /dev/null
++++ b/scripts/documentation_check/documentation_check.sh
+@@ -0,0 +1,63 @@
++#!/usr/bin/env bash
++# shellcheck disable=SC2164
++PROG_NAME=$(basename $0)
++
++set -E
++set -o functrace
++function handle_error {
++    local retval=$?
++    local line=${last_lineno:-$1}
++    echo "Failed at $PROG_NAME:$line $BASH_COMMAND"
++    exit $retval
++}
++trap 'handle_error $LINENO ${BASH_LINENO[@]}' ERR
++
++QGIS_DIR=${1:-/qgis}
++DOXY_DIR=${2:-/usr/local}
++
++PATH="$PATH:$DOXY_DIR/bin"
++
++echo "===== ENV var:"
++echo "  - QGIS_DIR: $QGIS_DIR"
++echo "  - DOXY_DIR: $DOXY_DIR"
++echo "  - PATH: $PATH"
++
++if [ ! -f $DOXY_DIR/bin/doxygen ]
++then
++    echo "Unable to find doxygen binary at '$DOXY_DIR/bin/doxygen'!"
++    exit 1
++fi
++
++git config --global --add safe.directory $QGIS_DIR || echo "Unable to set '$QGIS_DIR' as safe git directory. Continuing anyway"
++
++echo "===== Running cmake"
++mkdir -p "$QGIS_DIR/build_doc"
++cd "$QGIS_DIR/build_doc"
++cmake -DUSE_CCACHE=OFF -DWITH_CORE=OFF -DWITH_APIDOC=ON -DWITH_ASTYLE=ON -DENABLE_TESTS=ON \
++    -DWITH_DOT=NO -DWERROR=OFF -DDOXYGEN_EXECUTABLE="$DOXY_DIR/bin/doxygen" .. >/dev/null
++
++echo "===== Running apidoc"
++make -j8 apidoc 2>&1 | grep " warning: " && false
++
++echo "===== Running PyQgsDocCoverage"
++cd "$QGIS_DIR/build_doc"
++export QGIS_TEST_ACCEPT_GITSTATUS_CHECK_FAILURE=1
++
++RET=0
++ctest -V -R PyQgsDocCoverage > $QGIS_DIR/PyQgsDocCoverage.out 2>&1 || RET=1
++
++if grep -q "CTEST_FULL_OUTPUT" $QGIS_DIR/PyQgsDocCoverage.out
++then
++  cat $QGIS_DIR/PyQgsDocCoverage.out | \
++    sed -n '/15: CTEST_FULL_OUTPUT/,/15: \(F\|OK\)$/{/15: CTEST_FULL_OUTPUT/b;/15: \(F\|OK\)$/b;p}'
++else
++  cat $QGIS_DIR/PyQgsDocCoverage.out
++fi
++
++if [ "$RET" == "0" ]
++then
++  echo "===== Success!"
++else
++  echo "===== Failure!"
++  exit $RET
++fi
+diff --git a/src/3d/CMakeLists.txt b/src/3d/CMakeLists.txt
+index 67ef137e338..651f7720618 100644
+--- a/src/3d/CMakeLists.txt
++++ b/src/3d/CMakeLists.txt
+@@ -13,12 +13,14 @@ set(QGIS_3D_SRCS
+   qgsannotationlayerchunkloader_p.cpp
+   qgs3danimationsettings.cpp
+   qgs3dexportobject.cpp
++  qgs3deditingtoolbar.cpp
+   qgs3dhighlightfeaturehandler.cpp
+   qgs3dmapexportsettings.cpp
+   qgs3dmapscene.cpp
+   qgs3dmapsettings.cpp
+   qgs3dmaptool.cpp
+   qgs3dmapcanvas.cpp
++  qgs3dmapcanvaswidgetinterface.cpp
+   qgscolorgradingsettings.cpp
+   qgscrosssection.cpp
+   qgs3drendercontext.cpp
+@@ -37,6 +39,7 @@ set(QGIS_3D_SRCS
+   qgsglobechunkedentity.cpp
+   qgsgltf3dutils.cpp
+   qgsimagetexture.cpp
++  qgslateralpanelwidget.cpp
+   qgslayoutitem3dmap.cpp
+   qgslayerstylewatcher.cpp
+   qgsmapoverlayentity.cpp
+@@ -99,6 +102,7 @@ set(QGIS_3D_SRCS
+   materials/qgssimplelinematerial3dhandler.cpp
+   materials/qgstexturematerial.cpp
+   materials/qgsunlitmaterial.cpp
++  materials/qgsunlitmaterial3dhandler.cpp
+ 
+   processing/qgs3dalgorithms.cpp
+   processing/qgsalgorithmtessellate.cpp
+@@ -171,6 +175,7 @@ set(QGIS_3D_HDRS
+   qgs3danimationsettings.h
+   qgs3daxis.h
+   qgs3daxissettings.h
++  qgs3deditingtoolbar.h
+   qgs3dhighlightfeaturehandler.h
+   qgs3dmapscene.h
+   qgs3dmapsettings.h
+@@ -181,6 +186,7 @@ set(QGIS_3D_HDRS
+   qgs3dtypes.h
+   qgs3dutils.h
+   qgs3dmapcanvas.h
++  qgs3dmapcanvaswidgetinterface.h
+   qgscolorgradingsettings.h
+   qgscrosssection.h
+   qgs3dwiredmesh_p.h
+@@ -200,6 +206,7 @@ set(QGIS_3D_HDRS
+   qgsgeotransform.h
+   qgsglobechunkedentity.h
+   qgsgltf3dutils.h
++  qgslateralpanelwidget.h
+   qgslayoutitem3dmap.h
+   qgslayerstylewatcher.h
+   qgsmapoverlayentity.h
+@@ -249,6 +256,7 @@ set(QGIS_3D_HDRS
+   materials/qgssimplelinematerial3dhandler.h
+   materials/qgstexturematerial.h
+   materials/qgsunlitmaterial.h
++  materials/qgsunlitmaterial3dhandler.h
+ 
+   framegraph/qgsabstractrenderview.h
+   framegraph/qgs3daxisrenderview.h
+diff --git a/src/3d/qgs3deditingtoolbar.cpp b/src/3d/qgs3deditingtoolbar.cpp
+new file mode 100644
+index 00000000000..cc74669da6f
+--- /dev/null
++++ b/src/3d/qgs3deditingtoolbar.cpp
+@@ -0,0 +1,21 @@
++/***************************************************************************
++    qgs3deditingtoolbar.cpp
++    -------------------
++    begin                : November 2025
++    copyright            : (C) 2025 Oslandia
++    email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgs3deditingtoolbar.h"
++
++Qgs3DEditingToolBar::Qgs3DEditingToolBar( const QString &title, QWidget *parent )
++  : QToolBar( title, parent )
++  , mParentWidget( parent )
++{}
+diff --git a/src/3d/qgs3deditingtoolbar.h b/src/3d/qgs3deditingtoolbar.h
+new file mode 100644
+index 00000000000..ee0564018cc
+--- /dev/null
++++ b/src/3d/qgs3deditingtoolbar.h
+@@ -0,0 +1,74 @@
++/***************************************************************************
++    qgs3deditingtoolbar.h
++    -------------------
++    begin                : November 2025
++    copyright            : (C) 2025 Oslandia
++    email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGS3DEDITINGTOOLBAR_H
++#define QGS3DEDITINGTOOLBAR_H
++
++#include "qgis_3d.h"
++#include "qgsmaplayer.h"
++
++#include <QToolBar>
++
++class QAction;
++
++/**
++ * Base class to create 3D editing toolbar.
++ *
++ * Inherited classes:
++ *
++ * - will be sub widget of the main 3D edtion toolbar Qgs3DMapCanvasWidget::mEditingToolBar
++ * - will be visible only when the QGIS active layer is compatible (see accept() function)
++ *
++ * \since QGIS 3.44
++ */
++class _3D_EXPORT Qgs3DEditingToolBar : public QToolBar
++{
++    Q_OBJECT
++
++  public:
++    /**
++     * Default constructor
++     * \param title toolbar title
++     * \param parent parent widget
++     */
++    Qgs3DEditingToolBar( const QString &title, QWidget *parent );
++
++    /**
++     * \param layer current active layer
++     * \return true if this toolbar is usable with the \a layer
++     */
++    virtual bool accept( QgsMapLayer *layer ) const = 0;
++
++    /**
++     * Called when the current active layer changes and is accepted
++     * \param layer current active layer
++     */
++    virtual void activate( QgsMapLayer *layer ) = 0;
++
++    /**
++     * Called when the current active layer changes and is no more accepted
++     */
++    virtual void deactivate() = 0;
++
++    /**
++     * \return the list of actions produced by the toolbar
++     */
++    virtual QList<QAction *> groupActions() const = 0;
++
++  protected:
++    QWidget *mParentWidget;
++};
++
++#endif // QGS3DEDITINGTOOLBAR_H
+diff --git a/src/3d/qgs3dmapcanvas.cpp b/src/3d/qgs3dmapcanvas.cpp
+index 9af8b5b9002..57b96b0ff66 100644
+--- a/src/3d/qgs3dmapcanvas.cpp
++++ b/src/3d/qgs3dmapcanvas.cpp
+@@ -16,6 +16,7 @@
+ #include "qgs3dmapcanvas.h"
+ 
+ #include "qgs3daxis.h"
++#include "qgs3dmapcanvaswidgetinterface.h"
+ #include "qgs3dmapscene.h"
+ #include "qgs3dmapsettings.h"
+ #include "qgs3dmaptool.h"
+@@ -41,8 +42,8 @@
+ 
+ using namespace Qt::StringLiterals;
+ 
+-Qgs3DMapCanvas::Qgs3DMapCanvas()
+-  : m_aspectEngine( new Qt3DCore::QAspectEngine )
++Qgs3DMapCanvas::Qgs3DMapCanvas( Qgs3DMapCanvasWidgetInterface *widgetInterface )
++  : m_aspectEngine( std::make_unique<Qt3DCore::QAspectEngine>() )
+   , m_renderAspect( new Qt3DRender::QRenderAspect )
+   , m_inputAspect( new Qt3DInput::QInputAspect )
+   , m_logicAspect( new Qt3DLogic::QLogicAspect )
+@@ -50,6 +51,7 @@ Qgs3DMapCanvas::Qgs3DMapCanvas()
+   , m_defaultCamera( new Qt3DRender::QCamera )
+   , m_inputSettings( new Qt3DInput::QInputSettings )
+   , m_root( new Qt3DCore::QEntity )
++  , mWidgetInterface( widgetInterface )
+ {
+   setSurfaceType( QSurface::OpenGLSurface );
+ 
+@@ -85,8 +87,11 @@ Qgs3DMapCanvas::~Qgs3DMapCanvas()
+   mScene = nullptr;
+   mMapSettings->deleteLater();
+   mMapSettings = nullptr;
++}
+ 
+-  delete m_aspectEngine;
++Qgs3DMapCanvasWidgetInterface *Qgs3DMapCanvas::canvasWidgetInterface()
++{
++  return mWidgetInterface;
+ }
+ 
+ void Qgs3DMapCanvas::setRootEntity( Qt3DCore::QEntity *root )
+@@ -328,7 +333,6 @@ bool Qgs3DMapCanvas::eventFilter( QObject *watched, QEvent *event )
+       event->accept();
+       return true;
+     }
+-    return false;
+   }
+ 
+   if ( !mMapTool )
+diff --git a/src/3d/qgs3dmapcanvas.h b/src/3d/qgs3dmapcanvas.h
+index 2166da35938..7f302d30215 100644
+--- a/src/3d/qgs3dmapcanvas.h
++++ b/src/3d/qgs3dmapcanvas.h
+@@ -73,7 +73,7 @@ class QgsRectangle;
+ class QgsRubberBand3D;
+ class QgsTemporalController;
+ class QgsWindow3DEngine;
+-
++class Qgs3DMapCanvasWidgetInterface;
+ 
+ /**
+  * \ingroup qgis_3d
+@@ -89,7 +89,11 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+ {
+     Q_OBJECT
+   public:
++#ifndef SIP_RUN
++    Qgs3DMapCanvas( Qgs3DMapCanvasWidgetInterface *widgetInterface = nullptr );
++#else
+     Qgs3DMapCanvas();
++#endif
+     ~Qgs3DMapCanvas() override;
+ 
+     //! Returns access to the 3D scene configuration
+@@ -101,6 +105,9 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     //! Returns access to the view's camera controller. Returns NULLPTR if the scene has not been initialized yet with setMapSettings()
+     QgsCameraController *cameraController();
+ 
++    //! Returns widget interface to Qgs3DMapCanvasWidget
++    Qgs3DMapCanvasWidgetInterface *canvasWidgetInterface() SIP_SKIP;
++
+     /**
+      * Sets the active map \a tool that will receive events from the 3D canvas. Does not transfer ownership.
+      * If the tool is NULLPTR, events will be used for camera manipulation.
+@@ -268,7 +275,7 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     bool eventFilter( QObject *watched, QEvent *event ) override;
+ 
+   private:
+-    Qt3DCore::QAspectEngine *m_aspectEngine;
++    std::unique_ptr<Qt3DCore::QAspectEngine> m_aspectEngine;
+ 
+     // Aspects
+     Qt3DRender::QRenderAspect *m_renderAspect;
+@@ -306,6 +313,8 @@ class _3D_EXPORT Qgs3DMapCanvas : public QWindow
+     std::unique_ptr<Qgs3DHighlightFeatureHandler> mHighlightsHandler = nullptr;
+ 
+     QgsCrossSection mCrossSection;
++
++    Qgs3DMapCanvasWidgetInterface *mWidgetInterface;
+ };
+ 
+ #endif //QGS3DMAPCANVAS_H
+diff --git a/src/3d/qgs3dmapcanvaswidgetinterface.cpp b/src/3d/qgs3dmapcanvaswidgetinterface.cpp
+new file mode 100644
+index 00000000000..7a35a73cb85
+--- /dev/null
++++ b/src/3d/qgs3dmapcanvaswidgetinterface.cpp
+@@ -0,0 +1,38 @@
++/***************************************************************************
++  qgs3dmapcanvaswidgetinterface.cpp
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgs3dmapcanvaswidgetinterface.h"
++
++#include "qgs3deditingtoolbar.h"
++
++void Qgs3DMapCanvasWidgetInterface::addEditingToolBar( Qgs3DEditingToolBar *newToolBar )
++{
++  ( void ) newToolBar;
++};
++
++QList<Qgs3DEditingToolBar *> Qgs3DMapCanvasWidgetInterface::editingToolBars() const
++{
++  return {};
++}
++
++Qgs3DMapCanvas *Qgs3DMapCanvasWidgetInterface::mapCanvas3D()
++{
++  return nullptr;
++}
++
++QgsLateralPanelWidget *Qgs3DMapCanvasWidgetInterface::lateralPanel() const
++{
++  return nullptr;
++}
+diff --git a/src/3d/qgs3dmapcanvaswidgetinterface.h b/src/3d/qgs3dmapcanvaswidgetinterface.h
+new file mode 100644
+index 00000000000..9f20aa742c1
+--- /dev/null
++++ b/src/3d/qgs3dmapcanvaswidgetinterface.h
+@@ -0,0 +1,55 @@
++/***************************************************************************
++  qgs3dmapcanvaswidgetinterface.h
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGS3DMAPCANVASWIDGETINTERFACE_H
++#define QGS3DMAPCANVASWIDGETINTERFACE_H
++
++#include "qgis.h"
++#include "qgis_3d.h"
++
++class Qgs3DEditingToolBar;
++class Qgs3DMapCanvas;
++class QgsLateralPanelWidget;
++
++/**
++ * \ingroup qgis_3d
++ * \brief Convenience wrapper to wrap Qgs3DMapCanvasWidget function from Qgs3DMapCanvas.
++ *
++ * \since QGIS 4.4
++ */
++class _3D_EXPORT Qgs3DMapCanvasWidgetInterface
++{
++  public:
++    Qgs3DMapCanvasWidgetInterface() = default;
++    virtual ~Qgs3DMapCanvasWidgetInterface() = default;
++
++    /**
++     * Add new editing toolbar.
++     * Takes ownership
++     * \param newToolBar new toolbar
++     */
++    virtual void addEditingToolBar( Qgs3DEditingToolBar *newToolBar ) SIP_SKIP;
++
++    //! Returns all added editing toolbars
++    virtual QList<Qgs3DEditingToolBar *> editingToolBars() const SIP_SKIP;
++
++    //! Returns 3D mapCanvas
++    virtual Qgs3DMapCanvas *mapCanvas3D() SIP_SKIP;
++
++    //! Returns lateral panel widget
++    virtual QgsLateralPanelWidget *lateralPanel() const SIP_SKIP;
++};
++
++#endif //QGS3DMAPCANVASWIDGETINTERFACE_H
+diff --git a/src/3d/qgsgeotransform.h b/src/3d/qgsgeotransform.h
+index da5c71a3ae6..f88e4876815 100644
+--- a/src/3d/qgsgeotransform.h
++++ b/src/3d/qgsgeotransform.h
+@@ -28,6 +28,7 @@
+ //
+ 
+ 
++#include "qgis_3d.h"
+ #include "qgsvector3d.h"
+ 
+ #include <Qt3DCore/QTransform>
+@@ -40,7 +41,7 @@
+  * - stores translation as QgsVector3D, i.e. in double precision
+  * - reacts to map scene's origin shifts and updates the QTransform accordingly
+  */
+-class QgsGeoTransform : public Qt3DCore::QTransform
++class _3D_EXPORT QgsGeoTransform : public Qt3DCore::QTransform
+ {
+     Q_OBJECT
+   public:
+diff --git a/src/3d/qgslateralpanelwidget.cpp b/src/3d/qgslateralpanelwidget.cpp
+new file mode 100644
+index 00000000000..0f67d774a6b
+--- /dev/null
++++ b/src/3d/qgslateralpanelwidget.cpp
+@@ -0,0 +1,106 @@
++/***************************************************************************
++  qgslateralpanelwidget.cpp
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgslateralpanelwidget.h"
++#include <QTabBar>
++
++
++QgsLateralPanelWidget::QgsLateralPanelWidget( QAction *toggleAction, QWidget *parent )
++  : QTabWidget( parent )
++{
++  setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
++
++  mToggleAction = toggleAction;
++  mToggleAction->setCheckable( true );
++  mToggleAction->setChecked( true );
++  QObject::connect( mToggleAction, &QAction::toggled, this, [this]( const bool visibility ) { setVisible( visibility ); } );
++}
++
++int QgsLateralPanelWidget::addWidget( QWidget *widget, const QString &name )
++{
++  return addTab( widget, name );
++}
++
++void QgsLateralPanelWidget::hideWidget( int index )
++{
++  if ( index < count() && index >= 0 )
++  {
++    setTabVisible( index, false );
++  }
++}
++
++void QgsLateralPanelWidget::hideWidget( const QString &name )
++{
++  for ( int i = 0; i < count(); ++i )
++  {
++    if ( tabBar()->tabText( i ) == name )
++    {
++      hideWidget( i );
++      break;
++    }
++  }
++}
++
++void QgsLateralPanelWidget::showWidget( int index )
++{
++  if ( index < count() && index >= 0 )
++  {
++    setTabVisible( index, true );
++    setCurrentIndex( index );
++    mToggleAction->setChecked( true );
++  }
++}
++
++void QgsLateralPanelWidget::showWidget( const QString &name )
++{
++  for ( int i = 0; i < count(); ++i )
++  {
++    if ( tabBar()->tabText( i ) == name )
++    {
++      showWidget( i );
++      break;
++    }
++  }
++}
++
++void QgsLateralPanelWidget::removeWidget( int index )
++{
++  if ( index < count() && index >= 0 )
++  {
++    removeTab( index );
++  }
++}
++
++void QgsLateralPanelWidget::removeWidget( const QString &name )
++{
++  for ( int i = 0; i < count(); ++i )
++  {
++    if ( tabBar()->tabText( i ) == name )
++    {
++      removeWidget( i );
++      break;
++    }
++  }
++}
++
++QAction *QgsLateralPanelWidget::toggleAction()
++{
++  return mToggleAction;
++}
++
++void QgsLateralPanelWidget::hide()
++{
++  mToggleAction->setChecked( false );
++}
+diff --git a/src/3d/qgslateralpanelwidget.h b/src/3d/qgslateralpanelwidget.h
+new file mode 100644
+index 00000000000..c88731bc68b
+--- /dev/null
++++ b/src/3d/qgslateralpanelwidget.h
+@@ -0,0 +1,98 @@
++/***************************************************************************
++  qgslateralpanelwidget.h
++  --------------------------------------
++  Date                 : July 2026
++  Copyright            : (C) 2026 by Benoit De Mezzo
++  Email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGSLATERALPANELWIDGET_H
++#define QGSLATERALPANELWIDGET_H
++
++#include "qgis.h"
++#include "qgis_3d.h"
++#include "qgslateralpanelwidget.h"
++
++#include <QTabWidget>
++
++class Qgs3DEditingToolBar;
++class Qgs3DMapCanvas;
++
++/**
++ * \ingroup qgis_3d
++ * Provide abstraction to lateral panel
++ * \since QGIS 4.4
++ */
++class _3D_EXPORT QgsLateralPanelWidget : public QTabWidget SIP_SKIP
++{
++    Q_OBJECT
++  public:
++    //! Default constructor
++    QgsLateralPanelWidget( QAction *toggleAction, QWidget *parent = nullptr );
++
++    /**
++     * Adds a widget to the panel by its name
++     * \param widget the widget to add
++     * \param name widget display name
++     * \return the widget index inside the panel
++     */
++    int addWidget( QWidget *widget, const QString &name );
++
++    /**
++     * Activates the panel and focus on a specific widget.
++     * \param index widget index
++     */
++    void showWidget( int index );
++
++    /**
++     * Activates the panel and focus on a specific widget.
++     * \param name widget display name
++     */
++    void showWidget( const QString &name );
++
++    /**
++     * Hides a specific widget.
++     * \param index widget index
++     */
++    void hideWidget( int index );
++
++    /**
++     * Hides a specific widget.
++     * \param name widget display name
++     */
++    void hideWidget( const QString &name );
++
++    /**
++     * Removes a specific widget.
++     * \param index widget index
++     */
++    void removeWidget( int index );
++
++    /**
++     * Removes a specific widget.
++     * \param name widget display name
++     */
++    void removeWidget( const QString &name );
++
++    /**
++     * Hides the panel
++     */
++    void hide();
++
++    /**
++     * Returns the action to show/hide the panel
++     */
++    QAction *toggleAction();
++
++  private:
++    QAction *mToggleAction = nullptr;
++};
++
++#endif //QGSLATERALPANELWIDGET_H
+diff --git a/src/app/3d/qgs3dmapcanvaswidget.cpp b/src/app/3d/qgs3dmapcanvaswidget.cpp
+index e6dbdf3cb07..be489e22df5 100644
+--- a/src/app/3d/qgs3dmapcanvaswidget.cpp
++++ b/src/app/3d/qgs3dmapcanvaswidget.cpp
+@@ -20,7 +20,7 @@
+ #include "qgs3danimationwidget.h"
+ #include "qgs3dcameracontrolswidget.h"
+ #include "qgs3ddebugwidget.h"
+-#include "qgs3dmapcanvas.h"
++#include "qgs3deditingtoolbar.h"
+ #include "qgs3dmapconfigwidget.h"
+ #include "qgs3dmapexportsettings.h"
+ #include "qgs3dmapexportwidget.h"
+@@ -29,9 +29,8 @@
+ #include "qgs3dmaptoolidentify.h"
+ #include "qgs3dmaptoolmeasureline.h"
+ #include "qgs3dmaptoolpointcloudchangeattribute.h"
+-#include "qgs3dmaptoolpointcloudchangeattributepaintbrush.h"
+-#include "qgs3dmaptoolpointcloudchangeattributepolygon.h"
+ #include "qgs3dnavigationwidget.h"
++#include "qgs3dpointcloudeditingtoolbar.h"
+ #include "qgs3dutils.h"
+ #include "qgsannotationlayer.h"
+ #include "qgsapplication.h"
+@@ -64,13 +63,16 @@
+ #include "qgssettingstree.h"
+ #include "qgsshortcutsmanager.h"
+ #include "qgswindow3dengine.h"
++#include "qgslateralpanelwidget.h"
+ 
+ #include <QAction>
+ #include <QActionGroup>
+ #include <QProgressBar>
+ #include <QShortcut>
+ #include <QString>
++#include <QTabWidget>
+ #include <QToolBar>
++#include <QToolBox>
+ #include <QWidget>
+ 
+ #include "moc_qgs3dmapcanvaswidget.cpp"
+@@ -104,97 +106,27 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+   // Editing toolbar
+   mEditingToolBar = new QToolBar( this );
+   mEditingToolBar->setWindowTitle( tr( "Editing Toolbar" ) );
+-  mEditingToolsMenu = new QMenu( this );
+ 
+-  mPointCloudEditingToolbar = new QToolBar( this );
+-
+-  mActionToggleEditing = new QAction( QgsApplication::getThemeIcon( u"/mActionToggleEditing.svg"_s ), tr( "Toggle editing" ), this );
+-  mActionToggleEditing->setCheckable( true );
+-  connect( mActionToggleEditing, &QAction::triggered, this, [this] {
+-    QgsMapLayer *layer = QgisApp::instance()->activeLayer();
+-    QgsPointCloudLayer *pcLayer = qobject_cast<QgsPointCloudLayer *>( layer );
+-    for ( QgsPointCloudSubIndex &subIndex : pcLayer->subIndexes() )
+-    {
+-      if ( !subIndex.index() || !subIndex.index().isValid() )
+-      {
+-        mMessageBar->pushMessage( tr( "Virtual Point Cloud editing" ), tr( "Some of the files referenced by the VPC have not yet been loaded, selection of areas of a not yet loaded dataset will not cause any changes to its data. Only actually selected points will be edited." ) );
+-        break;
+-      }
+-    }
+-    QgisApp::instance()->toggleEditing( pcLayer );
+-    mCanvas->setMapTool( nullptr );
+-  } );
+   mActionUndo = new QAction( QgsApplication::getThemeIcon( u"/mActionUndo.svg"_s ), tr( "Undo" ), this );
+   mActionRedo = new QAction( QgsApplication::getThemeIcon( u"/mActionRedo.svg"_s ), tr( "Redo" ), this );
+ 
+-  mEditingToolBar->addAction( mActionToggleEditing );
+   mEditingToolBar->addAction( mActionUndo );
+   mEditingToolBar->addAction( mActionRedo );
+   mEditingToolBar->addSeparator();
+ 
+-  mEditingToolsAction = new QAction( QgsApplication::getThemeIcon( u"mActionSelectPolygon.svg"_s ), tr( "Select Editing Tool" ), this );
+-  mEditingToolsAction->setMenu( mEditingToolsMenu );
+-  mEditingToolBar->addAction( mEditingToolsAction );
+-  QToolButton *editingToolsButton = qobject_cast<QToolButton *>( mEditingToolBar->widgetForAction( mEditingToolsAction ) );
+-  editingToolsButton->setPopupMode( QToolButton::ToolButtonPopupMode::InstantPopup );
+-  QAction *actionPointCloudChangeAttributeTool
+-    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectPolygon.svg"_s ) ), tr( "Select by Polygon" ), this, &Qgs3DMapCanvasWidget::changePointCloudAttributeByPolygon );
+-  QAction *actionPaintbrush
+-    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"propertyicons/rendering.svg"_s ) ), tr( "Select by Paintbrush" ), this, &Qgs3DMapCanvasWidget::changePointCloudAttributeByPaintbrush );
+-  QAction *actionAboveLineTool
+-    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectAboveLine.svg"_s ) ), tr( "Select Above Line" ), this, &Qgs3DMapCanvasWidget::changePointCloudAttributeByAboveLine );
+-  QAction *actionBelowLineTool
+-    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectBelowLine.svg"_s ) ), tr( "Select Below Line" ), this, &Qgs3DMapCanvasWidget::changePointCloudAttributeByBelowLine );
+-
++  mPointCloudEditingToolbar = new Qgs3DPointCloudEditingToolBar( this );
+   mEditingToolBar->addWidget( mPointCloudEditingToolbar );
+-  QAction *actionPointFilter
+-    = mPointCloudEditingToolbar->addAction( QIcon( QgsApplication::iconPath( "mIconExpressionFilter.svg" ) ), tr( "Filter Points" ), this, &Qgs3DMapCanvasWidget::changePointCloudAttributePointFilter );
+-  actionPointFilter->setCheckable( true );
+-  const QString tooltip
+-    = u"%1\n\n%2\n%3"_s.arg( tr( "Filter Points" ), tr( "Set an expression to filter points that should be edited." ), tr( "Points that do not satisfy the expression will not be modified." ) );
+-  actionPointFilter->setToolTip( tooltip );
+-
+-  mPointCloudEditingToolbar->addWidget( new QLabel( tr( "Attribute" ) ) );
+-  mCboChangeAttribute = new QComboBox();
+-  mPointCloudEditingToolbar->addWidget( mCboChangeAttribute );
+-  mSpinChangeAttributeValue = new QgsDoubleSpinBox();
+-  mSpinChangeAttributeValue->setShowClearButton( false );
+-  mPointCloudEditingToolbar->addWidget( new QLabel( tr( "Value" ) ) );
+-  mSpinChangeAttributeValueAction = mPointCloudEditingToolbar->addWidget( mSpinChangeAttributeValue );
+-  mSpinChangeAttributeValueAction->setVisible( false );
+-  mCboChangeAttributeValue = new QComboBox();
+-  mCboChangeAttributeValue->setEditable( true );
+-  mClassValidator = new ClassValidator( this );
+-  mCboChangeAttributeValueAction = mPointCloudEditingToolbar->addWidget( mCboChangeAttributeValue );
+-
+-  QAction *actionEditingToolbar = toolBar->addAction( QIcon( QgsApplication::iconPath( "mIconPointCloudLayer.svg" ) ), tr( "Show Editing Toolbar" ) );
+-  actionEditingToolbar->setCheckable( true );
+-  actionEditingToolbar->setChecked( setting.value( u"/3D/editingToolbar/visibility"_s, false, QgsSettings::Gui ).toBool() );
+-  connect( actionEditingToolbar, &QAction::toggled, this, &Qgs3DMapCanvasWidget::toggleEditingToolbar );
+-  connect( mCboChangeAttribute, qOverload<int>( &QComboBox::currentIndexChanged ), this, [this]( int ) { onPointCloudChangeAttributeSettingsChanged(); } );
+-  connect( mCboChangeAttributeValue, qOverload<const QString &>( &QComboBox::currentTextChanged ), this, [this]( const QString &text ) {
+-    double newValue = 0;
+-    if ( mCboChangeAttributeValue->isEditable() )
+-    {
+-      const QStringList split = text.split( ' ' );
+-      if ( !split.isEmpty() )
+-      {
+-        newValue = split.constFirst().toDouble();
+-      }
+-    }
+-    else
+-    {
+-      newValue = mCboChangeAttributeValue->currentData().toDouble();
+-    }
+-    mMapToolChangeAttribute->setNewValue( newValue );
+-  } );
+-  connect( mSpinChangeAttributeValue, qOverload<double>( &QgsDoubleSpinBox::valueChanged ), this, [this]( double ) { mMapToolChangeAttribute->setNewValue( mSpinChangeAttributeValue->value() ); } );
+ 
+-  QAction *toggleOnScreenNavigation = toolBar->addAction( QgsApplication::getThemeIcon( u"mAction3DNavigation.svg"_s ), tr( "Toggle On-Screen Navigation" ) );
++  mActionEditingToolbar = toolBar->addAction( QIcon( QgsApplication::iconPath( "mActionToggleEditing.svg" ) ), tr( "Show Editing Toolbar" ) );
++  mActionEditingToolbar->setEnabled( false );
++  mActionEditingToolbar->setCheckable( true );
++  mActionEditingToolbar->setChecked( setting.value( u"/3D/editingToolbar/visibility"_s, false, QgsSettings::Gui ).toBool() );
++  connect( mActionEditingToolbar, &QAction::toggled, this, &Qgs3DMapCanvasWidget::toggleEditingToolbar );
+ 
+-  toggleOnScreenNavigation->setCheckable( true );
+-  toggleOnScreenNavigation->setChecked( setting.value( u"/3D/navigationWidget/visibility"_s, true, QgsSettings::Gui ).toBool() );
+-  QObject::connect( toggleOnScreenNavigation, &QAction::toggled, this, &Qgs3DMapCanvasWidget::toggleNavigationWidget );
++  QAction *toggleOnScreenNavigation = toolBar->addAction( QgsApplication::getThemeIcon( u"mAction3DNavigation.svg"_s ), tr( "Toggle On-Screen Navigation" ) );
++  // this is no more a toggle but a button to show the widget
++  toggleOnScreenNavigation->setCheckable( false );
++  QObject::connect( toggleOnScreenNavigation, &QAction::triggered, this, [this]() { toggleNavigationWidget( true ); } );
+ 
+   toolBar->addSeparator();
+ 
+@@ -205,15 +137,17 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+   actionMeasurementTool->setCheckable( true );
+ 
+   // Create action group to make the action exclusive
+-  QActionGroup *actionGroup = new QActionGroup( this );
+-  actionGroup->addAction( actionCameraControl );
+-  actionGroup->addAction( actionIdentify );
+-  actionGroup->addAction( actionMeasurementTool );
+-  actionGroup->addAction( actionPaintbrush );
+-  actionGroup->addAction( actionPointCloudChangeAttributeTool );
+-  actionGroup->addAction( actionAboveLineTool );
+-  actionGroup->addAction( actionBelowLineTool );
+-  actionGroup->setExclusive( true );
++  mActionGroup = new QActionGroup( this );
++  mActionGroup->addAction( actionCameraControl );
++  mActionGroup->addAction( actionIdentify );
++  mActionGroup->addAction( actionMeasurementTool );
++
++  for ( auto toolbar : mEditingToolBar->findChildren<Qgs3DEditingToolBar *>() )
++  {
++    for ( auto action : toolbar->groupActions() )
++      mActionGroup->addAction( action );
++  }
++  mActionGroup->setExclusive( true );
+ 
+   mActionAnim = toolBar->addAction( QIcon( QgsApplication::iconPath( "mTaskRunning.svg" ) ), tr( "Animations" ), this, &Qgs3DMapCanvasWidget::toggleAnimations );
+   mActionAnim->setCheckable( true );
+@@ -387,7 +321,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+   connect( configureAction, &QAction::triggered, this, &Qgs3DMapCanvasWidget::configure );
+   toolBar->addAction( configureAction );
+ 
+-  mCanvas = new Qgs3DMapCanvas;
++  mCanvas = new Qgs3DMapCanvas( this );
+   mCanvas->setMinimumSize( QSize( 200, 200 ) );
+ 
+   connect( mCanvas, &Qgs3DMapCanvas::savedAsImage, this, []( const QString &fileName ) {
+@@ -411,8 +345,6 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+ 
+   mMapToolMeasureLine = new Qgs3DMapToolMeasureLine( this );
+ 
+-  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttribute( mCanvas );
+-
+   mLabelPendingJobs = new QLabel( this );
+   mProgressPendingJobs = new QProgressBar( this );
+   mProgressPendingJobs->setRange( 0, 0 );
+@@ -443,6 +375,7 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+     mLabelNavSpeedHideTimeout->stop();
+   } );
+ 
++  // create main vertical layout
+   QVBoxLayout *layout = new QVBoxLayout;
+   layout->setContentsMargins( 0, 0, 0, 0 );
+   layout->setSpacing( 0 );
+@@ -454,20 +387,29 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+   mContainer = QWidget::createWindowContainer( mCanvas );
+   mContainer->setMinimumSize( QSize( 200, 200 ) );
+   mContainer->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding );
++
++  // create the lateral panel
++  mLateralPanel = new QgsLateralPanelWidget( new QAction( QgsApplication::getThemeIcon( u"mActionResizeWidest.svg"_s ), tr( "Show/hide right panel" ), this ) );
++  mLateralPanel->hide();
++
+   mNavigationWidget = new Qgs3DNavigationWidget( mCanvas );
+   mNavigationWidget->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Expanding );
+   mDebugWidget = new Qgs3DDebugWidget( mCanvas );
+ 
++  mLateralPanel->addWidget( mNavigationWidget, u"Navigation"_s );
++  mLateralPanel->addWidget( mDebugWidget, u"Debug"_s );
++
++  // create sub horizontal layout
+   QHBoxLayout *hLayout = new QHBoxLayout;
+   hLayout->setContentsMargins( 0, 0, 0, 0 );
+   hLayout->addWidget( mContainer );
+-  hLayout->addWidget( mNavigationWidget );
+-  hLayout->addWidget( mDebugWidget );
++  hLayout->addWidget( mLateralPanel );
+ 
+   QShortcut *debugPanelShortCut = new QShortcut( QKeySequence( tr( "Ctrl+Shift+d" ) ), this );
+   connect( debugPanelShortCut, &QShortcut::activated, this, qOverload<>( &Qgs3DMapCanvasWidget::toggleDebugWidget ) );
+   debugPanelShortCut->setObjectName( u"DebugPanel"_s );
+   debugPanelShortCut->setWhatsThis( tr( "Debug panel visibility" ) );
++
+   toggleNavigationWidget( setting.value( u"/3D/navigationWidget/visibility"_s, false, QgsSettings::Gui ).toBool() );
+ 
+   layout->addLayout( hLayout );
+@@ -491,6 +433,10 @@ Qgs3DMapCanvasWidget::Qgs3DMapCanvasWidget( const QString &name, bool isDocked )
+   connect( mDockableWidgetHelper, &QgsDockableWidgetHelper::closed, this, [this]() { QgisApp::instance()->close3DMapView( canvasName() ); } );
+   connect( dockAction, &QAction::toggled, this, [toolBar]( const bool isSmallSize ) { toolBar->setIconSize( QgisApp::instance()->iconSize( isSmallSize ) ); } );
+ 
++  // add action to show/hide lateral panel
++  toolBar->addSeparator();
++  toolBar->addAction( mLateralPanel->toggleAction() );
++
+   updateLayerRelatedActions( QgisApp::instance()->activeLayer() );
+   mEditingToolBar->setVisible( setting.value( u"/3D/editingToolbar/visibility"_s, false, QgsSettings::Gui ).toBool() );
+ 
+@@ -519,6 +465,37 @@ Qgs3DMapCanvasWidget::~Qgs3DMapCanvasWidget()
+   delete mDockableWidgetHelper;
+ }
+ 
++QList<Qgs3DEditingToolBar *> Qgs3DMapCanvasWidget::editingToolBars() const
++{
++  QList<Qgs3DEditingToolBar *> out;
++  if ( mEditingToolBar )
++    for ( Qgs3DEditingToolBar *tb : mEditingToolBar->findChildren<Qgs3DEditingToolBar *>() )
++    {
++      out.append( tb );
++    }
++
++  return out;
++}
++
++void Qgs3DMapCanvasWidget::addEditingToolBar( Qgs3DEditingToolBar *newToolBar )
++{
++  if ( mEditingToolBar && newToolBar )
++  {
++    mEditingToolBar->addWidget( newToolBar );
++    mToolbarMenu->addAction( newToolBar->toggleViewAction() );
++    for ( auto action : newToolBar->groupActions() )
++      mActionGroup->addAction( action );
++
++    // disable toolbar by default
++    newToolBar->deactivate();
++  }
++}
++
++QgsLateralPanelWidget *Qgs3DMapCanvasWidget::lateralPanel() const
++{
++  return mLateralPanel;
++}
++
+ void Qgs3DMapCanvasWidget::saveAsImage()
+ {
+   const QPair<QString, QString> fileNameAndFilter = QgsGuiUtils::getSaveAsImageName( this, tr( "Choose a file name to save the 3D map canvas to an image" ) );
+@@ -572,140 +549,78 @@ void Qgs3DMapCanvasWidget::measureLine()
+   mCanvas->setMapTool( action->isChecked() ? mMapToolMeasureLine : nullptr );
+ }
+ 
+-void Qgs3DMapCanvasWidget::changePointCloudAttributeByPaintbrush()
+-{
+-  const QAction *action = qobject_cast<QAction *>( sender() );
+-  if ( !action )
+-    return;
+-
+-  mCanvas->requestActivate();
+-  mMapToolChangeAttribute->deleteLater();
+-  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePaintbrush( mCanvas );
+-  onPointCloudChangeAttributeSettingsChanged();
+-  mCanvas->setMapTool( mMapToolChangeAttribute );
+-  mEditingToolsAction->setIcon( action->icon() );
+-}
+-
+-void Qgs3DMapCanvasWidget::changePointCloudAttributeByPolygon()
++void Qgs3DMapCanvasWidget::setCanvasName( const QString &name )
+ {
+-  const QAction *action = qobject_cast<QAction *>( sender() );
+-  if ( !action )
+-    return;
+-
+-  mMapToolChangeAttribute->deleteLater();
+-  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mCanvas, Qgs3DMapToolPointCloudChangeAttributePolygon::Polygon );
+-  onPointCloudChangeAttributeSettingsChanged();
+-  mCanvas->setMapTool( mMapToolChangeAttribute );
+-  mEditingToolsAction->setIcon( action->icon() );
++  mCanvasName = name;
++  mDockableWidgetHelper->setWindowTitle( name );
+ }
+ 
+-void Qgs3DMapCanvasWidget::changePointCloudAttributeByAboveLine()
++void Qgs3DMapCanvasWidget::updateLayerRelatedActions( QgsMapLayer *layer )
+ {
+-  const QAction *action = qobject_cast<QAction *>( sender() );
+-  if ( !action )
++  if ( !layer || layer == mLayer )
+     return;
+ 
+-  mMapToolChangeAttribute->deleteLater();
+-  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mCanvas, Qgs3DMapToolPointCloudChangeAttributePolygon::AboveLine );
+-  onPointCloudChangeAttributeSettingsChanged();
+-  mCanvas->setMapTool( mMapToolChangeAttribute );
+-  mEditingToolsAction->setIcon( action->icon() );
+-}
++  qDebug() << __FUNCTION__ << __LINE__ << "for layer:" << layer;
++  // toggle previous layer if editable and not modified
++  if ( mLayer && mLayer->isEditable() && !mLayer->isModified() )
++    QgisApp::instance()->toggleEditing( mLayer );
+ 
+-void Qgs3DMapCanvasWidget::changePointCloudAttributeByBelowLine()
+-{
+-  const QAction *action = qobject_cast<QAction *>( sender() );
+-  if ( !action )
+-    return;
++  // set new working layer
++  mLayer = layer;
+ 
+-  mMapToolChangeAttribute->deleteLater();
+-  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mCanvas, Qgs3DMapToolPointCloudChangeAttributePolygon::BelowLine );
+-  onPointCloudChangeAttributeSettingsChanged();
+-  mCanvas->setMapTool( mMapToolChangeAttribute );
+-  mEditingToolsAction->setIcon( action->icon() );
++  updateEditingToolBar();
+ }
+ 
+-void Qgs3DMapCanvasWidget::changePointCloudAttributePointFilter()
++void Qgs3DMapCanvasWidget::updateEditingToolBar()
+ {
+-  QAction *action = qobject_cast<QAction *>( sender() );
+-  if ( !action )
+-    return;
+-
+-  QgsPointCloudLayer *layer = qobject_cast<QgsPointCloudLayer *>( QgisApp::instance()->activeLayer() );
+-  if ( !layer )
++  if ( !mEditingToolBar )
+     return;
+ 
+-  QgsPointCloudQueryBuilder qb( layer, this );
+-  qb.setSubsetString( mChangeAttributePointFilter );
+-  if ( qb.exec() )
+-  {
+-    mChangeAttributePointFilter = qb.subsetString();
+-    mMapToolChangeAttribute->setPointFilter( mChangeAttributePointFilter );
+-  }
+-  action->setChecked( !mChangeAttributePointFilter.isEmpty() );
+-  QString tooltip
+-    = u"%1\n\n%2\n%3"_s.arg( tr( "Filter Points" ), tr( "Set an expression to filter points that should be edited." ), tr( "Points that do not satisfy the expression will not be modified." ) );
+-  if ( !mChangeAttributePointFilter.isEmpty() )
+-    tooltip.append( u"\n%1\n%2"_s.arg( tr( "Current filter expression: " ), mChangeAttributePointFilter ) );
+-  action->setToolTip( tooltip );
+-}
+-
+-void Qgs3DMapCanvasWidget::setCanvasName( const QString &name )
+-{
+-  mCanvasName = name;
+-  mDockableWidgetHelper->setWindowTitle( name );
+-}
+-
+-void Qgs3DMapCanvasWidget::updateLayerRelatedActions( QgsMapLayer *layer )
+-{
+   mActionUndo->disconnect();
+   mActionRedo->disconnect();
++  disconnect( mUndoConnection );
++  disconnect( mRedoConnection );
+ 
+-  if ( !layer || layer->type() != Qgis::LayerType::PointCloud )
++  bool toolbarFound = false;
++  for ( auto toolbar : mEditingToolBar->findChildren<Qgs3DEditingToolBar *>() )
+   {
+-    mPointCloudEditingToolbar->setEnabled( false );
+-    mActionToggleEditing->setEnabled( false );
+-    mActionToggleEditing->setChecked( false );
+-    mEditingToolsAction->setEnabled( false );
+-    mActionUndo->setEnabled( false );
+-    mActionRedo->setEnabled( false );
+-
+-    if ( mCanvas->mapTool() && mCanvas->mapTool() == mMapToolChangeAttribute )
+-      mCanvas->setMapTool( nullptr );
+-
+-    return;
++    if ( mLayer && toolbar->accept( mLayer ) && mLayer->supportsEditing() )
++    {
++      toolbar->activate( mLayer );
++      toolbarFound = true;
++    }
++    else
++      toolbar->deactivate();
+   }
+ 
+-
+-  QgsPointCloudLayer *pcLayer = qobject_cast<QgsPointCloudLayer *>( layer );
+-  const QVector<QgsPointCloudAttribute> attributes = pcLayer->attributes().attributes();
+-  const QString previousAttribute = mCboChangeAttribute->currentText();
+-  whileBlocking( mCboChangeAttribute )->clear();
+-  for ( const QgsPointCloudAttribute &attribute : attributes )
++  if ( toolbarFound && mLayer && mLayer->supportsEditing() )
+   {
+-    if ( attribute.name() == "X"_L1 || attribute.name() == "Y"_L1 || attribute.name() == "Z"_L1 )
+-      continue;
+-
+-    whileBlocking( mCboChangeAttribute )->addItem( attribute.name() );
++    // enable mEditingToolBar
++    mActionEditingToolbar->setEnabled( true );
++    QgsSettings setting;
++    mEditingToolBar->setVisible( setting.value( u"/3D/editingToolbar/visibility"_s, false, QgsSettings::Gui ).toBool() );
++
++    // toggle editing if not already editable
++    if ( !mLayer->isEditable() )
++      QgisApp::instance()->toggleEditing( mLayer );
++
++    mDockableWidgetHelper->setWindowTitle( u"%1 - %2"_s.arg( mCanvasName ).arg( mLayer->name() ) );
++
++    connect( mActionUndo, &QAction::triggered, mLayer->undoStack(), &QUndoStack::undo );
++    connect( mActionRedo, &QAction::triggered, mLayer->undoStack(), &QUndoStack::redo );
++    mActionUndo->setEnabled( mLayer->undoStack()->canUndo() );
++    mActionRedo->setEnabled( mLayer->undoStack()->canRedo() );
++    mUndoConnection = connect( mLayer->undoStack(), &QUndoStack::canUndoChanged, mActionUndo, &QAction::setEnabled );
++    mRedoConnection = connect( mLayer->undoStack(), &QUndoStack::canRedoChanged, mActionRedo, &QAction::setEnabled );
+   }
++  else
++  {
++    // disable mEditingToolBar
++    mActionEditingToolbar->setEnabled( false );
++    mEditingToolBar->setVisible( false );
+ 
+-  int index = mCboChangeAttribute->findText( previousAttribute );
+-  if ( index < 0 )
+-    index = mCboChangeAttribute->findText( u"Classification"_s );
+-  mCboChangeAttribute->setCurrentIndex( std::max( index, 0 ) );
+-
+-  mActionToggleEditing->setEnabled( pcLayer->supportsEditing() );
+-  mActionToggleEditing->setChecked( pcLayer->isEditable() );
+-  connect( mActionUndo, &QAction::triggered, pcLayer->undoStack(), &QUndoStack::undo );
+-  connect( mActionRedo, &QAction::triggered, pcLayer->undoStack(), &QUndoStack::redo );
+-  mActionUndo->setEnabled( pcLayer->undoStack()->canUndo() );
+-  mActionRedo->setEnabled( pcLayer->undoStack()->canRedo() );
+-  connect( pcLayer->undoStack(), &QUndoStack::canUndoChanged, mActionUndo, &QAction::setEnabled );
+-  connect( pcLayer->undoStack(), &QUndoStack::canRedoChanged, mActionRedo, &QAction::setEnabled );
+-  mPointCloudEditingToolbar->setEnabled( pcLayer->isEditable() );
+-  mEditingToolsAction->setEnabled( pcLayer->isEditable() );
+-  // Reparse the class values when the renderer changes - renderer3DChanged() is not fired when only the renderer symbol is changed
+-  connect( pcLayer, &QgsMapLayer::request3DUpdate, this, &Qgs3DMapCanvasWidget::onPointCloudChangeAttributeSettingsChanged );
++    mDockableWidgetHelper->setWindowTitle( mCanvasName );
++  }
+ }
+ 
+ bool Qgs3DMapCanvasWidget::eventFilter( QObject *watched, QEvent *event )
+@@ -730,7 +645,14 @@ bool Qgs3DMapCanvasWidget::eventFilter( QObject *watched, QEvent *event )
+ 
+ void Qgs3DMapCanvasWidget::toggleNavigationWidget( const bool visibility )
+ {
+-  mNavigationWidget->setVisible( visibility );
++  if ( visibility )
++  {
++    mLateralPanel->showWidget( u"Navigation"_s );
++  }
++  else
++  {
++    mLateralPanel->hide();
++  }
+   QgsSettings setting;
+   setting.setValue( u"/3D/navigationWidget/visibility"_s, visibility, QgsSettings::Gui );
+ }
+@@ -740,6 +662,12 @@ void Qgs3DMapCanvasWidget::toggleEditingToolbar( const bool visibility )
+   mEditingToolBar->setVisible( visibility );
+   QgsSettings setting;
+   setting.setValue( u"/3D/editingToolbar/visibility"_s, visibility, QgsSettings::Gui );
++
++  // toggle editing if not already editable
++  if ( !visibility && mLayer && mLayer->isEditable() && !mLayer->isModified() )
++    QgisApp::instance()->toggleEditing( mLayer );
++
++  updateEditingToolBar();
+ }
+ 
+ void Qgs3DMapCanvasWidget::toggleFpsCounter( const bool visibility )
+@@ -749,7 +677,14 @@ void Qgs3DMapCanvasWidget::toggleFpsCounter( const bool visibility )
+ 
+ void Qgs3DMapCanvasWidget::toggleDebugWidget( const bool visibility ) const
+ {
+-  mDebugWidget->setVisible( visibility );
++  if ( visibility )
++  {
++    mLateralPanel->showWidget( u"Debug"_s );
++  }
++  else
++  {
++    mLateralPanel->hideWidget( u"Debug"_s );
++  }
+ }
+ 
+ // this is used only for keyboard shortcut, you should supply the visibility value
+@@ -758,7 +693,7 @@ void Qgs3DMapCanvasWidget::toggleDebugWidget() const
+   Qgis::Map3DDebugFlags debugFlags = mCanvas->mapSettings()->debugFlags();
+   debugFlags.setFlag( Qgis::Map3DDebugFlag::ShowDebugPanel, !debugFlags.testFlag( Qgis::Map3DDebugFlag::ShowDebugPanel ) );
+   mCanvas->mapSettings()->setDebugFlags( debugFlags );
+-  mDebugWidget->setVisible( debugFlags.testFlag( Qgis::Map3DDebugFlag::ShowDebugPanel ) );
++  toggleDebugWidget( debugFlags.testFlag( Qgis::Map3DDebugFlag::ShowDebugPanel ) );
+ }
+ 
+ void Qgs3DMapCanvasWidget::setMapSettings( Qgs3DMapSettings *map )
+@@ -1116,166 +1051,6 @@ void Qgs3DMapCanvasWidget::onGpuMemoryLimitReached()
+   mGpuMemoryLimitReachedReported = true;
+ }
+ 
+-void Qgs3DMapCanvasWidget::onPointCloudChangeAttributeSettingsChanged()
+-{
+-  const QString attributeName = mCboChangeAttribute->currentText();
+-
+-  mSpinChangeAttributeValue->setSuffix( QString() );
+-  bool useComboBox = false;
+-
+-  if ( attributeName == "Intensity"_L1 || attributeName == "PointSourceId"_L1 || attributeName == "Red"_L1 || attributeName == "Green"_L1 || attributeName == "Blue"_L1 || attributeName == "Infrared"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( 0 );
+-    mSpinChangeAttributeValue->setMaximum( 65535 );
+-    mSpinChangeAttributeValue->setDecimals( 0 );
+-  }
+-  else if ( attributeName == "ReturnNumber"_L1 || attributeName == "NumberOfReturns"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( 0 );
+-    mSpinChangeAttributeValue->setMaximum( 15 );
+-    mSpinChangeAttributeValue->setDecimals( 0 );
+-  }
+-  else if ( attributeName == "Synthetic"_L1
+-            || attributeName == "KeyPoint"_L1
+-            || attributeName == "Withheld"_L1
+-            || attributeName == "Overlap"_L1
+-            || attributeName == "ScanDirectionFlag"_L1
+-            || attributeName == "EdgeOfFlightLine"_L1 )
+-  {
+-    useComboBox = true;
+-    const int oldIndex = mCboChangeAttributeValue->currentIndex();
+-    QgsSignalBlocker< QComboBox > blocker( mCboChangeAttributeValue );
+-    mCboChangeAttributeValue->clear();
+-    mCboChangeAttributeValue->addItem( tr( "False" ), 0 );
+-    mCboChangeAttributeValue->addItem( tr( "True" ), 1 );
+-    mCboChangeAttributeValue->setEditable( false );
+-    mCboChangeAttributeValue->setCurrentIndex( std::min( oldIndex, 1 ) );
+-  }
+-  else if ( attributeName == "ScannerChannel"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( 0 );
+-    mSpinChangeAttributeValue->setMaximum( 3 );
+-    mSpinChangeAttributeValue->setDecimals( 0 );
+-  }
+-  else if ( attributeName == "Classification"_L1 )
+-  {
+-    useComboBox = true;
+-    const QStringList split = mCboChangeAttributeValue->currentText().split( ' ' );
+-    const int oldValue = split.isEmpty() ? 0 : split.constFirst().toInt();
+-
+-    whileBlocking( mCboChangeAttributeValue )->clear();
+-    // We will fill the combobox with all available classes from the Classification renderer (may have changed names) and the layer statistics
+-    // Users will be able to manually type in any other class number too.
+-    QMap<int, QString> lasCodes = QgsPointCloudDataProvider::translatedLasClassificationCodes();
+-    QMap<int, QString> classes;
+-
+-    QgsPointCloudLayer *layer = qobject_cast<QgsPointCloudLayer *>( QgisApp::instance()->activeLayer() );
+-    if ( layer )
+-    {
+-      QgsAbstract3DRenderer *r = layer->renderer3D();
+-      // if there's a classification renderer, let's use the classes labels
+-      if ( QgsPointCloudLayer3DRenderer *cr = dynamic_cast<QgsPointCloudLayer3DRenderer *>( r ) )
+-      {
+-        const QgsPointCloud3DSymbol *s = cr->symbol();
+-        if ( const QgsClassificationPointCloud3DSymbol *cs = dynamic_cast<const QgsClassificationPointCloud3DSymbol *>( s ) )
+-        {
+-          if ( cs->attribute() == "Classification"_L1 )
+-          {
+-            for ( const QgsPointCloudCategory &c : cs->categoriesList() )
+-            {
+-              classes[c.value()] = c.label();
+-            }
+-          }
+-        }
+-      }
+-
+-      // then add missing classes from the layer stats too
+-      const QMap<int, int> statisticsClasses = layer->statistics().availableClasses( u"Classification"_s );
+-      for ( auto it = statisticsClasses.constBegin(); it != statisticsClasses.constEnd(); ++it )
+-      {
+-        if ( !classes.contains( it.key() ) )
+-          classes[it.key()] = lasCodes[it.key()];
+-      }
+-      for ( auto it = classes.constBegin(); it != classes.constEnd(); ++it )
+-      {
+-        // populate the combobox
+-        whileBlocking( mCboChangeAttributeValue )->addItem( u"%1 (%2)"_s.arg( it.key() ).arg( it.value() ), it.key() );
+-        // and also update the labels in the full list of classes, which will be used in the editable combobox validator.
+-        lasCodes[it.key()] = it.value();
+-      }
+-    }
+-    // new values (manually edited) will be added after a separator
+-    mCboChangeAttributeValue->insertSeparator( mCboChangeAttributeValue->count() );
+-    mClassValidator->setClasses( lasCodes );
+-    mCboChangeAttributeValue->setEditable( true );
+-    mCboChangeAttributeValue->setValidator( mClassValidator );
+-    mCboChangeAttributeValue->setCompleter( nullptr );
+-
+-    // Try to reselect last selected value
+-    if ( classes.contains( oldValue ) )
+-    {
+-      for ( int i = 0; i < mCboChangeAttributeValue->count(); ++i )
+-      {
+-        if ( mCboChangeAttributeValue->itemText( i ).startsWith( u"%1 "_s.arg( oldValue ) ) )
+-        {
+-          mCboChangeAttributeValue->setCurrentIndex( i );
+-          break;
+-        }
+-      }
+-    }
+-    else
+-    {
+-      whileBlocking( mCboChangeAttributeValue )->addItem( u"%1 ()"_s.arg( oldValue ), oldValue );
+-      mCboChangeAttributeValue->setCurrentIndex( mCboChangeAttributeValue->count() - 1 );
+-    }
+-  }
+-  else if ( attributeName == "UserData"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( 0 );
+-    mSpinChangeAttributeValue->setMaximum( 255 );
+-    mSpinChangeAttributeValue->setDecimals( 0 );
+-  }
+-  else if ( attributeName == "ScanAngleRank"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( -180 );
+-    mSpinChangeAttributeValue->setMaximum( 180 );
+-    mSpinChangeAttributeValue->setDecimals( 3 );
+-    mSpinChangeAttributeValue->setSuffix( u" %1"_s.arg( tr( "degrees" ) ) );
+-  }
+-  else if ( attributeName == "GpsTime"_L1 )
+-  {
+-    mSpinChangeAttributeValue->setMinimum( 0 );
+-    mSpinChangeAttributeValue->setMaximum( std::numeric_limits<double>::max() );
+-    mSpinChangeAttributeValue->setDecimals( 42 );
+-  }
+-
+-  mMapToolChangeAttribute->setAttribute( attributeName );
+-  double newValue = 0;
+-  if ( useComboBox && mCboChangeAttributeValue->isEditable() )
+-  {
+-    // read class integer
+-    const QStringList split = mCboChangeAttributeValue->currentText().split( ' ' );
+-    if ( !split.isEmpty() )
+-      newValue = split.constFirst().toDouble();
+-  }
+-  else if ( useComboBox )
+-  {
+-    // read true/false combo box
+-    newValue = mCboChangeAttributeValue->currentData().toDouble();
+-  }
+-  else
+-  {
+-    // read the spinbox value
+-    newValue = mSpinChangeAttributeValue->value();
+-  }
+-  mMapToolChangeAttribute->setNewValue( newValue );
+-
+-  mCboChangeAttributeValueAction->setVisible( useComboBox );
+-  mSpinChangeAttributeValueAction->setVisible( !useComboBox );
+-
+-  mMapToolChangeAttribute->setPointFilter( mChangeAttributePointFilter );
+-}
+-
+ void Qgs3DMapCanvasWidget::setSceneExtentOn2DCanvas()
+ {
+   if ( !qobject_cast<QgsMapToolExtent *>( mMainCanvas->mapTool() ) )
+diff --git a/src/app/3d/qgs3dmapcanvaswidget.h b/src/app/3d/qgs3dmapcanvaswidget.h
+index 5dbb1c6cebf..86e2fa3b9dc 100644
+--- a/src/app/3d/qgs3dmapcanvaswidget.h
++++ b/src/app/3d/qgs3dmapcanvaswidget.h
+@@ -17,6 +17,7 @@
+ #define QGS3DMAPCANVASWIDGET_H
+ 
+ #include "qgis_app.h"
++#include "qgs3dmapcanvaswidgetinterface.h"
+ #include "qgsgeometry.h"
+ #include "qgsrectangle.h"
+ #include "qobjectuniqueptr.h"
+@@ -34,6 +35,8 @@ class QgsMapToolClippingPlanes;
+ class Qgs3DMapToolPointCloudChangeAttributePaintbrush;
+ class QLabel;
+ class QProgressBar;
++class QActionGroup;
++class QTabWidget;
+ 
+ class Qgs3DAnimationWidget;
+ class Qgs3DMapCanvas;
+@@ -58,6 +61,9 @@ class QgsSettingsEntryBool;
+ class QgsGeometry;
+ class QgsElevationProfile;
+ class QgsProfilePoint;
++class Qgs3DEditingToolBar;
++
++class Qgs3DPointCloudEditingToolBar;
+ 
+ //! Helper validator for classification classes
+ class ClassValidator : public QValidator
+@@ -74,7 +80,7 @@ class ClassValidator : public QValidator
+     QRegularExpression mRx;
+ };
+ 
+-class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
++class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget, public Qgs3DMapCanvasWidgetInterface
+ {
+     Q_OBJECT
+ 
+@@ -90,7 +96,7 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+ 
+     void setMainCanvas( QgsMapCanvas *canvas );
+ 
+-    Qgs3DMapCanvas *mapCanvas3D() { return mCanvas; }
++    Qgs3DMapCanvas *mapCanvas3D() override { return mCanvas; }
+ 
+     Qgs3DAnimationWidget *animationWidget() { return mAnimationWidget; }
+ 
+@@ -98,6 +104,10 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+ 
+     QgsDockableWidgetHelper *dockableWidgetHelper() { return mDockableWidgetHelper; }
+ 
++    void addEditingToolBar( Qgs3DEditingToolBar *newToolBar ) override;
++    QList<Qgs3DEditingToolBar *> editingToolBars() const override;
++    QgsLateralPanelWidget *lateralPanel() const override;
++
+     void setCanvasName( const QString &name );
+     QString canvasName() const { return mCanvasName; }
+ 
+@@ -128,11 +138,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     void cameraControl();
+     void identify();
+     void measureLine();
+-    void changePointCloudAttributeByPaintbrush();
+-    void changePointCloudAttributeByPolygon();
+-    void changePointCloudAttributeByAboveLine();
+-    void changePointCloudAttributeByBelowLine();
+-    void changePointCloudAttributePointFilter();
+     void exportScene();
+     void toggleNavigationWidget( bool visibility );
+     void toggleEditingToolbar( bool visibility );
+@@ -159,8 +164,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     void onExtentChanged();
+     void onGpuMemoryLimitReached();
+ 
+-    void onPointCloudChangeAttributeSettingsChanged();
+-
+     void onCrossSectionToolFinished();
+ 
+   private:
+@@ -171,6 +174,8 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     void updateProfileRubberBands( QgsElevationProfile *profile );
+     void hideProfileRubberBands( QgsElevationProfile *profile );
+ 
++    void updateEditingToolBar();
++
+     QString mCanvasName;
+     Qgs3DMapCanvas *mCanvas = nullptr;
+     Qgs3DAnimationWidget *mAnimationWidget = nullptr;
+@@ -182,7 +187,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     QTimer *mLabelNavSpeedHideTimeout = nullptr;
+     Qgs3DMapToolIdentify *mMapToolIdentify = nullptr;
+     Qgs3DMapToolMeasureLine *mMapToolMeasureLine = nullptr;
+-    Qgs3DMapToolPointCloudChangeAttribute *mMapToolChangeAttribute = nullptr;
+     QgsGeometry mCrossSectionLine;
+     QObjectUniquePtr<QgsRubberBand> mCrossSectionRubberBand;
+     std::unique_ptr<QgsMapToolExtent> mMapToolExtent;
+@@ -193,7 +197,6 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     QMenu *mCameraMenu = nullptr;
+     QMenu *mCrossSectionMenu = nullptr;
+     QMenu *mEffectsMenu = nullptr;
+-    QMenu *mEditingToolsMenu = nullptr;
+     QList<QAction *> mMapThemeMenuPresetActions;
+     QAction *mActionEnableShadows = nullptr;
+     QAction *mActionEnableEyeDome = nullptr;
+@@ -213,14 +216,14 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     QAction *mActionSetSceneExtent = nullptr;
+     QAction *mActionSetClippingPlanes = nullptr;
+     QAction *mActionDisableClippingPlanes = nullptr;
+-    QAction *mActionToggleEditing = nullptr;
+     QAction *mActionUndo = nullptr;
++    QMetaObject::Connection mUndoConnection;
+     QAction *mActionRedo = nullptr;
+-    QAction *mEditingToolsAction = nullptr;
++    QMetaObject::Connection mRedoConnection;
++    Qgs3DPointCloudEditingToolBar *mPointCloudEditingToolbar = nullptr;
+     QAction *mActionNudgeLeft = nullptr;
+     QAction *mActionNudgeRight = nullptr;
+     QAction *mActionDynamicClipping = nullptr;
+-    QToolBar *mPointCloudEditingToolbar = nullptr;
+     QgsDockableWidgetHelper *mDockableWidgetHelper = nullptr;
+     QObjectUniquePtr<QgsRubberBand> mViewFrustumHighlight;
+     QObjectUniquePtr<QgsRubberBand> mViewExtentHighlight;
+@@ -229,6 +232,10 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     QgsMessageBar *mMessageBar = nullptr;
+     bool mGpuMemoryLimitReachedReported = false;
+ 
++    QAction *mActionEditingToolbar = nullptr;
++    QActionGroup *mActionGroup = nullptr;
++
++    QgsMapLayer *mLayer = nullptr;
+     //! Container QWidget that encapsulates 3D QWindow
+     QWidget *mContainer = nullptr;
+     //! On-Screen Navigation widget.
+@@ -237,18 +244,13 @@ class APP_EXPORT Qgs3DMapCanvasWidget : public QWidget
+     Qgs3DDebugWidget *mDebugWidget = nullptr;
+ 
+     QToolBar *mEditingToolBar = nullptr;
+-    QComboBox *mCboChangeAttribute = nullptr;
+-    QComboBox *mCboChangeAttributeValue = nullptr;
+-    ClassValidator *mClassValidator = nullptr;
+-    QgsDoubleSpinBox *mSpinChangeAttributeValue = nullptr;
+-    QAction *mCboChangeAttributeValueAction = nullptr;
+-    QAction *mSpinChangeAttributeValueAction = nullptr;
+-    QString mChangeAttributePointFilter;
+ 
+     Qgs3DMapClippingToleranceWidgetSettingsAction *mClippingToleranceAction = nullptr;
+ 
+     QMenu *mToolbarMenu = nullptr;
+ 
++    QgsLateralPanelWidget *mLateralPanel = nullptr;
++
+     struct ElevationProfileData
+     {
+         std::unique_ptr<QgsRubberBand3D> rubberBandZMin;
+diff --git a/src/app/3d/qgs3dpointcloudeditingtoolbar.cpp b/src/app/3d/qgs3dpointcloudeditingtoolbar.cpp
+new file mode 100644
+index 00000000000..0305f0ea947
+--- /dev/null
++++ b/src/app/3d/qgs3dpointcloudeditingtoolbar.cpp
+@@ -0,0 +1,415 @@
++/***************************************************************************
++    qgs3dpointcloudeditingtoolbar.cpp
++    -------------------
++    begin                : November 2025
++    copyright            : (C) 2025 Oslandia
++    email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#include "qgs3dpointcloudeditingtoolbar.h"
++
++#include <QString>
++
++using namespace Qt::StringLiterals;
++
++//#include "moc_qgs3dpointcloudeditingtoolbar.cpp"
++
++#include <QAction>
++#include <QShortcut>
++#include <QWidget>
++#include <QActionGroup>
++#include <QComboBox>
++#include <QMenu>
++#include <QPointer>
++#include <QLabel>
++
++#include "qgsapplication.h"
++#include "qgspointcloudlayer.h"
++#include "qgisapp.h"
++#include "qgsdoublespinbox.h"
++#include "qgs3dmapcanvas.h"
++#include "qgs3dmaptoolpointcloudchangeattributepaintbrush.h"
++#include "qgs3dmaptoolpointcloudchangeattributepolygon.h"
++#include "qgsmessagebar.h"
++#include "qgspointcloudquerybuilder.h"
++#include "qgspointclouddataprovider.h"
++#include "qgspointcloudlayer3drenderer.h"
++
++Qgs3DPointCloudEditingToolBar::Qgs3DPointCloudEditingToolBar( Qgs3DMapCanvasWidget *parent )
++  : Qgs3DEditingToolBar( u"Point cloud editing"_s, parent )
++{
++  mEditingToolsMenu = new QMenu( this );
++
++  mEditingToolsAction = new QAction( QgsApplication::getThemeIcon( u"mActionSelectPolygon.svg"_s ), tr( "Select Editing Tool" ), this );
++  mEditingToolsAction->setMenu( mEditingToolsMenu );
++  /*mEditingToolBar->*/ addAction( mEditingToolsAction );
++
++  QToolButton *editingToolsButton = qobject_cast<QToolButton *>( /*mEditingToolBar->*/ widgetForAction( mEditingToolsAction ) );
++  editingToolsButton->setPopupMode( QToolButton::ToolButtonPopupMode::InstantPopup );
++  QAction *actionPointCloudChangeAttributeTool
++    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectPolygon.svg"_s ) ), tr( "Select by Polygon" ), this, &Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByPolygon );
++  QAction *actionPaintbrush
++    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"propertyicons/rendering.svg"_s ) ), tr( "Select by Paintbrush" ), this, &Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByPaintbrush );
++  QAction *actionAboveLineTool
++    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectAboveLine.svg"_s ) ), tr( "Select Above Line" ), this, &Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByAboveLine );
++  QAction *actionBelowLineTool
++    = mEditingToolsMenu->addAction( QIcon( QgsApplication::iconPath( u"mActionSelectBelowLine.svg"_s ) ), tr( "Select Below Line" ), this, &Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByBelowLine );
++
++  mGroupActions << actionPointCloudChangeAttributeTool << actionPaintbrush << actionAboveLineTool << actionBelowLineTool;
++
++  QAction *actionPointFilter
++    = addAction( QIcon( QgsApplication::iconPath( "mIconExpressionFilter.svg" ) ), tr( "Filter Points" ), this, &Qgs3DPointCloudEditingToolBar::changePointCloudAttributePointFilter );
++  actionPointFilter->setCheckable( true );
++  const QString tooltip
++    = u"%1\n\n%2\n%3"_s.arg( tr( "Filter Points" ), tr( "Set an expression to filter points that should be edited." ), tr( "Points that do not satisfy the expression will not be modified." ) );
++  actionPointFilter->setToolTip( tooltip );
++
++  addWidget( new QLabel( tr( "Attribute" ) ) );
++  mCboChangeAttribute = new QComboBox();
++  addWidget( mCboChangeAttribute );
++  mSpinChangeAttributeValue = new QgsDoubleSpinBox();
++  mSpinChangeAttributeValue->setShowClearButton( false );
++  addWidget( new QLabel( tr( "Value" ) ) );
++  mSpinChangeAttributeValueAction = addWidget( mSpinChangeAttributeValue );
++  mSpinChangeAttributeValueAction->setVisible( false );
++  mCboChangeAttributeValue = new QComboBox();
++  mCboChangeAttributeValue->setEditable( true );
++  mClassValidator = new ClassValidator( this );
++  mCboChangeAttributeValueAction = addWidget( mCboChangeAttributeValue );
++
++  connect( mCboChangeAttribute, qOverload<int>( &QComboBox::currentIndexChanged ), this, [this]( int ) { onPointCloudChangeAttributeSettingsChanged(); } );
++  connect( mCboChangeAttributeValue, qOverload<const QString &>( &QComboBox::currentTextChanged ), this, [this]( const QString &text ) {
++    double newValue = 0;
++    if ( mCboChangeAttributeValue->isEditable() )
++    {
++      const QStringList split = text.split( ' ' );
++      if ( !split.isEmpty() )
++      {
++        newValue = split.constFirst().toDouble();
++      }
++    }
++    else
++    {
++      newValue = mCboChangeAttributeValue->currentData().toDouble();
++    }
++    mMapToolChangeAttribute->setNewValue( newValue );
++  } );
++  connect( mSpinChangeAttributeValue, qOverload<double>( &QgsDoubleSpinBox::valueChanged ), this, [this]( double ) { mMapToolChangeAttribute->setNewValue( mSpinChangeAttributeValue->value() ); } );
++
++  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttribute( mapCanvas3D() );
++}
++
++bool Qgs3DPointCloudEditingToolBar::accept( QgsMapLayer *layer ) const
++{
++  if ( layer != nullptr && layer->type() == Qgis::LayerType::PointCloud )
++  {
++    QgsPointCloudLayer *pcLayer = qobject_cast<QgsPointCloudLayer *>( layer );
++    for ( QgsPointCloudSubIndex &subIndex : pcLayer->subIndexes() )
++    {
++      if ( !subIndex.index() || !subIndex.index().isValid() )
++      {
++        QgisApp::instance()
++          ->messageBar()
++          ->pushMessage( tr( "Virtual Point Cloud editing" ), tr( "Some of the files referenced by the VPC have not yet been loaded, selection of areas of a not yet loaded dataset will not cause any changes to its data. Only actually selected points will be edited." ) );
++        break;
++      }
++    }
++    return true;
++  }
++  return false;
++}
++
++
++void Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByPaintbrush()
++{
++  const QAction *action = qobject_cast<QAction *>( sender() );
++  if ( !action )
++    return;
++
++  mapCanvas3D()->requestActivate();
++  mMapToolChangeAttribute->deleteLater();
++  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePaintbrush( mapCanvas3D() );
++  onPointCloudChangeAttributeSettingsChanged();
++  mapCanvas3D()->setMapTool( mMapToolChangeAttribute );
++  mEditingToolsAction->setIcon( action->icon() );
++}
++
++void Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByPolygon()
++{
++  const QAction *action = qobject_cast<QAction *>( sender() );
++  if ( !action )
++    return;
++
++  mMapToolChangeAttribute->deleteLater();
++  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mapCanvas3D(), Qgs3DMapToolPointCloudChangeAttributePolygon::Polygon );
++  onPointCloudChangeAttributeSettingsChanged();
++  mapCanvas3D()->setMapTool( mMapToolChangeAttribute );
++  mEditingToolsAction->setIcon( action->icon() );
++}
++
++void Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByAboveLine()
++{
++  const QAction *action = qobject_cast<QAction *>( sender() );
++  if ( !action )
++    return;
++
++  mMapToolChangeAttribute->deleteLater();
++  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mapCanvas3D(), Qgs3DMapToolPointCloudChangeAttributePolygon::AboveLine );
++  onPointCloudChangeAttributeSettingsChanged();
++  mapCanvas3D()->setMapTool( mMapToolChangeAttribute );
++  mEditingToolsAction->setIcon( action->icon() );
++}
++
++void Qgs3DPointCloudEditingToolBar::changePointCloudAttributeByBelowLine()
++{
++  const QAction *action = qobject_cast<QAction *>( sender() );
++  if ( !action )
++    return;
++
++  mMapToolChangeAttribute->deleteLater();
++  mMapToolChangeAttribute = new Qgs3DMapToolPointCloudChangeAttributePolygon( mapCanvas3D(), Qgs3DMapToolPointCloudChangeAttributePolygon::BelowLine );
++  onPointCloudChangeAttributeSettingsChanged();
++  mapCanvas3D()->setMapTool( mMapToolChangeAttribute );
++  mEditingToolsAction->setIcon( action->icon() );
++}
++
++void Qgs3DPointCloudEditingToolBar::changePointCloudAttributePointFilter()
++{
++  QAction *action = qobject_cast<QAction *>( sender() );
++  if ( !action )
++    return;
++
++  QgsPointCloudLayer *layer = qobject_cast<QgsPointCloudLayer *>( QgisApp::instance()->activeLayer() );
++  if ( !layer )
++    return;
++
++  QgsPointCloudQueryBuilder qb( layer, this );
++  qb.setSubsetString( mChangeAttributePointFilter );
++  if ( qb.exec() )
++  {
++    mChangeAttributePointFilter = qb.subsetString();
++    mMapToolChangeAttribute->setPointFilter( mChangeAttributePointFilter );
++  }
++  action->setChecked( !mChangeAttributePointFilter.isEmpty() );
++  QString tooltip
++    = u"%1\n\n%2\n%3"_s.arg( tr( "Filter Points" ), tr( "Set an expression to filter points that should be edited." ), tr( "Points that do not satisfy the expression will not be modified." ) );
++  if ( !mChangeAttributePointFilter.isEmpty() )
++    tooltip.append( u"\n%1\n%2"_s.arg( tr( "Current filter expression: " ), mChangeAttributePointFilter ) );
++  action->setToolTip( tooltip );
++}
++
++void Qgs3DPointCloudEditingToolBar::deactivate()
++{
++  for ( auto action : findChildren<QAction *>() )
++    action->setVisible( false );
++
++  mEditingToolsAction->setEnabled( false );
++  qDebug() << __FUNCTION__ << __LINE__ << "visible:" << isVisible();
++  setEnabled( false );
++
++  if ( mapCanvas3D()->mapTool() && mapCanvas3D()->mapTool() == mMapToolChangeAttribute )
++    mapCanvas3D()->setMapTool( nullptr );
++}
++
++void Qgs3DPointCloudEditingToolBar::activate( QgsMapLayer *layer )
++{
++  QgsPointCloudLayer *pcLayer = qobject_cast<QgsPointCloudLayer *>( layer );
++  const QVector<QgsPointCloudAttribute> attributes = pcLayer->attributes().attributes();
++  const QString previousAttribute = mCboChangeAttribute->currentText();
++  whileBlocking( mCboChangeAttribute )->clear();
++  for ( const QgsPointCloudAttribute &attribute : attributes )
++  {
++    if ( attribute.name() == "X"_L1 || attribute.name() == "Y"_L1 || attribute.name() == "Z"_L1 )
++      continue;
++
++    whileBlocking( mCboChangeAttribute )->addItem( attribute.name() );
++  }
++
++  int index = mCboChangeAttribute->findText( previousAttribute );
++  if ( index < 0 )
++    index = mCboChangeAttribute->findText( u"Classification"_s );
++  mCboChangeAttribute->setCurrentIndex( std::max( index, 0 ) );
++
++  // setEnabled( pcLayer->isEditable() );
++  mEditingToolsAction->setEnabled( pcLayer->isEditable() );
++  // Reparse the class values when the renderer changes - renderer3DChanged() is not fired when only the renderer symbol is changed
++  connect( pcLayer, &QgsMapLayer::request3DUpdate, this, &Qgs3DPointCloudEditingToolBar::onPointCloudChangeAttributeSettingsChanged );
++
++  setEnabled( true );
++  for ( auto action : findChildren<QAction *>() )
++    action->setVisible( true );
++  onPointCloudChangeAttributeSettingsChanged(); // be sure to have the good input fields displayed
++  qDebug() << __FUNCTION__ << __LINE__ << "visible:" << isVisible();
++}
++
++void Qgs3DPointCloudEditingToolBar::onPointCloudChangeAttributeSettingsChanged()
++{
++  const QString attributeName = mCboChangeAttribute->currentText();
++
++  mSpinChangeAttributeValue->setSuffix( QString() );
++  bool useComboBox = false;
++
++  if ( attributeName == "Intensity"_L1 || attributeName == "PointSourceId"_L1 || attributeName == "Red"_L1 || attributeName == "Green"_L1 || attributeName == "Blue"_L1 || attributeName == "Infrared"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( 0 );
++    mSpinChangeAttributeValue->setMaximum( 65535 );
++    mSpinChangeAttributeValue->setDecimals( 0 );
++  }
++  else if ( attributeName == "ReturnNumber"_L1 || attributeName == "NumberOfReturns"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( 0 );
++    mSpinChangeAttributeValue->setMaximum( 15 );
++    mSpinChangeAttributeValue->setDecimals( 0 );
++  }
++  else if ( attributeName == "Synthetic"_L1
++            || attributeName == "KeyPoint"_L1
++            || attributeName == "Withheld"_L1
++            || attributeName == "Overlap"_L1
++            || attributeName == "ScanDirectionFlag"_L1
++            || attributeName == "EdgeOfFlightLine"_L1 )
++  {
++    useComboBox = true;
++    const int oldIndex = mCboChangeAttributeValue->currentIndex();
++    QgsSignalBlocker< QComboBox > blocker( mCboChangeAttributeValue );
++    mCboChangeAttributeValue->clear();
++    mCboChangeAttributeValue->addItem( tr( "False" ), 0 );
++    mCboChangeAttributeValue->addItem( tr( "True" ), 1 );
++    mCboChangeAttributeValue->setEditable( false );
++    mCboChangeAttributeValue->setCurrentIndex( std::min( oldIndex, 1 ) );
++  }
++  else if ( attributeName == "ScannerChannel"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( 0 );
++    mSpinChangeAttributeValue->setMaximum( 3 );
++    mSpinChangeAttributeValue->setDecimals( 0 );
++  }
++  else if ( attributeName == "Classification"_L1 )
++  {
++    useComboBox = true;
++    const QStringList split = mCboChangeAttributeValue->currentText().split( ' ' );
++    const int oldValue = split.isEmpty() ? 0 : split.constFirst().toInt();
++
++    whileBlocking( mCboChangeAttributeValue )->clear();
++    // We will fill the combobox with all available classes from the Classification renderer (may have changed names) and the layer statistics
++    // Users will be able to manually type in any other class number too.
++    QMap<int, QString> lasCodes = QgsPointCloudDataProvider::translatedLasClassificationCodes();
++    QMap<int, QString> classes;
++
++    QgsPointCloudLayer *layer = qobject_cast<QgsPointCloudLayer *>( QgisApp::instance()->activeLayer() );
++    if ( layer )
++    {
++      QgsAbstract3DRenderer *r = layer->renderer3D();
++      // if there's a classification renderer, let's use the classes labels
++      if ( QgsPointCloudLayer3DRenderer *cr = dynamic_cast<QgsPointCloudLayer3DRenderer *>( r ) )
++      {
++        const QgsPointCloud3DSymbol *s = cr->symbol();
++        if ( const QgsClassificationPointCloud3DSymbol *cs = dynamic_cast<const QgsClassificationPointCloud3DSymbol *>( s ) )
++        {
++          if ( cs->attribute() == "Classification"_L1 )
++          {
++            for ( const QgsPointCloudCategory &c : cs->categoriesList() )
++            {
++              classes[c.value()] = c.label();
++            }
++          }
++        }
++      }
++
++      // then add missing classes from the layer stats too
++      const QMap<int, int> statisticsClasses = layer->statistics().availableClasses( u"Classification"_s );
++      for ( auto it = statisticsClasses.constBegin(); it != statisticsClasses.constEnd(); ++it )
++      {
++        if ( !classes.contains( it.key() ) )
++          classes[it.key()] = lasCodes[it.key()];
++      }
++      for ( auto it = classes.constBegin(); it != classes.constEnd(); ++it )
++      {
++        // populate the combobox
++        whileBlocking( mCboChangeAttributeValue )->addItem( u"%1 (%2)"_s.arg( it.key() ).arg( it.value() ), it.key() );
++        // and also update the labels in the full list of classes, which will be used in the editable combobox validator.
++        lasCodes[it.key()] = it.value();
++      }
++    }
++    // new values (manually edited) will be added after a separator
++    mCboChangeAttributeValue->insertSeparator( mCboChangeAttributeValue->count() );
++    mClassValidator->setClasses( lasCodes );
++    mCboChangeAttributeValue->setEditable( true );
++    mCboChangeAttributeValue->setValidator( mClassValidator );
++    mCboChangeAttributeValue->setCompleter( nullptr );
++
++    // Try to reselect last selected value
++    if ( classes.contains( oldValue ) )
++    {
++      for ( int i = 0; i < mCboChangeAttributeValue->count(); ++i )
++      {
++        if ( mCboChangeAttributeValue->itemText( i ).startsWith( u"%1 "_s.arg( oldValue ) ) )
++        {
++          mCboChangeAttributeValue->setCurrentIndex( i );
++          break;
++        }
++      }
++    }
++    else
++    {
++      whileBlocking( mCboChangeAttributeValue )->addItem( u"%1 ()"_s.arg( oldValue ), oldValue );
++      mCboChangeAttributeValue->setCurrentIndex( mCboChangeAttributeValue->count() - 1 );
++    }
++  }
++  else if ( attributeName == "UserData"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( 0 );
++    mSpinChangeAttributeValue->setMaximum( 255 );
++    mSpinChangeAttributeValue->setDecimals( 0 );
++  }
++  else if ( attributeName == "ScanAngleRank"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( -180 );
++    mSpinChangeAttributeValue->setMaximum( 180 );
++    mSpinChangeAttributeValue->setDecimals( 3 );
++    mSpinChangeAttributeValue->setSuffix( u" %1"_s.arg( tr( "degrees" ) ) );
++  }
++  else if ( attributeName == "GpsTime"_L1 )
++  {
++    mSpinChangeAttributeValue->setMinimum( 0 );
++    mSpinChangeAttributeValue->setMaximum( std::numeric_limits<double>::max() );
++    mSpinChangeAttributeValue->setDecimals( 42 );
++  }
++
++  mMapToolChangeAttribute->setAttribute( attributeName );
++  double newValue = 0;
++  if ( useComboBox && mCboChangeAttributeValue->isEditable() )
++  {
++    // read class integer
++    const QStringList split = mCboChangeAttributeValue->currentText().split( ' ' );
++    if ( !split.isEmpty() )
++      newValue = split.constFirst().toDouble();
++  }
++  else if ( useComboBox )
++  {
++    // read true/false combo box
++    newValue = mCboChangeAttributeValue->currentData().toDouble();
++  }
++  else
++  {
++    // read the spinbox value
++    newValue = mSpinChangeAttributeValue->value();
++  }
++  mMapToolChangeAttribute->setNewValue( newValue );
++
++  mCboChangeAttributeValueAction->setVisible( useComboBox );
++  mSpinChangeAttributeValueAction->setVisible( !useComboBox );
++
++  mMapToolChangeAttribute->setPointFilter( mChangeAttributePointFilter );
++}
++
++QList<QAction *> Qgs3DPointCloudEditingToolBar::groupActions() const
++{
++  return mGroupActions;
++}
+diff --git a/src/app/3d/qgs3dpointcloudeditingtoolbar.h b/src/app/3d/qgs3dpointcloudeditingtoolbar.h
+new file mode 100644
+index 00000000000..25f35c34bc5
+--- /dev/null
++++ b/src/app/3d/qgs3dpointcloudeditingtoolbar.h
+@@ -0,0 +1,73 @@
++/***************************************************************************
++    qgs3dpointcloudeditingtoolbar.h
++    -------------------
++    begin                : November 2025
++    copyright            : (C) 2025 Oslandia
++    email                : benoit dot de dot mezzo at oslandia dot com
++ ***************************************************************************
++ *                                                                         *
++ *   This program is free software; you can redistribute it and/or modify  *
++ *   it under the terms of the GNU General Public License as published by  *
++ *   the Free Software Foundation; either version 2 of the License, or     *
++ *   (at your option) any later version.                                   *
++ *                                                                         *
++ ***************************************************************************/
++
++#ifndef QGS3DPOINTCLOUDEDITINGTOOLBAR_H
++#define QGS3DPOINTCLOUDEDITINGTOOLBAR_H
++
++#include "qgs3deditingtoolbar.h"
++#include "qgs3dmapcanvaswidget.h"
++
++/**
++ * Allow creation of 3D primitive on point cloud layers
++ *
++ * \since QGIS 3.44
++ */
++class Qgs3DMapToolPointCloudChangeAttribute;
++
++class Qgs3DPointCloudEditingToolBar : public Qgs3DEditingToolBar
++{
++    Q_OBJECT
++
++  public:
++    /**
++     * Default constructor
++     * \param parent parent widget
++     */
++    Qgs3DPointCloudEditingToolBar( Qgs3DMapCanvasWidget *parent );
++
++    bool accept( QgsMapLayer *layer ) const override;
++    void activate( QgsMapLayer *layer ) override;
++    void deactivate() override;
++    QList<QAction *> groupActions() const override;
++
++    Qgs3DMapToolPointCloudChangeAttribute *tool() const { return mMapToolChangeAttribute; }
++
++  private:
++    Qgs3DMapToolPointCloudChangeAttribute *mMapToolChangeAttribute = nullptr;
++    QComboBox *mCboChangeAttribute = nullptr;
++    QComboBox *mCboChangeAttributeValue = nullptr;
++    ClassValidator *mClassValidator = nullptr;
++    QgsDoubleSpinBox *mSpinChangeAttributeValue = nullptr;
++    QAction *mCboChangeAttributeValueAction = nullptr;
++    QAction *mSpinChangeAttributeValueAction = nullptr;
++    QString mChangeAttributePointFilter;
++
++    QMenu *mEditingToolsMenu = nullptr;
++    QAction *mEditingToolsAction = nullptr;
++
++    QList<QAction *> mGroupActions;
++
++    Qgs3DMapCanvas *mapCanvas3D() { return dynamic_cast<Qgs3DMapCanvasWidget *>( mParentWidget )->mapCanvas3D(); }
++
++  private slots:
++    void changePointCloudAttributeByPaintbrush();
++    void changePointCloudAttributeByPolygon();
++    void changePointCloudAttributeByAboveLine();
++    void changePointCloudAttributeByBelowLine();
++    void changePointCloudAttributePointFilter();
++    void onPointCloudChangeAttributeSettingsChanged();
++};
++
++#endif // QGS3DPOINTCLOUDEDITINGTOOLBAR_H
+diff --git a/src/app/CMakeLists.txt b/src/app/CMakeLists.txt
+index b848ea26679..04d79c737eb 100644
+--- a/src/app/CMakeLists.txt
++++ b/src/app/CMakeLists.txt
+@@ -364,6 +364,7 @@ if (WITH_3D)
+     3d/qgs3dmodelsourcelineedit.cpp
+     3d/qgs3dnavigationwidget.cpp
+     3d/qgs3doptions.cpp
++    3d/qgs3dpointcloudeditingtoolbar.cpp
+     3d/qgsannotationlayer3drendererwidget.cpp
+     3d/qgscategorized3drendererwidget.cpp
+     3d/qgsgoochmaterialwidget.cpp
+@@ -383,6 +384,7 @@ if (WITH_3D)
+     3d/qgssimplelinematerialwidget.cpp
+     3d/qgssymbol3dwidget.cpp
+     3d/qgstiledscenelayer3drendererwidget.cpp
++    3d/qgsunlitmaterialwidget.cpp
+     3d/qgsvectorlayer3dpropertieswidget.cpp
+     3d/qgsvectorlayer3drendererwidget.cpp
+     3d/qgsmeshlayer3drendererwidget.cpp
+diff --git a/src/app/qgisapp.h b/src/app/qgisapp.h
+index a023c02d424..dc24620bfed 100644
+--- a/src/app/qgisapp.h
++++ b/src/app/qgisapp.h
+@@ -650,6 +650,7 @@ class APP_EXPORT QgisApp : public QMainWindow, private Ui::MainWindow
+     QAction *actionDraw() { return mActionDraw; }
+     QAction *actionDataSourceManager() { return mActionDataSourceManager; }
+     QAction *actionNewVectorLayer() { return mActionNewVectorLayer; }
++    QAction *actionNew3DMapCanvas() { return mActionNew3DMapCanvas; }
+ #ifdef HAVE_SPATIALITE
+     QAction *actionNewSpatialLiteLayer() { return mActionNewSpatiaLiteLayer; }
+ #else
+@@ -2395,6 +2396,9 @@ class APP_EXPORT QgisApp : public QMainWindow, private Ui::MainWindow
+     //! Deletes all the layout designer windows
+     void deleteLayoutDesigners();
+ 
++    //! Returns the OpenGL version and GL renderer string if available
++    static QString openGlReportString();
++
+     void setupLayoutManagerConnections();
+ 
+     void setupAtlasMapLayerAction( QgsPrintLayout *layout, bool enableAction );
+diff --git a/src/app/qgisappinterface.cpp b/src/app/qgisappinterface.cpp
+index 04f36d60aeb..762c5cdb322 100644
+--- a/src/app/qgisappinterface.cpp
++++ b/src/app/qgisappinterface.cpp
+@@ -1263,6 +1263,10 @@ QAction *QgisAppInterface::actionToggleFullScreen()
+ {
+   return qgis->actionToggleFullScreen();
+ }
++QAction *QgisAppInterface::actionNew3DMapCanvas()
++{
++  return qgis->actionNew3DMapCanvas();
++}
+ QAction *QgisAppInterface::actionOptions()
+ {
+   return qgis->actionOptions();
+diff --git a/src/app/qgisappinterface.h b/src/app/qgisappinterface.h
+index b9e4c36d143..edb9ea12939 100644
+--- a/src/app/qgisappinterface.h
++++ b/src/app/qgisappinterface.h
+@@ -300,6 +300,7 @@ class APP_EXPORT QgisAppInterface : public QgisInterface
+     QAction *actionPluginListSeparator() override;
+     QAction *actionShowPythonDialog() override;
+     QAction *actionToggleFullScreen() override;
++    QAction *actionNew3DMapCanvas() override;
+     QAction *actionOptions() override;
+     QAction *actionCustomProjection() override;
+     QAction *actionHelpContents() override;
+diff --git a/src/gui/qgisinterface.h b/src/gui/qgisinterface.h
+index 079229f6dfb..d07b8251338 100644
+--- a/src/gui/qgisinterface.h
++++ b/src/gui/qgisinterface.h
+@@ -748,6 +748,9 @@ class GUI_EXPORT QgisInterface : public QObject
+      */
+     virtual QAction *actionDraw() = 0;
+ 
++    //! Returns the native action for new 3d map canvas.
++    virtual QAction *actionNew3DMapCanvas() = 0;
++
+     // Layer menu actions
+     virtual QAction *actionNewVectorLayer() = 0;
+     virtual QAction *actionAddOgrLayer() = 0;

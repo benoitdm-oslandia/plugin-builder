@@ -16,6 +16,7 @@
 #include "qgs3dprimitiveeditingtoolbar.h"
 
 #include "qgs3dmapcanvas.h"
+#include "qgs3dmapcanvaswidgetinterface.h"
 #include "qgsvectorlayer.h"
 
 #include <QAction>
@@ -26,8 +27,8 @@
 
 using namespace Qt::StringLiterals;
 
-Qgs3DPrimitiveEditingToolBar::Qgs3DPrimitiveEditingToolBar( Qgs3DMapCanvasWidget *parent )
-  : Qgs3DEditingToolBar( u"Primitive editing"_s, parent )
+Qgs3DPrimitiveEditingToolBar::Qgs3DPrimitiveEditingToolBar( Qgs3DMapCanvasWidgetInterface *parent )
+  : Qgs3DEditingToolBar( u"Primitive editing"_s, dynamic_cast<QWidget *>( parent ) )
 {
   addWidget( new QLabel( tr( "PRIMITIVE" ) ) );
 
@@ -76,7 +77,7 @@ void Qgs3DPrimitiveEditingToolBar::deactivate()
   {
     mCreatePrimitiveMapTool->deleteLater();
     mCreatePrimitiveMapTool = nullptr;
-    mParentWidget->mapCanvas3D()->setMapTool( mCreatePrimitiveMapTool );
+    dynamic_cast<Qgs3DMapCanvasWidgetInterface *>( mParentWidget )->mapCanvas3D()->setMapTool( mCreatePrimitiveMapTool );
   }
   // revert to default icon
   mCreatePrimitiveAction->setIcon( QIcon( u":/plugin/mActionAddBasicShape.svg"_s ) );
@@ -120,7 +121,8 @@ void Qgs3DPrimitiveEditingToolBar::createPrimitive( const QAction *action, Qgs3D
   if ( mCreatePrimitiveMapTool != nullptr )
     mCreatePrimitiveMapTool->deleteLater();
 
-  mCreatePrimitiveMapTool = new Qgs3DMapToolCreatePrimitive( mParentWidget->mapCanvas3D(), mParentWidget->lateralPanel(), mActiveLayer, type );
-  mParentWidget->mapCanvas3D()->setMapTool( mCreatePrimitiveMapTool );
+  Qgs3DMapCanvasWidgetInterface *canvasWidget = dynamic_cast<Qgs3DMapCanvasWidgetInterface *>( mParentWidget );
+  mCreatePrimitiveMapTool = new Qgs3DMapToolCreatePrimitive( canvasWidget->mapCanvas3D(), canvasWidget->lateralPanel(), mActiveLayer, type );
+  canvasWidget->mapCanvas3D()->setMapTool( mCreatePrimitiveMapTool );
   mCreatePrimitiveAction->setIcon( action->icon() );
 }

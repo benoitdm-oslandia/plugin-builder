@@ -20,6 +20,7 @@
 #include "qgs3dmaptoolcreateprimitive.h"
 
 class QgsMapLayer;
+class Qgs3DMapCanvasWidgetInterface;
 
 /**
  * Allow creation of 3D primitive on polyhedral layers
@@ -35,7 +36,7 @@ class Qgs3DPrimitiveEditingToolBar : public Qgs3DEditingToolBar
      * Default constructor
      * \param parent parent widget
      */
-    Qgs3DPrimitiveEditingToolBar( Qgs3DMapCanvasWidget *parent );
+    Qgs3DPrimitiveEditingToolBar( Qgs3DMapCanvasWidgetInterface *parent );
     bool accept( QgsMapLayer *layer ) const override;
     void activate( QgsMapLayer *layer ) override;
     void deactivate() override;
